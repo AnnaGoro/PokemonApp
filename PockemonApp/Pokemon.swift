@@ -12,7 +12,7 @@ class Pokemon {
 
     var id : Int?
     var name : String?
-    var url : String?
+    var urlImage : String?
     var weight : String?
 
 }
