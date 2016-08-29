@@ -13,5 +13,7 @@ pod 'AlamofireJsonToObjects'
 pod 'RxSwift',    '2.6'
 pod 'RxCocoa'
 pod 'RxAlamofire'
+pod 'RxDataSources', '0.8.1'
+pod 'ImageLoader'
 
 end

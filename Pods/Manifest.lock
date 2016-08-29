@@ -7,6 +7,7 @@ PODS:
     - Alamofire (~> 3.2)
     - ObjectMapper (~> 1.0)
   - EVReflection (2.45.0)
+  - ImageLoader (0.9.0)
   - ObjectMapper (1.4.0)
   - RxAlamofire (2.5):
     - RxAlamofire/Core (= 2.5)
@@ -15,14 +16,19 @@ PODS:
     - RxSwift (~> 2.5)
   - RxCocoa (2.6.0):
     - RxSwift (~> 2.5)
+  - RxDataSources (0.8.1):
+    - RxCocoa (~> 2.2)
+    - RxSwift (~> 2.2)
   - RxSwift (2.6.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - AlamofireJsonToObjects
   - AlamofireObjectMapper (~> 3.0)
+  - ImageLoader
   - RxAlamofire
   - RxCocoa
+  - RxDataSources (= 0.8.1)
   - RxSwift (= 2.6)
 
 SPEC CHECKSUMS:
@@ -30,11 +36,13 @@ SPEC CHECKSUMS:
   AlamofireJsonToObjects: e5155c1c58493c44d7ebe56bbb1aa65d95e82c68
   AlamofireObjectMapper: 70f97cbf45c01c48d26aa07a1a7059a60ed7411d
   EVReflection: aa7065b5757b4efd7265cdb17074aeef57c3f981
+  ImageLoader: bb709e5b2708158da405760f42c75e7e52b561b5
   ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
   RxAlamofire: b4572a077b6b2410c8732a27266299df4c00736e
   RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxDataSources: 4a87345847d66ef84ecc10bdfa189190f3cd6b12
   RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
 
-PODFILE CHECKSUM: 7425c2f3f772503ad648a22dd1f6f17ab1dc8ed5
+PODFILE CHECKSUM: d8f79e5c63044540b193d26bb3469dbd5458f03b
 
 COCOAPODS: 1.0.1
