@@ -14,12 +14,32 @@ import RxCocoa
 
 class ViewModelPokemon {
 
-    var name: Variable <String> = Variable( "" )
-    var weight : Variable <String> = Variable( "" )
+    private let pokemon: Pokemon
+    
+    var modelName: BehaviorSubject<String>
+    var modelWeight: BehaviorSubject<String>
     
     private let apiService = ApiService()
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
     private let bag = DisposeBag()
+    
+        
+    init (pokemon : Pokemon) {
+    
+        self.pokemon = pokemon
+    
+        modelName = BehaviorSubject<String>(value: pokemon.name!)
+        modelName.subscribeNext { (name) in
+        pokemon.name = name
+        }.addDisposableTo(bag)
+        
+        
+        
+        modelWeight = BehaviorSubject<String>(value: pokemon.weight!)
+        modelWeight.subscribeNext { (weight) in
+            pokemon.weight = weight
+            }.addDisposableTo(bag)
+    }
     
     
     
@@ -60,7 +80,7 @@ class ViewModelPokemon {
                 .subscribe(
                     onNext: { pokemons in
                         for value in pokemons! {
-                        self.name.value = value
+                        modelName = value
                       
                         }
                     },

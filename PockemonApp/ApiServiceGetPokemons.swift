@@ -14,9 +14,9 @@ import RxCocoa
 import RxSwift
 
 class ApiServiceGetPokemons {
-    
       
     var pokemons = [Pokemon]()
+    
     
     func getPokemons(urls : [String], count : Int) -> Observable <[Pokemon]?>  {
       return Observable.create{ observer in
@@ -39,6 +39,7 @@ class ApiServiceGetPokemons {
                 
                 pokemon.name = name
                 pokemon.weight = weight
+                
                 self.pokemons.append(pokemon)
                 
                 return self.pokemons
@@ -49,6 +50,7 @@ class ApiServiceGetPokemons {
         }
         
         observer.on(.Next(self.pokemons))
+        
         observer.on(.Completed)
         
         return NopDisposable.instance

@@ -13,7 +13,8 @@ import RxCocoa
 
 class PokemonCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private let vieModelPokemon = ViewModelPokemon()
-    
+    var pokemons: Variable<[ViewModelPokemon]>?
+
     @IBOutlet weak var collectionDataSource: UICollectionView!
     
     var searchBar : UISearchController!
@@ -24,16 +25,17 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Int>>()
+        let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Int>>()
         
-       // Observable.just([SectionModel(model: "title", items: [1, 2, 3])])
+        Observable.just([SectionModel(model: "title", items: [1, 2, 3])])
         
-           // .bindTo(collectionDataSource.rx_setDataSource())
+            .bindTo(collectionDataSource.rx_setDataSource(dataSource))
      
              collectionDataSource
             .rx_setDelegate(self)
             .addDisposableTo(disposeBag)
-
+        
+            collectionDataSource.rx_scrollEnabled
         
             self.collectionDataSource.reloadData()
             
