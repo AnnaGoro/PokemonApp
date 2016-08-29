@@ -17,6 +17,7 @@ class CellPokemonCollection : UICollectionViewCell {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var name: UILabel!
     
+    @IBOutlet weak var weight: UILabel!
     @IBOutlet weak var dislike: UIImageView!
     @IBOutlet weak var like: UIImageView!
     

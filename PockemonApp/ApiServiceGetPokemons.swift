@@ -13,72 +13,47 @@ import RxAlamofire
 import RxCocoa
 import RxSwift
 
-struct ApiServiceGetPokemons {
+class ApiServiceGetPokemons {
     
-    private let apiService = ApiService()
-    private let bag = DisposeBag()
-    
-    var observableApiGetPokemons : Observable <[PokemonUrlsNames]>? {
-        
-        didSet {
-            guard let observable = observableApiGetPokemons else { return }
-            
-            observable
-                .throttle(0.4, scheduler: MainScheduler.instance)
-                .flatMap{ (pokemons : [PokemonUrlsNames]) -> Observable <[PokemonUrlsNames]?> in
-                    
-                    guard pokemons != nil else {
-                        
-                        return Observable.just()
-                        
-                    }
-                    
-                    return self.apiService.getPokemonsUrlsNames()
-                }
-                .subscribe(
-                    onNext: { pokemon in
-                        
-                        getPokemons(pokemon[].url)
-                    },
-                    onError: { pokemon in
-                        
-                        
-                    }
-                    
-                ).addDisposableTo(bag)
-        }
-        
-    }
-    
-    
-    
+      
     var pokemons = [Pokemon]()
     
-    func getPokemons(url : String) -> Observable <[Pokemon]?>  {
+    func getPokemons(urls : [String], count : Int) -> Observable <[Pokemon]?>  {
+      return Observable.create{ observer in
         
-        let pokemon = Pokemon()
+      let pokemon = Pokemon()
+        for url in urls{
         
-        return Alamofire.request(.POST, url)
+       _ = Alamofire.request(.GET, url)
             .rx_responseData().shareReplayLatestWhileConnected()
             .map { (res: NSHTTPURLResponse, data: AnyObject) -> [Pokemon]? in
                 
                 guard let name = data["name"] as? String,
                     let weight = data["weight"] as? String else{
-                        
+                      
                         return nil
                         
                 }
+                
+                print(pokemon.name = name)
+                
                 pokemon.name = name
                 pokemon.weight = weight
                 self.pokemons.append(pokemon)
                 
-                
-                
                 return self.pokemons
         }
         
+            
+
+        }
         
+        observer.on(.Next(self.pokemons))
+        observer.on(.Completed)
+        
+        return NopDisposable.instance
     }
-    
-    
+      
+    }
 }
+

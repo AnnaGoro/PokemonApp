@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Pokemon {
+class Pokemon : ParentPokemon {
 
     var id : Int?
     var name : String?
