@@ -13,17 +13,52 @@ import RxAlamofire
 import RxCocoa
 import RxSwift
 
-class ApiServiceGetPokemons {
+struct ApiServiceGetPokemons {
     
-    let url = "http://pokeapi.co/api/v2/pokemon"
+    private let apiService = ApiService()
+    private let bag = DisposeBag()
+    
+    var observableApiGetPokemons : Observable <[PokemonUrlsNames]>? {
+        
+        didSet {
+            guard let observable = observableApiGetPokemons else { return }
+            
+            observable
+                .throttle(0.4, scheduler: MainScheduler.instance)
+                .flatMap{ (pokemons : [PokemonUrlsNames]) -> Observable <[PokemonUrlsNames]?> in
+                    
+                    guard pokemons != nil else {
+                        
+                        return Observable.just()
+                        
+                    }
+                    
+                    return self.apiService.getPokemonsUrlsNames()
+                }
+                .subscribe(
+                    onNext: { pokemon in
+                        
+                        getPokemons(pokemon[].url)
+                    },
+                    onError: { pokemon in
+                        
+                        
+                    }
+                    
+                ).addDisposableTo(bag)
+        }
+        
+    }
+    
+    
     
     var pokemons = [Pokemon]()
     
-    func getPokemons() -> Observable <[Pokemon]?>  {
+    func getPokemons(url : String) -> Observable <[Pokemon]?>  {
         
         let pokemon = Pokemon()
         
-        return Alamofire.request(.POST, self.url)
+        return Alamofire.request(.POST, url)
             .rx_responseData().shareReplayLatestWhileConnected()
             .map { (res: NSHTTPURLResponse, data: AnyObject) -> [Pokemon]? in
                 

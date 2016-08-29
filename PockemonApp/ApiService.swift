@@ -14,11 +14,11 @@ import RxSwift
 
 class ApiService {
     
-    let url = "http://pokeapi.co/api/v2/pokemon"
+    private let url = "http://pokeapi.co/api/v2/pokemon"
     
     var pokemonUrlsNames = [PokemonUrlsNames]()
 
-    func getPokemons() -> Observable <[PokemonUrlsNames]?>  {
+    func getPokemonsUrlsNames() -> Observable <[PokemonUrlsNames]?>  {
         
         let pokemonUrlName = PokemonUrlsNames()
         
