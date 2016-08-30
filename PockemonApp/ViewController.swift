@@ -13,7 +13,7 @@ import RxCocoa
 
 class PokemonCollectionViewController: UIViewController, UICollectionViewDataSource {
     private let viewModelPokemon = ViewModelPokemon()
-
+    private let apiService = ApiService()
     @IBOutlet weak var collectionDataSource: UICollectionView!
     
     var searchBar : UISearchController!
@@ -25,12 +25,16 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         super.viewDidLoad()
       
         
+       
+        
+        
+        
         viewModelPokemon.pokemons!
             .subscribe(onNext : { result in
                 print (result.name)
                 print (result.id)
-                print (result.abilities?.first)
-                print (result.types?.first)
+                print (result.abilities?.first?.abilityName?.name)
+                print (result.types?.first?.type?.name)
                 print (result.height)
                 print (result.imageUrl?.image)
             })

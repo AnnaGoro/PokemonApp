@@ -14,9 +14,18 @@ import RxSwift
 
 class ApiService {
     
+    private let apiServiceGetPokemons = ApiServiceGetPokemons()
     
-    
-    
-    
-    
+    func getSignal(urls : [String]) -> Observable<[Pokemon]>{
+        
+        return urls.map{ urls -> Observable<Pokemon> in
+            return apiServiceGetPokemons.getPokemon(urls)
+            }
+            .combineLatest { (anyObjects) -> [Pokemon] in
+                return anyObjects
+        }
     }
+    
+    
+    
+}
