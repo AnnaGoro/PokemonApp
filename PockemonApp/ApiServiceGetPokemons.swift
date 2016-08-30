@@ -44,9 +44,9 @@ class ApiServiceGetPokemons {
     
     
     func getPokemons(url : String) -> Observable <Pokemon?>  {
-        print ("getPokemons")
+        
      // return Observable.create{ observer in
-        print("ololo")
+      
    
             
            return Alamofire.request(.GET, url)
@@ -70,7 +70,7 @@ class ApiServiceGetPokemons {
                 }
                 
                 print(name)
-                //print(weight)
+              
                 
                 self.pokemon.name = name
                 //self.pokemon.weight = weight

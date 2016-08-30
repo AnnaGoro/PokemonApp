@@ -56,13 +56,12 @@ class ViewModelPokemon {
         
         init () {
     
-        print("Trololo Init")
         if let value = self.apiService.getPokemonsUrlsNames(20) {
             self.pokemons = value
                 .flatMap { url in
                    
                     self.apiServiceGetPokemons.getPokemons(url!)
-                }                
+                }
                 .observeOn(MainScheduler.instance)
         }
         

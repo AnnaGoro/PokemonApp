@@ -69,13 +69,18 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     
    
    
-    /*
+    
     private func setupBindings() {
         // ...
         
         viewModelPokemon.pokemons!
-            .bindTo(collectionDataSource.rx_itemsWithCellFactory{
-        
+            .bindTo(collectionDataSource.rx_itemsWithCellIdentifier(reuseIdentifier, cellType: CellPokemonCollection.self)) { (row, element, cell) in
+                cell.viewModelPokemon = ViewModelPokemon (model: element)
+                
+            }
+            .addDisposableTo(disposeBag)
+    }
+        /*
         
         }
              let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: <#T##NSIndexPath#>)
@@ -87,7 +92,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
 
-    */
+*/
 
 }
 
