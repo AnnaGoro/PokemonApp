@@ -7,15 +7,35 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class Pokemon : ParentPokemon {
-    var url : String?
+class Pokemon : Mappable {
+
     var id : Int?
     var name : String?
-    var urlImage : String?
     var weight : String?
-    var ability : String?
-    var type : String?
+    var height : String?
+    var types : [Type]?
+    var abilities : [Ability]?
+    var imageUrl : ImageUrl?
+    
+    
+    required init? (_ map : Map) {
+    
+    
+    }
+    
+    func mapping (map : Map) {
+        
+        id <- map["id"]
+        name <- map["name"]
+        weight <- map["weight"]
+        height <- map["height"]
+        types <- map["types"]
+        abilities <- map["abilities"]
+        imageUrl <- map["sprites"]
+    
+    }
 
 }
 

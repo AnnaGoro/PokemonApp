@@ -27,8 +27,12 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         
         viewModelPokemon.pokemons!
             .subscribe(onNext : { result in
-                print (result?.name)
-                print (result?.id)
+                print (result.name)
+                print (result.id)
+                print (result.abilities?.first)
+                print (result.types?.first)
+                print (result.height)
+                print (result.imageUrl?.image)
             })
         
         }
@@ -68,7 +72,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     
     
    
-   
+   /*
     
     private func setupBindings() {
         // ...
@@ -93,6 +97,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     
 
 */
+ */
 
 }
 

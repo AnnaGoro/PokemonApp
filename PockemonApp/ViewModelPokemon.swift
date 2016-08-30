@@ -13,14 +13,11 @@ import RxCocoa
 
 
 class ViewModelPokemon {
-    
-   // var modelName: Variable <String> = Variable( "" )
-   // var modelWeight: Variable <String> = Variable( "" )
-    
-    private let apiService = ApiService()
+       
+   // private let apiService = ApiService()
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
        
-    var pokemons: Observable<Pokemon?>?
+    var pokemons: Observable<Pokemon>?
     
     
  /*
@@ -56,11 +53,11 @@ class ViewModelPokemon {
         
         init () {
     
-        if let value = self.apiService.getPokemonsUrlsNames(20) {
+        if let value = self.apiServiceGetPokemons.getPokemonsUrlsNames(20) {
             self.pokemons = value
                 .flatMap { url in
                    
-                    self.apiServiceGetPokemons.getPokemons(url!)
+                    self.apiServiceGetPokemons.getPokemon(url!)
                 }
                 .observeOn(MainScheduler.instance)
         }

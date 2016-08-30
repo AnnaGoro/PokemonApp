@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PokemonUrlsNames : ParentPokemon{
+class PokemonUrlsNames{
 
     var url : String?
     var name : String?

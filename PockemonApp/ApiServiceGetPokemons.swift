@@ -13,83 +13,64 @@ import RxAlamofire
 import RxCocoa
 import RxSwift
 
+import AlamofireObjectMapper
+
 class ApiServiceGetPokemons {
-      
+    
+    private let url = "http://pokeapi.co/api/v2/pokemon"
+    
+    var pokemonUrlsNames : String?
+    
     var pokemons = [Pokemon]()
-    var pokemon = Pokemon()
     
- /*
-    func getPokemonsFor (urls : [String]) -> Observable <[Pokemon]?> {
-    return Observable.create{ observer in
+    func getPokemon(url : String) -> Observable<Pokemon> {
         
-        for url in urls {
-           var pokemon1 = self.getPokemons(url)
-            .map{ (pokemon1) -> Pokemon? in
-                self.pokemon = pokemon1!
-                 return pokemon1
-            }
-           self.pokemons.append(pokemon1)
-    
-    }
-        observer.onNext(pokemon)
-        observer.onCompleted()
-        }
-        
-        
-        return NopDisposable.instance
-    }
-    */
-    
-    
-    
-    
-    func getPokemons(url : String) -> Observable <Pokemon?>  {
-        
-     // return Observable.create{ observer in
-      
-   
+        return Observable.create{ observer in
             
-           return Alamofire.request(.GET, url)
-            .rx_responseJSON()
-            .map { (res: NSHTTPURLResponse, data: AnyObject) -> Pokemon? in
-         
-                guard let name = data["name"] as? String else{
-                           return nil
-                }
-                
-                if let id = data["id"] as? Int {
-                    self.pokemon.id = id
-                    print(id)
+            Alamofire.request(.GET, url)
+                .responseObject{ (response: Response<Pokemon, NSError>) in
                     
-                }
-
-                if let weight = data["weight"] as? String {
-                     self.pokemon.weight = weight
-                        print(weight)
-
-                }
-                
-                print(name)
-              
-                
-                self.pokemon.name = name
-                //self.pokemon.weight = weight
-                print(self.pokemon.name)
-                
-                print(self.pokemon.weight)
-                
-            return self.pokemon
-
-        }
-       // return self.pokemons
+                    guard let pokemonResponse = response.result.value else {
+                        observer.onError(response.result.error!)
+                        return
+                    }
+                    
+                    observer.onNext(pokemonResponse)
+                    observer.onCompleted()
+            }
             
-            //observer.onNext(pokemonResponse)
-            //observer.onCompleted()
-       }
-        
-       // }
-        //return NopDisposable.instance
+            return NopDisposable.instance
+        }
     }
     
     
+    
+    func getPokemonsUrlsNames(count : Int) -> Observable <String?>?  {
+        
+        let parameters = [
+            "limit": String(count)]
+        
+        return Alamofire.request(.GET, self.url, parameters: parameters)
+            .rx_responseJSON().shareReplayLatestWhileConnected()
+            .map { (res: NSHTTPURLResponse, data: AnyObject) -> String? in
+                
+                if let results = data["results"] as? [[String: String]] {
+                    for value in results {
+                        let a = value["url"] as String!
+                        
+                        self.pokemonUrlsNames = a
+                    }
+                    
+                } else {
+                    
+                    return nil
+                }
+                
+                return self.pokemonUrlsNames
+        }
+        
+    }
+    
+    
+}
 
