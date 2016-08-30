@@ -21,7 +21,7 @@ class ApiServiceGetPokemons {
     
     var pokemonUrlsNames : [String]?
     
-    var pokemons = [Pokemon]()
+    //var pokemons = [Pokemon]()
     
     func getPokemon(url : String) -> Observable<Pokemon> {
         
@@ -53,12 +53,12 @@ class ApiServiceGetPokemons {
         return Alamofire.request(.GET, self.url, parameters: parameters)
             .rx_responseJSON().shareReplayLatestWhileConnected()
             .map { (res: NSHTTPURLResponse, data: AnyObject) -> [String] in
-                
+                var urls : [String] = []
                 if let results = data["results"] as? [[String: String]] {
                     for value in results {
                         let a = value["url"] as String!
                         
-                        self.pokemonUrlsNames?.append(a)
+                        urls.append(a)
                     }
                     
                 } else {
@@ -66,7 +66,7 @@ class ApiServiceGetPokemons {
                     return []
                 }
                 
-                return self.pokemonUrlsNames!
+                return urls
         }
         
     }

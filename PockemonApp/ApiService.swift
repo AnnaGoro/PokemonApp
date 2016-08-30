@@ -16,16 +16,38 @@ class ApiService {
     
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
     
-    func getSignal(urls : [String]) -> Observable<[Pokemon]>{
+    func getPokemonsFromAllRacs(limit: Int) -> Observable<[Pokemon]>{
         
-        return urls.map{ urls -> Observable<Pokemon> in
-            return apiServiceGetPokemons.getPokemon(urls)
-            }
-            .combineLatest { (anyObjects) -> [Pokemon] in
-                return anyObjects
+        let limit = limit > 720 ? 720 : limit
+        
+        return apiServiceGetPokemons.getPokemonsUrlsNames(limit)
+            .flatMapLatest{ urls -> Observable<[Pokemon]> in
+                
+                return urls.map{ url -> Observable<Pokemon> in
+                    return self.apiServiceGetPokemons.getPokemon(url)
+                    }
+                    .combineLatest { pokemons -> [Pokemon] in
+                        return pokemons
+                }                
+                
         }
+        
     }
     
     
+    
+    /*
+     
+     var textRange = currentURL.lowercaseString.rangeOfString("access_token".lowercaseString)
+     
+     if textRange != nil {
+     
+     var data: [String] = currentURL.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "=&"))
+     user["access_token"] = data[1]
+     user["expires_in"] = data[3]
+     user["user_id"] = data[5]
+     
+     
+     */
     
 }

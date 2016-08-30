@@ -16,6 +16,8 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     private let apiService = ApiService()
     @IBOutlet weak var collectionDataSource: UICollectionView!
     
+    let reuseIdentifier = "pokemonCell"
+    
     var searchBar : UISearchController!
     let disposeBag = DisposeBag()
     
@@ -23,28 +25,33 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        apiService.getPokemonsFromAllRacs(10)
         
-       
+           .subscribe(
+                
+                onNext: { (pokemons : [Pokemon]) in
+                    
+                    for pokemon in pokemons{
+                        
+                        print(pokemon.id)
+                        print(pokemon.name)
+                        print(pokemon.weight)
+                        print(pokemon.height)
+                        print(pokemon.abilities?.first?.abilityName?.name)
+                        print(pokemon.types?.first?.type?.name)
+                        print(pokemon.imageUrl?.image)
+                        print("***********************")
+                        
+                    }
+                    
+                },
+                onError: { error in
+                    print("Error!!")
+                }
+        )
         
         
-        
-        viewModelPokemon.pokemons!
-            .subscribe(onNext : { result in
-                print (result.name)
-                print (result.id)
-                print (result.abilities?.first?.abilityName?.name)
-                print (result.types?.first?.type?.name)
-                print (result.height)
-                print (result.imageUrl?.image)
-            })
-        
-        }
-        
-
-        let reuseIdentifier = "pokemonCell"
-    
-    
+    }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -61,14 +68,9 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate protocol
+   
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // handle tap events
-        print("You selected cell #\(indexPath.item)!")
-    }
-    
-
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -91,7 +93,8 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         /*
         
         }
-             let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: <#T##NSIndexPath#>)
+             let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: 
+         //<#T##NSIndexPath#>)
                
                 
                 return cell
