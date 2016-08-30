@@ -29,6 +29,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         viewModelPokemon.pokemons!
             .subscribe(onNext : { result in
                 print (result?.name)
+                print (result?.id)
             })
         
         }

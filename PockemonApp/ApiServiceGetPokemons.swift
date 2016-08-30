@@ -22,30 +22,38 @@ class ApiServiceGetPokemons {
         print ("getPokemons")
      // return Observable.create{ observer in
         print("ololo")
-     
-        
-        
-        //for url in urls {
-           // print ("request")
+   
             
            return Alamofire.request(.GET, url)
             .rx_responseJSON()
             .map { (res: NSHTTPURLResponse, data: AnyObject) -> Pokemon? in
-                print ("map")
-                guard let name = data["name"] as? String,
-                    let weight = data["weight"] as? String  else{
-                       print("NNNNNNNNNNNIIIIIILLLLLLLLLLLLL")
-                        return nil
-                        
+         
+                guard let name = data["name"] as? String else{
+                           return nil
                 }
                 
-                print("this is maaaaap")
-                print(weight)
-                print(self.pokemon.name = name)
+                if let id = data["id"] as? Int {
+                    self.pokemon.id = id
+                    print(id)
+                    
+                }
+
+                if let weight = data["weight"] as? String {
+                     self.pokemon.weight = weight
+                        print(weight)
+
+                }
+                
+                print(name)
+                //print(weight)
                 
                 self.pokemon.name = name
-                self.pokemon.weight = weight
+                //self.pokemon.weight = weight
+                print(self.pokemon.name)
                 
+               
+               
+                print(self.pokemon.weight)
                 self.pokemons.append(self.pokemon)
                 
                 
