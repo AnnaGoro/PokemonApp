@@ -17,9 +17,7 @@ class ApiService {
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
     
     func getPokemonsFromAllRacs(limit: Int) -> Observable<[Pokemon]>{
-        
-        let limit = limit > 720 ? 720 : limit
-        
+     
         return apiServiceGetPokemons.getPokemonsUrlsNames(limit)
             .flatMapLatest{ urls -> Observable<[Pokemon]> in
                 
