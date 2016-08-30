@@ -19,16 +19,16 @@ class ApiService {
     func getPokemonsFromAllRacs(limit: Int) -> Observable<[Pokemon]>{
      
         return apiServiceGetPokemons.getPokemonsUrlsNames(limit)
-            .flatMapLatest{ urls -> Observable<[Pokemon]> in
+            .flatMapLatest{ (urls : [String]) -> Observable<[Pokemon]> in
                 
-                return urls.map{ url -> Observable<Pokemon> in
+                return urls.map{ (url : String) -> Observable<Pokemon> in
                     return self.apiServiceGetPokemons.getPokemon(url)
                     }
-                    .combineLatest { pokemons -> [Pokemon] in
+                    .combineLatest { (pokemons : [Pokemon]) -> [Pokemon] in
                         return pokemons
                 }                
                 
-        }
+        }.shareReplayLatestWhileConnected()
         
     }
     
