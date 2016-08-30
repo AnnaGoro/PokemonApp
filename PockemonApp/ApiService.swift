@@ -16,30 +16,32 @@ class ApiService {
     
     private let url = "http://pokeapi.co/api/v2/pokemon"
     
-    var pokemonUrlsNames = [String]()
+    var pokemonUrlsNames = ""
+    //var pokemon = Pokemon()
 
-    func getPokemonsUrlsNames(count : Int) -> Observable <[String]?>?  {
-        
+    func getPokemonsUrlsNames(count : Int) -> Observable <String?>?  {
+        print("getPokemonsUrlsNames")
+        //var pokemon = Pokemon()
         let parameters = [
             "limit": String(count)]
 
-        let pokemonUrlName = PokemonUrlsNames()
+        //let pokemonUrlName = PokemonUrlsNames()
         
             return Alamofire.request(.GET, self.url, parameters: parameters)
-                .rx_responseData().shareReplayLatestWhileConnected()
-                .map { (res: NSHTTPURLResponse, data: AnyObject) -> [String]? in
+                .rx_responseJSON().shareReplayLatestWhileConnected()
+                .map { (res: NSHTTPURLResponse, data: AnyObject) -> String? in
                     
                     if let results = data["results"] as? [[String: String]] {
                         for value in results {
-                            pokemonUrlName.url = value["url"] as String!
+                            let a = value["url"] as String!
                                                     
-                            print(pokemonUrlName)
+                            print(a)
                             
-                            self.pokemonUrlsNames.append(pokemonUrlName.url!)
+                            self.pokemonUrlsNames = a
                         }
                         
                     } else {
-                            
+                           
                             return nil
                     }
                     

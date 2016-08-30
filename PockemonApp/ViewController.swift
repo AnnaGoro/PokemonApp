@@ -12,8 +12,8 @@ import RxSwift
 import RxCocoa
 
 class PokemonCollectionViewController: UIViewController, UICollectionViewDataSource {
-    private let vieModelPokemon = ViewModelPokemon()
-    var pokemons: Variable<[ViewModelPokemon]>?
+    private let viewModelPokemon = ViewModelPokemon()
+   // var pokemons: Variable<[ViewModelPokemon]>?
 
     @IBOutlet weak var collectionDataSource: UICollectionView!
     
@@ -24,12 +24,12 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         
-        let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Int>>()
-        
-        
-            self.collectionDataSource.reloadData()
-            
+        viewModelPokemon.pokemons!
+            .subscribe(onNext : { result in
+                print (result?.name)
+            })
         
         }
         
@@ -49,11 +49,6 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CellPokemonCollection
         
-     
-        if let cell = cell as? CellPokemonCollection {
-            cell.name.text = vieModelPokemon.modelName.value
-            cell.weight.text = vieModelPokemon.modelWeight.value
-        }
         
         return cell
     }
@@ -72,24 +67,28 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     
+    func setupCell(row: Int, element: Pokemon, cell: CellPokemonCollection){
+        cell.name.text = element.name
+        cell.weight.text = element.weight
     
-    
-    
-    
-    /*
+    }
+   /*
     
     private func setupBindings() {
         // ...
         
-        vieModelPokemon.observableApiGetPokemons!.bindTo(collectionDataSource.rx_itemsWithCellFactory) { collectionView, index, border in
-                let cell: CellPokemonCollection = collectionView.cellForItemAtIndexPath(index)
-                //cell.border = border
+        viewModelPokemon.pokemons!
+            .bindTo(collectionDataSource.rx)
+             let cell: CellPokemonCollection = collectionView.dequeueReusableCell()
+               
                 
                 return cell
             }
             .addDisposableTo(disposeBag)
     }
+    
     */
+    
 
 }
 
