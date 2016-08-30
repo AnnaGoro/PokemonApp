@@ -14,16 +14,17 @@ import RxCocoa
 
 class ViewModelPokemon {
 
-    private let pokemon: Pokemon
+   // private let pokemon: Pokemon
     
-    var modelName: BehaviorSubject<String>
-    var modelWeight: BehaviorSubject<String>
+    var modelName: Variable <String> = Variable( "" )
+    var modelWeight: Variable <String> = Variable( "" )
     
     private let apiService = ApiService()
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
-    private let bag = DisposeBag()
+   // private let bag = DisposeBag()
     
-        
+    var pokemons: Observable<[Pokemon]?>?
+     /*
     init (pokemon : Pokemon) {
     
         self.pokemon = pokemon
@@ -41,47 +42,60 @@ class ViewModelPokemon {
             }.addDisposableTo(bag)
     }
     
+ 
+    init() {
+        // ...
+        
+        self.pokemons = self.apiService.getPokemonsUrlsNames(20)
+            // Get the countries corresponding to the alpha codes
+            // specified in the `borders` property
+            .flatMap { url in
+                self.apiServiceGetPokemons.getPokemons(url!, count: 20)
+            }
+            // Catch any error and print it in the console
+            .catchError { error in
+                print("Error: \(error)")
+                return Observable.just([])
+            }
+            // Transform the resulting countries into [Border]
+           // .map { countries in
+                //countries.map { (name: $0.name, nativeName: $0.nativeName) }
+           // }
+            // Make sure events are delivered in the main thread
+            .observeOn(MainScheduler.instance)
+            // Make sure multiple subscriptions share the side effects
+            .shareReplay(1)
+    }
+
+    */
     
-    
-    var observableApiGetPokemons : Observable <[String]>? {
+    var observableApiGetPokemons : Observable <[String]?>? {
         
         didSet {
-            guard let observable = observableApiGetPokemons else { return }
-            
-            observable
-                .throttle(0.4, scheduler: MainScheduler.instance)
-                .flatMap{ (pokemons : [String]) -> Observable <[String]?> in
-                    
-                    if  pokemons.isEmpty {
-                        print ()
-                            return self.apiService.getPokemonsUrlsNames(10)}
-            
-                    
-                    /*
-                    } else if !pokemons.isEmpty {
-                        observable.map {pokemons in return Pokemon(pokemons)
-                        
-                        for element in pokemons {
-                            return self.apiServiceGetPokemons.getPokemons(element.)
-                            }
-                        }
-                    
-                        }
-                        
-                    */
-                     else {
-                        
-                        return Observable.just(nil)
-                    
-                    }
-                    
-                  
+ 
+            if let value = self.apiService.getPokemonsUrlsNames(20) {
+                self.pokemons = value
+                // Get the countries corresponding to the alpha codes
+                // specified in the `borders` property
+                .flatMap { url in
+                    self.apiServiceGetPokemons.getPokemons(url!, count: 20)
                 }
+                // Catch any error and print it in the console
+                .catchError { error in
+                    print("Error: \(error)")
+                    return Observable.just([])
+                }
+                // Transform the resulting countries into [Border]
+                .map { pokemons in
+                pokemons.map { (modelName: $0, modelWeight: $0) }
+                 }
+                // Make sure events are delivered in the main thread
+                .observeOn(MainScheduler.instance)
                 .subscribe(
                     onNext: { pokemons in
                         for value in pokemons! {
-                        modelName = value
-                      
+                            modelName.value = value
+                            
                         }
                     },
                     
@@ -90,13 +104,16 @@ class ViewModelPokemon {
                         
                     }
                     
-                ).addDisposableTo(bag)
+                )
+            
         }
+                // Make sure multiple subscriptions share the side effects
         
+
+
     }
-    
-    
-
-
-
+    }
 }
+
+
+

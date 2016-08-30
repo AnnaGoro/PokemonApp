@@ -11,7 +11,7 @@ import RxDataSources
 import RxSwift
 import RxCocoa
 
-class PokemonCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class PokemonCollectionViewController: UIViewController, UICollectionViewDataSource {
     private let vieModelPokemon = ViewModelPokemon()
     var pokemons: Variable<[ViewModelPokemon]>?
 
@@ -27,23 +27,12 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDelegat
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, Int>>()
         
-        Observable.just([SectionModel(model: "title", items: [1, 2, 3])])
-        
-            .bindTo(collectionDataSource.rx_setDataSource(dataSource))
-     
-             collectionDataSource
-            .rx_setDelegate(self)
-            .addDisposableTo(disposeBag)
-        
-            collectionDataSource.rx_scrollEnabled
         
             self.collectionDataSource.reloadData()
             
         
         }
         
-        
-    
 
         let reuseIdentifier = "pokemonCell"
     
@@ -53,18 +42,18 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDelegat
         return 20
     }
     
+    
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CellPokemonCollection
         
-      _ = vieModelPokemon.name.asObservable().bindTo(cell.name.rx_text).addDisposableTo(disposeBag)
-      _ = vieModelPokemon.weight.asObservable().bindTo(cell.weight.rx_text)
-        
-        
-        // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        
+     
+        if let cell = cell as? CellPokemonCollection {
+            cell.name.text = vieModelPokemon.modelName.value
+            cell.weight.text = vieModelPokemon.modelWeight.value
+        }
         
         return cell
     }
@@ -81,7 +70,26 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
+    
+    
+    
+    /*
+    
+    private func setupBindings() {
+        // ...
+        
+        vieModelPokemon.observableApiGetPokemons!.bindTo(collectionDataSource.rx_itemsWithCellFactory) { collectionView, index, border in
+                let cell: CellPokemonCollection = collectionView.cellForItemAtIndexPath(index)
+                //cell.border = border
+                
+                return cell
+            }
+            .addDisposableTo(disposeBag)
+    }
+    */
 
 }
 

@@ -18,7 +18,7 @@ class ApiService {
     
     var pokemonUrlsNames = [String]()
 
-    func getPokemonsUrlsNames(count : Int) -> Observable <[String]?>  {
+    func getPokemonsUrlsNames(count : Int) -> Observable <[String]?>?  {
         
         let parameters = [
             "limit": String(count)]
