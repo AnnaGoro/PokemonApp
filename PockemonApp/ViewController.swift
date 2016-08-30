@@ -13,7 +13,6 @@ import RxCocoa
 
 class PokemonCollectionViewController: UIViewController, UICollectionViewDataSource {
     private let viewModelPokemon = ViewModelPokemon()
-   // var pokemons: Variable<[ViewModelPokemon]>?
 
     @IBOutlet weak var collectionDataSource: UICollectionView!
     
@@ -68,19 +67,18 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     
-    func setupCell(row: Int, element: Pokemon, cell: CellPokemonCollection){
-        cell.name.text = element.name
-        cell.weight.text = element.weight
-    
-    }
-   /*
-    
+   
+   
+    /*
     private func setupBindings() {
         // ...
         
         viewModelPokemon.pokemons!
-            .bindTo(collectionDataSource.rx)
-             let cell: CellPokemonCollection = collectionView.dequeueReusableCell()
+            .bindTo(collectionDataSource.rx_itemsWithCellFactory{
+        
+        
+        }
+             let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: <#T##NSIndexPath#>)
                
                 
                 return cell
@@ -88,8 +86,8 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
             .addDisposableTo(disposeBag)
     }
     
+
     */
-    
 
 }
 

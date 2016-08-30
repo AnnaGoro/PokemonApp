@@ -16,52 +16,36 @@ class ApiService {
     
     private let url = "http://pokeapi.co/api/v2/pokemon"
     
-    var pokemonUrlsNames = ""
-    //var pokemon = Pokemon()
+    var pokemonUrlsNames : String?
 
     func getPokemonsUrlsNames(count : Int) -> Observable <String?>?  {
         print("getPokemonsUrlsNames")
-        //var pokemon = Pokemon()
+    
         let parameters = [
             "limit": String(count)]
-
-        //let pokemonUrlName = PokemonUrlsNames()
+       
         
-            return Alamofire.request(.GET, self.url, parameters: parameters)
-                .rx_responseJSON().shareReplayLatestWhileConnected()
-                .map { (res: NSHTTPURLResponse, data: AnyObject) -> String? in
-                    
-                    if let results = data["results"] as? [[String: String]] {
-                        for value in results {
-                            let a = value["url"] as String!
-                                                    
-                            print(a)
-                            
-                            self.pokemonUrlsNames = a
-                        }
+        return Alamofire.request(.GET, self.url, parameters: parameters)
+            .rx_responseJSON().shareReplayLatestWhileConnected()
+            .map { (res: NSHTTPURLResponse, data: AnyObject) -> String? in
+                
+                if let results = data["results"] as? [[String: String]] {
+                    for value in results {
+                        let a = value["url"] as String!
                         
-                    } else {
-                           
-                            return nil
+                        print(a)
+                        
+                        self.pokemonUrlsNames = a
                     }
                     
+                } else {
                     
-                    return self.pokemonUrlsNames
-            }
-            
-
-    
-    
-    
+                    return nil
+                }
+                
+                return self.pokemonUrlsNames
+        }
+        
     }
-
-
-
-
-
-
-
-
-
 
 }

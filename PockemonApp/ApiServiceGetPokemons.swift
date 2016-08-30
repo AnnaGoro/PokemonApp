@@ -18,7 +18,32 @@ class ApiServiceGetPokemons {
     var pokemons = [Pokemon]()
     var pokemon = Pokemon()
     
-    func getPokemons(url : String, count : Int) -> Observable <Pokemon?>  {
+ /*
+    func getPokemonsFor (urls : [String]) -> Observable <[Pokemon]?> {
+    return Observable.create{ observer in
+        
+        for url in urls {
+           var pokemon1 = self.getPokemons(url)
+            .map{ (pokemon1) -> Pokemon? in
+                self.pokemon = pokemon1!
+                 return pokemon1
+            }
+           self.pokemons.append(pokemon1)
+    
+    }
+        observer.onNext(pokemon)
+        observer.onCompleted()
+        }
+        
+        
+        return NopDisposable.instance
+    }
+    */
+    
+    
+    
+    
+    func getPokemons(url : String) -> Observable <Pokemon?>  {
         print ("getPokemons")
      // return Observable.create{ observer in
         print("ololo")
@@ -51,14 +76,8 @@ class ApiServiceGetPokemons {
                 //self.pokemon.weight = weight
                 print(self.pokemon.name)
                 
-               
-               
                 print(self.pokemon.weight)
-                self.pokemons.append(self.pokemon)
                 
-                
-       
-        
             return self.pokemon
 
         }
