@@ -69,14 +69,13 @@ class ViewModelPokemon {
 
     */
     
-    var observableApiGetPokemons : Observable <[String]?>? {
+    var observableApiGetPokemons : Observable <[Pokemon]?>? {
         
         didSet {
  
             if let value = self.apiService.getPokemonsUrlsNames(20) {
                 self.pokemons = value
-                // Get the countries corresponding to the alpha codes
-                // specified in the `borders` property
+               
                 .flatMap { url in
                     self.apiServiceGetPokemons.getPokemons(url!, count: 20)
                 }
@@ -85,18 +84,19 @@ class ViewModelPokemon {
                     print("Error: \(error)")
                     return Observable.just([])
                 }
+                    
                 // Transform the resulting countries into [Border]
-                .map { pokemons in
-                pokemons.map { (modelName: $0, modelWeight: $0) }
-                 }
+                // .map { pokemon in
+                //    pokemons.map { (modelName.value: $0., modelWeight: $0) }
+               //  }
                 // Make sure events are delivered in the main thread
                 .observeOn(MainScheduler.instance)
-                .subscribe(
+               /* .subscribe(
                     onNext: { pokemons in
-                        for value in pokemons! {
-                            modelName.value = value
+                       
+                            modelName.value = pokemons.
                             
-                        }
+                        
                     },
                     
                     onError: { pokemon in
@@ -105,6 +105,7 @@ class ViewModelPokemon {
                     }
                     
                 )
+                 */
             
         }
                 // Make sure multiple subscriptions share the side effects
