@@ -9,19 +9,3 @@
 import Foundation
 import ObjectMapper
 
-class Ability : Mappable {
-    
-    var abilityName : AbilityName?
-    
-    required init?(_ map : Map) {
-        
-    }
-    
-    
-    func mapping (map : Map){
-        abilityName <- map["ability"]
-    }
-}
-
-
-

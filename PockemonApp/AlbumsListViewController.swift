@@ -11,39 +11,21 @@ import RxDataSources
 import RxSwift
 import RxCocoa
 
-class PokemonCollectionViewController: UIViewController, UICollectionViewDataSource {
-    private let viewModelPokemon = ViewModelPokemon()
+class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+  
     private let apiService = ApiService()
-    @IBOutlet weak var collectionDataSource: UICollectionView!
-    
-    let reuseIdentifier = "pokemonCell"
+     
+    let reuseIdentifier = "albumListCell"
     
     var searchBar : UISearchController!
     let disposeBag = DisposeBag()
     
+    @IBOutlet var dataSource: UITableView!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        apiService.getPokemonsForPreview (10)
-            .subscribe(
-                
-                onNext: {(pokemons : [Pokemon]) in
-                    
-                    for pokemon in pokemons{
-                    
-                    
-                        print(pokemon.id)
-                        print(pokemon.name)
-                        print(pokemon.imageUrl?.iUrl)
-                  
-                    }
-                },
-                onError: { error in
-                    print("Error!!")
-                }
-        )
         
 
 /*
@@ -76,22 +58,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
        */ 
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
     
-    
-
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CellPokemonCollection
-        
-        
-        return cell
-    }
-    
-   
     
   
     override func didReceiveMemoryWarning() {
@@ -100,20 +67,53 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     
-   
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellId = "albumListCell"
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
+        
+        
+        Observable<Int>.interval(0.5, scheduler: MainScheduler.instance)
+//            .flatMapLatest { (urls : String) -> Observable<Int> in
+//                
+//                return Observable.just(Int(urls)!)
+//                
+//            }
+//            .shareReplayLatestWhileConnected()
+            .subscribeNext { (a: Int) in
+                print()
+            }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return cell
+    }
    /*
     
     private func setupBindings() {
         // ...
         
-        viewModelPokemon.pokemons!
-            .bindTo(collectionDataSource.rx_itemsWithCellIdentifier(reuseIdentifier, cellType: CellPokemonCollection.self)) { (row, element, cell) in
-                cell.viewModelPokemon = ViewModelPokemon (model: element)
+        viewModel.pokemons!
+            .bindTo(dataSource.rx_itemsWithCellIdentifier(reuseIdentifier, cellType: AlbumCell.self)) { (row, element, cell) in
+               
                 
             }
             .addDisposableTo(disposeBag)
     }
-        /*
+     
         
         }
              let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: 
@@ -126,7 +126,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
 
-*/
+
  */
 
 }

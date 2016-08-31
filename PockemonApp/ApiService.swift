@@ -13,7 +13,22 @@ import RxCocoa
 import RxSwift
 
 class ApiService {
+
+
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+}
+    /*
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
     
     func getPokemonsFromAllRacs(limit: Int) -> Observable<[Pokemon]>{
@@ -59,3 +74,4 @@ class ApiService {
     }
     
  }
+*/

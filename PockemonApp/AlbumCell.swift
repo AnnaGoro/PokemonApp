@@ -11,17 +11,14 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CellPokemonCollection : UICollectionViewCell {
+class AlbumCell : UITableViewCell {
 
-
-    @IBOutlet weak var photo: UIImageView!
-    @IBOutlet weak var dislike: UIImageView!
-    @IBOutlet weak var like: UIImageView!
-    
-    @IBOutlet weak var rating: UILabel!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var weight: UILabel!
    
+    @IBOutlet weak var `switch`: UIView!
+    
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var number: UILabel!
     
     var disposeBagCell:DisposeBag = DisposeBag()        
     
