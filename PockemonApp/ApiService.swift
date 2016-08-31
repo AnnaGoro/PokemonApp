@@ -17,35 +17,45 @@ class ApiService {
     private let apiServiceGetPokemons = ApiServiceGetPokemons()
     
     func getPokemonsFromAllRacs(limit: Int) -> Observable<[Pokemon]>{
-     
+        
         return apiServiceGetPokemons.getPokemonsUrlsNames(limit)
-            .flatMapLatest{ (urls : [String]) -> Observable<[Pokemon]> in
+            .flatMapLatest{ (urls : [PokemonUrlsNames]) -> Observable<[Pokemon]> in
                 
-                return urls.map{ (url : String) -> Observable<Pokemon> in
-                    return self.apiServiceGetPokemons.getPokemon(url)
+                return urls.map{ (url : PokemonUrlsNames) -> Observable<Pokemon> in
+                    return self.apiServiceGetPokemons.getPokemon(url.url!)
                     }
                     .combineLatest { (pokemons : [Pokemon]) -> [Pokemon] in
                         return pokemons
-                }                
+                }
                 
-        }.shareReplayLatestWhileConnected()
+            }.shareReplayLatestWhileConnected()
         
     }
     
     
+    func getPokemonsForPreview (limit: Int) -> Observable<[Pokemon]>{
+        
+        return apiServiceGetPokemons.getPokemonsUrlsNames(limit)
+            
+            .flatMapLatest({ (pokemonUrlNameArray : [PokemonUrlsNames]) -> Observable<[Pokemon]> in
+                
+                return Observable.of(pokemonUrlNameArray.map{ (pokemonUrlName : PokemonUrlsNames) -> Pokemon in
+                    
+                    let data: [String] = pokemonUrlName.url!.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "/"))
+                    
+                    let index = Int(data[6])
+                 
+                    print(index)
+                    
+                    let url = "http://assets.pokemon.com/assets/cms2/img/pokedex/full/\(index!).png"
+                    
+                    print(url)
+                    
+                    return Pokemon(id : index!, name : pokemonUrlName.name!, imageUrl : ImageUrl(iUrl: url))
+                    
+                    }
+                )
+            })
+    }
     
-    /*
-     
-     var textRange = currentURL.lowercaseString.rangeOfString("access_token".lowercaseString)
-     
-     if textRange != nil {
-     
-     var data: [String] = currentURL.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "=&"))
-     user["access_token"] = data[1]
-     user["expires_in"] = data[3]
-     user["user_id"] = data[5]
-     
-     
-     */
-    
-}
+ }

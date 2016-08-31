@@ -11,14 +11,19 @@ import ObjectMapper
 
 class ImageUrl : Mappable{
     
-    var image : String?
+    var iUrl : String?
     
+    init (iUrl : String) {
+    
+        self.iUrl = iUrl
+        
+    }
     
     required init?(_ map : Map) {
         
     }
     
     func mapping (map : Map){
-        image <- map["front_default"]
+        iUrl <- map["front_default"]
     }
 }

@@ -25,6 +25,29 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        apiService.getPokemonsForPreview (10)
+            .subscribe(
+                
+                onNext: {(pokemons : [Pokemon]) in
+                    
+                    for pokemon in pokemons{
+                    
+                    
+                        print(pokemon.id)
+                        print(pokemon.name)
+                        print(pokemon.imageUrl?.iUrl)
+                  
+                    }
+                },
+                onError: { error in
+                    print("Error!!")
+                }
+        )
+        
+
+/*
+        
         apiService.getPokemonsFromAllRacs(10)
         
            .subscribe(
@@ -39,7 +62,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
                         print(pokemon.height)
                         print(pokemon.abilities?.first?.abilityName?.name)
                         print(pokemon.types?.first?.type?.name)
-                        print(pokemon.imageUrl?.image)
+                        print(pokemon.imageUrl?.iUrl)
                         print("***********************")
                         
                     }
@@ -50,7 +73,7 @@ class PokemonCollectionViewController: UIViewController, UICollectionViewDataSou
                 }
         )
         
-        
+       */ 
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

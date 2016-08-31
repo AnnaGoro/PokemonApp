@@ -40,20 +40,27 @@ class ApiServiceGetPokemons {
     }
        
     
-    func getPokemonsUrlsNames(count : Int) -> Observable <[String]>  {
+    func getPokemonsUrlsNames(count : Int) -> Observable <[PokemonUrlsNames]>  {
+        
+        let pokemonUrlName  = PokemonUrlsNames()
+        var pokemonUrlNameArray = [PokemonUrlsNames]()
+        
         
         let parameters = ["limit": String(count)]
         
         return Alamofire.request(.GET, self.url, parameters: parameters)
             .rx_responseJSON().shareReplayLatestWhileConnected()
-            .map { (res: NSHTTPURLResponse, data: AnyObject) -> [String] in
+            .map { (res: NSHTTPURLResponse, data: AnyObject) -> [PokemonUrlsNames] in
                 
-                var urls : [String] = []
+               
                 if let results = data["results"] as? [[String: String]] {
                     for value in results {
-                        let a = value["url"] as String!
+                        let url = value["url"] as String!
+                        let name = value["name"]
                         
-                        urls.append(a)
+                        pokemonUrlName.url = url
+                        pokemonUrlName.name = name
+                        pokemonUrlNameArray.append(pokemonUrlName)
                     }
                     
                 } else {
@@ -61,7 +68,7 @@ class ApiServiceGetPokemons {
                     return []
                 }
                 
-                return urls
+                return pokemonUrlNameArray
             }
     }
     

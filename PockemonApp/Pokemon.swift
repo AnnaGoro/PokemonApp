@@ -18,7 +18,15 @@ class Pokemon : Mappable {
     var types : [Type]?
     var abilities : [Ability]?
     var imageUrl : ImageUrl?
+    var pokemonUrl : String?
     
+    init (id : Int, name : String, imageUrl : ImageUrl) {
+    
+        self.id = id
+        self.name = name
+        self.imageUrl = imageUrl
+        
+    }
     
     required init? (_ map : Map) {
     
@@ -34,6 +42,7 @@ class Pokemon : Mappable {
         types <- map["types"]
         abilities <- map["abilities"]
         imageUrl <- map["sprites"]
+        pokemonUrl <- map["url"]
     
     }
 
