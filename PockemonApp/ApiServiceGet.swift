@@ -19,16 +19,14 @@ class ApiServiceGet {
     
      private let bag = DisposeBag()
     
-    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {
-    
+    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {    
     
         return albums.map{ (album : Album) -> Observable <User> in
             return recieveAlbumOwner(album)
             }.combineLatest({ (users : [User]) -> [User] in
             return users
         })
-    
-    
+        
     
     }
 
@@ -39,7 +37,6 @@ class ApiServiceGet {
             return (users.filter { (user : User) -> Bool in
                 return user.userId == album.userId
                 }.first)!
-            
         }
         
     }
@@ -95,11 +92,7 @@ func getPhotos () -> Observable<[Photo]> {
         return NopDisposable.instance
     }
     
-    
-    
 }
-
-
 
 func getUsers () -> Observable<[User]> {
     
@@ -114,8 +107,6 @@ func getUsers () -> Observable<[User]> {
         
         return NopDisposable.instance
     }
-    
-    
     
 }
 

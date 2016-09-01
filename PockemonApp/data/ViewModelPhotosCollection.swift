@@ -20,19 +20,59 @@ struct ViewModelPhotosCollection {
     private let bag = DisposeBag()
 
     private let apiServiceGet = ApiServiceGet()
+    var count = 0
     
+     /*
+    var album : Observable<Album>? {
+        didSet {
+            album?.flatMapLatest{ (album : Album) -> Observable<[Photo]> in
+                return self.apiServiceGet.recieveAlbumPhotos(album)
+                }
+                .subscribeNext{ (allPhotos : [Photo]) in
+                    self.photos.value = allPhotos
+                }
+                .addDisposableTo(bag)
+        }
+    }
+     */
+
+  
     init () {
-    
-            apiServiceGet.recieveAlbumPhotos(album.value).subscribe(            
+        
+        count+=1
+        print(count)
+        apiServiceGet.recieveAlbumPhotos(self.album.value).subscribe(
             onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
             }
             ).addDisposableTo(bag)
         
-        }
-    
+    }
 }
 
+    
+   
+    /*
+ 
+ var obs : Observable<[Photo]>?{
+ 
+ didSet {
+ count+=1
+ print(count)
+ apiServiceGet.recieveAlbumPhotos(self.album.value).subscribe(
+ onNext: { (photos : [Photo] ) in
+ self.photos.value = photos
+ }
+ ).addDisposableTo(bag)
+ 
+ 
+ }
+ 
+ 
+ 
+ }
+
+*/
 
     // TODO Image Loader !!
     /*

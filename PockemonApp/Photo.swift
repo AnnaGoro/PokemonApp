@@ -10,12 +10,12 @@ import Foundation
 import ObjectMapper
 
 struct Photo : Mappable {
-    
-    
-    private(set) var id : Int?
-    private(set) var url : String?
-    private(set) var thumbnailUrl : String?
-    private(set) var albumId : Int?
+        
+     var id : Int?
+     var url : String?
+     var thumbnailUrl : String?
+     var albumId : Int?
+     var title : String?
     
         init? (_ map : Map) {
         
@@ -27,6 +27,7 @@ struct Photo : Mappable {
         url <- map["url"]
         thumbnailUrl <- map["thumbnailUrl"]
         albumId <- map["albumId"]
+        title <- map["title"]
     }
 }
 

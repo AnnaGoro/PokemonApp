@@ -24,8 +24,10 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PhotoAlbums"
-        viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
+        
         setUpViewModel()
+        
+         viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
         
     }    
     
@@ -69,11 +71,14 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
         
-        viewModelPhotoCollection!.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
+        
         if segue.identifier == "showPhotosIFromAlbum" {
+            
            let destinationController = segue.destinationViewController as! PhotosCollectionViewController
             
-            destinationController.viewModelPhotosCollection = viewModelPhotoCollection
+            viewModelPhotoCollection!.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
+
+            destinationController.viewModelPhotosCollection = viewModelPhotoCollection!
             
         }
         

@@ -13,7 +13,7 @@ import RxCocoa
 
 class PhotosCollectionViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
-    var viewModelPhotosCollection : ViewModelPhotosCollection?
+    var viewModelPhotosCollection = ViewModelPhotosCollection()
     
     @IBOutlet var dataSource: UICollectionView!
     private let disposeBag = DisposeBag()
@@ -28,8 +28,8 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return viewModelPhotosCollection!.photos.value.count
+        print(" viewModelPhotosCollection!.photos.value.count  \(viewModelPhotosCollection.photos.value.count)")
+        return viewModelPhotosCollection.photos.value.count
     }
     
     
@@ -37,7 +37,7 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
        
-        cell.albumTitle.text = viewModelPhotosCollection!.photos.value[indexPath.item].url
+        cell.albumTitle.text = viewModelPhotosCollection.photos.value[indexPath.item].url
        
         return cell
     }
@@ -51,9 +51,11 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     
     private func setUpViewModel() {
         
-        viewModelPhotosCollection!.photos.asObservable().subscribeNext { ( photos : [Photo]) in
-            self.title = self.viewModelPhotosCollection!.album.value.title
-            self.dataSource.reloadData()
+        viewModelPhotosCollection.photos.asObservable()
+            .subscribeNext {[weak self] (photos : [Photo]) in
+                
+            self!.title = self!.viewModelPhotosCollection.album.value.title
+            self!.dataSource.reloadData()
             
             }.addDisposableTo(disposeBag)        
         
