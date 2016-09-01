@@ -19,6 +19,8 @@ class PhotoCell : UICollectionViewCell{
     var disposeBagCell:DisposeBag = DisposeBag()
     
     
+    @IBOutlet weak var albumTitle: UILabel!
+    
     override func prepareForReuse() {
         disposeBagCell = DisposeBag()
     }

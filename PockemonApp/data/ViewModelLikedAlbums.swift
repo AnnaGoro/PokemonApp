@@ -13,10 +13,6 @@ import RxSwift
 class ViewModelLikedAlbums {
     
     
-    let title : Variable <String> = Variable( "" )
-    let userName : Variable <String> = Variable( "" )
-    let id : Variable <String> = Variable( "" )
-    
     private let apiService = ApiService()
     private let bag = DisposeBag()
     

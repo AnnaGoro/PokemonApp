@@ -18,7 +18,49 @@ import ObjectMapper
 
 class ApiServiceGet {
     
+  
+   /*
+    init() {
+        
+        apiServiceGet.getAlbums().subscribe(
+            
+            onNext: { (albums : [Album] ) in
+                
+                
+                .flatMapLatest {(albums : [Album]) -> Observable <[Album]>in
+                    
+                    return albums.map{ (album : Album) -> Observable <User> in
+                        return self.apiServiceGet.recieveAlbumOwner(album)
+                    }
+                    }
+                    .combineLatest{ (albums : [Album]) -> Observable <[Album]> in
+                        return albums
+                }
+            }
+            ).addDisposableTo(bag)
+        
+    }
     
+
+ 
+    func recieveAlbumsAndUsers () -> Observable <[Album]> {
+    
+        return getAlbums().map{ (albums : [Album]) -> Album in
+                return albums.map{ (album : Album) -> Album in
+                    
+            }
+            }
+            .combineLatest{ (albums : [Album]) -> Observable <[Album]> in
+                return albums
+        }
+    }
+
+    
+    
+    }
+
+ */
+
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
@@ -35,15 +77,15 @@ class ApiServiceGet {
     
     func recieveAlbumPhotos (album : Album) -> Observable <[Photo]> {
         
-        
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
             return photos.filter{ (photo : Photo) -> Bool in                
-                return photo.albumId! == album.id!
+                return photo.albumId == album.id
             }
         }
         
         
+    
     }
     
 }

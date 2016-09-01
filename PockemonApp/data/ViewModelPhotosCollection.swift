@@ -14,15 +14,27 @@ import RxCocoa
 class ViewModelPhotosCollection {
     
     
-    let title : Variable <String> = Variable( "" )
-    
-    //let image : Variable <UIImage> = Variable()
-    
-    private let apiService = ApiService()
+    let photos : Variable <[Photo]> = Variable([])
+    var album : Variable <Album> = Variable(Album())
+
     private let bag = DisposeBag()
+
+    private let apiServiceGet = ApiServiceGet()
     
+    init () {
     
+            apiServiceGet.recieveAlbumPhotos(album.value).subscribe(
+            
+            onNext: { (photos : [Photo] ) in
+                self.photos.value = photos
+            }
+            ).addDisposableTo(bag)
+        
+        }
     
+}
+
+
     // TODO Image Loader !!
     /*
  
@@ -50,4 +62,3 @@ class ViewModelPhotosCollection {
  */
     
     
-}

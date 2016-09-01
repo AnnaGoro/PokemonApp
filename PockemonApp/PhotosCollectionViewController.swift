@@ -8,38 +8,64 @@
 
 import Foundation
 import UIKit
-class PhotosCollectionViewController : UICollectionViewController {
+import RxSwift
+import RxCocoa
 
+class PhotosCollectionViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
+
+    var viewModelPhotosCollection = ViewModelPhotosCollection()
+
+    @IBOutlet var dataSource: UICollectionView!
+    private let disposeBag = DisposeBag()
+    
     private let reuseIdentifier = "photoCell"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "some text"
+        
+        setUpViewModel()
         
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModelPhotosCollection.photos.value.count
     }
     
     
     
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
         
+        cell.albumTitle.text = viewModelPhotosCollection.photos.value[indexPath.item].url
         
         return cell
     }
     
     
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
         print("You selected cell #\(indexPath.item)!")
     }
     
     
+    private func setUpViewModel() {
+        
+        
+        viewModelPhotosCollection.photos.asObservable().subscribeNext { ( photos : [Photo]) in
+            
+            self.dataSource.reloadData()
+            
+            
+            }.addDisposableTo(disposeBag)
+        
+        
+    }
+
     
 }

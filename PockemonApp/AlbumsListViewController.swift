@@ -14,6 +14,7 @@ import RxCocoa
 class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     let viewModelAlbumsList = ViewModelAlbumsList()
+    let viewModelPhotoCollection = ViewModelPhotosCollection()
     
     let reuseIdentifier = "albumListCell"
     
@@ -59,11 +60,20 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
- 
+        
+       
         
         return cell
     }
     
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath.item)
+        print ("******************")
+        print(indexPath.row)
+        
+        viewModelPhotoCollection.album.value = viewModelAlbumsList.albums.value[(indexPath.item)]
+    }
     
     private func setUpViewModel() {
     
@@ -71,12 +81,27 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         viewModelAlbumsList.albums.asObservable().subscribeNext { ( albums : [Album]) in
             
             self.dataSource.reloadData()
+          
             
         }.addDisposableTo(disposeBag)
     
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
+        print(selectedIndex?.item)
+        print ("******************")
+        print(selectedIndex?.row)
+        if segue.identifier == "showPhotosIFromAlbum" {
+            if let destinationVC = segue.destinationViewController as? PhotosCollectionViewController {
+                
+              // var viewModelPhotosCollection = ViewModelPhotosCollection(viewModelAlbumsList.albums.value[(selectedIndex?.item)!])
+                //destinationVC.titleAlbum = viewModelAlbumsList.albums.value[(selectedIndex?.item)!].title!
+                viewModelPhotoCollection.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
+           }
+    }
+ 
     
 }
-
+}
