@@ -12,13 +12,22 @@ import RxSwift
 
 struct ViewModelAlbumsList {
 
-    let title : Variable <String> = Variable( "" )
-    let userName : Variable <String> = Variable( "" )
-    let id : Variable <String> = Variable( "" )
+    var albums : Variable<[Album]> = Variable([])
     
-    private let apiService = ApiService()
+    private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
 
-
+    init() {
+    
+        apiServiceGet.getAlbums().subscribe(
+            
+            onNext: { (albums : [Album] ) in
+                
+                self.albums.value = albums
+    
+        }).addDisposableTo(bag)
+    
+   }
+    
 }

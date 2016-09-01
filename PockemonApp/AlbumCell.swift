@@ -20,12 +20,12 @@ class AlbumCell : UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-    var disposeBagCell:DisposeBag = DisposeBag()        
+   // var disposeBagCell:DisposeBag = DisposeBag()
     
         
-    override func prepareForReuse() {
-        disposeBagCell = DisposeBag()
-    }
+    //override func prepareForReuse() {
+      //  disposeBagCell = DisposeBag()
+   // }
     
     
     

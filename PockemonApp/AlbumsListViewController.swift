@@ -12,50 +12,28 @@ import RxSwift
 import RxCocoa
 
 class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-  
-    private let apiService = ApiService()
-     
+    
+    let viewModelAlbumsList = ViewModelAlbumsList()
+    
     let reuseIdentifier = "albumListCell"
     
     var searchBar : UISearchController!
+    
     let disposeBag = DisposeBag()
     
     @IBOutlet var dataSource: UITableView!
+    
+   
 
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "PhotoAlbums"
+        
+        setUpViewModel()
         
         
-
-/*
-        
-        apiService.getPokemonsFromAllRacs(10)
-        
-           .subscribe(
-                
-                onNext: { (pokemons : [Pokemon]) in
-                    
-                    for pokemon in pokemons{
-                        
-                        print(pokemon.id)
-                        print(pokemon.name)
-                        print(pokemon.weight)
-                        print(pokemon.height)
-                        print(pokemon.abilities?.first?.abilityName?.name)
-                        print(pokemon.types?.first?.type?.name)
-                        print(pokemon.imageUrl?.iUrl)
-                        print("***********************")
-                        
-                    }
-                    
-                },
-                onError: { error in
-                    print("Error!!")
-                }
-        )
-        
-       */ 
     }
 
     
@@ -63,13 +41,13 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return   viewModelAlbumsList.albums.value.count
     }
     
     
@@ -79,55 +57,26 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
         
-        
-        Observable<Int>.interval(0.5, scheduler: MainScheduler.instance)
-//            .flatMapLatest { (urls : String) -> Observable<Int> in
-//                
-//                return Observable.just(Int(urls)!)
-//                
-//            }
-//            .shareReplayLatestWhileConnected()
-            .subscribeNext { (a: Int) in
-                print()
-            }
-        
-        
-        
-        
-        
-        
-        
-        
+        cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
+        cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
+ 
         
         return cell
     }
-   /*
     
-    private func setupBindings() {
-        // ...
-        
-        viewModel.pokemons!
-            .bindTo(dataSource.rx_itemsWithCellIdentifier(reuseIdentifier, cellType: AlbumCell.self)) { (row, element, cell) in
-               
-                
-            }
-            .addDisposableTo(disposeBag)
-    }
+    
+    private func setUpViewModel() {
+    
      
+        viewModelAlbumsList.albums.asObservable().subscribeNext { ( albums : [Album]) in
+            
+            self.dataSource.reloadData()
+            
+        }.addDisposableTo(disposeBag)
+    
         
-        }
-             let cell: CellPokemonCollection = collectionDataSource.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: 
-         //<#T##NSIndexPath#>)
-               
-                
-                return cell
-            }
-            .addDisposableTo(disposeBag)
     }
     
-
-
- */
-
+    
 }
 

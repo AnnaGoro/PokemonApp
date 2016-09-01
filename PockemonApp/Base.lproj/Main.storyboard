@@ -45,15 +45,15 @@
         <scene sceneID="6xP-Oa-0GS">
             <objects>
                 <tableViewController id="11B-l7-BcV" customClass="AlbumsListViewController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="VCs-PU-bOE">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="VCs-PU-bOE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumListCell" rowHeight="80" id="0Jm-2G-dCR" customClass="CellPokemonCollection" customModule="PockemonApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumListCell" rowHeight="80" id="0Jm-2G-dCR" customClass="AlbumCell" customModule="PockemonApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Jm-2G-dCR" id="YmT-fk-e57">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Jm-2G-dCR" id="YmT-fk-e57" userLabel="content">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -69,21 +69,24 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4E-mt-ELd">
-                                            <rect key="frame" x="8" y="29" width="42" height="21"/>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OXf-c8-PX9">
+                                            <rect key="frame" x="543" y="24" width="51" height="31"/>
+                                            <color key="onTintColor" red="0.96219474077224731" green="0.93587291240692139" blue="0.86242938041687012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="thumbTintColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4E-mt-ELd">
+                                            <rect key="frame" x="25" y="25" width="25" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OXf-c8-PX9">
-                                            <rect key="frame" x="543" y="24" width="51" height="31"/>
-                                        </switch>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="viZ-7q-bzC" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="68" id="6cb-oI-POh"/>
                                         <constraint firstItem="viZ-7q-bzC" firstAttribute="leading" secondItem="d0y-9f-C6f" secondAttribute="leading" id="6e9-ON-4BY"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" id="78M-rr-Swh"/>
                                         <constraint firstItem="d0y-9f-C6f" firstAttribute="top" secondItem="viZ-7q-bzC" secondAttribute="bottom" constant="18" id="IUG-be-b6V"/>
+                                        <constraint firstItem="W4E-mt-ELd" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="17" id="Ivv-3i-VVp"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="centerY" secondItem="YmT-fk-e57" secondAttribute="centerY" id="Jnq-vE-zgn"/>
                                         <constraint firstItem="OXf-c8-PX9" firstAttribute="leading" secondItem="viZ-7q-bzC" secondAttribute="trailing" constant="8" symbolic="YES" id="VaI-Cf-6Xi"/>
                                         <constraint firstItem="d0y-9f-C6f" firstAttribute="bottom" secondItem="YmT-fk-e57" secondAttribute="bottomMargin" id="a7B-y7-3v1"/>
@@ -91,6 +94,11 @@
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="centerY" secondItem="OXf-c8-PX9" secondAttribute="centerY" id="gKX-zS-Dip"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="OXf-c8-PX9" secondAttribute="trailing" constant="19" id="pzc-Gq-XLX"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="78M-rr-Swh"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="number" destination="W4E-mt-ELd" id="3Dv-QK-aho"/>
@@ -185,7 +193,7 @@
         <scene sceneID="TYF-LO-PH8">
             <objects>
                 <tableViewController id="Re0-R3-Dos" customClass="AlbumsLikedController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ih7-gv-ZR0">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ih7-gv-ZR0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,8 +217,8 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLC-ex-4qp">
-                                            <rect key="frame" x="16" y="24" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLC-ex-4qp">
+                                            <rect key="frame" x="25" y="25" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="42" id="ADZ-6J-2x3"/>
                                             </constraints>
@@ -218,21 +226,23 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="939-zz-3He">
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="939-zz-3He">
                                             <rect key="frame" x="543" y="19" width="51" height="31"/>
+                                            <color key="onTintColor" red="0.96012519210000002" green="1" blue="0.021480288819999999" alpha="0.27069481379999999" colorSpace="calibratedRGB"/>
+                                            <color key="thumbTintColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="top" secondItem="Ruw-IW-Qoc" secondAttribute="topMargin" id="5Bk-qv-mcb"/>
                                         <constraint firstItem="939-zz-3He" firstAttribute="top" secondItem="Ruw-IW-Qoc" secondAttribute="topMargin" constant="11" id="AID-bz-XHj"/>
+                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="top" secondItem="Ruw-IW-Qoc" secondAttribute="topMargin" id="BuN-0B-IZh"/>
+                                        <constraint firstItem="939-zz-3He" firstAttribute="leading" secondItem="RJf-Q4-vFe" secondAttribute="trailing" constant="14" id="CfJ-C1-9is"/>
                                         <constraint firstItem="eLC-ex-4qp" firstAttribute="leading" secondItem="Ruw-IW-Qoc" secondAttribute="leadingMargin" constant="8" id="GXF-VQ-GsD"/>
-                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="leading" secondItem="eLC-ex-4qp" secondAttribute="trailing" constant="23" id="TSS-gh-jjS"/>
+                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="leading" secondItem="eLC-ex-4qp" secondAttribute="trailing" constant="23" id="K9C-LK-RP5"/>
+                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="trailing" secondItem="fMj-Yh-ovQ" secondAttribute="trailing" id="KYF-zh-db2"/>
+                                        <constraint firstItem="fMj-Yh-ovQ" firstAttribute="top" secondItem="RJf-Q4-vFe" secondAttribute="bottom" constant="8" symbolic="YES" id="Nby-fw-eNW"/>
                                         <constraint firstItem="eLC-ex-4qp" firstAttribute="centerY" secondItem="939-zz-3He" secondAttribute="centerY" id="ZdF-t0-vj1"/>
-                                        <constraint firstItem="fMj-Yh-ovQ" firstAttribute="top" secondItem="RJf-Q4-vFe" secondAttribute="bottom" constant="8" symbolic="YES" id="hCQ-6p-rbO"/>
-                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="trailing" secondItem="fMj-Yh-ovQ" secondAttribute="trailing" id="iiy-ha-cgN"/>
+                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="leading" secondItem="fMj-Yh-ovQ" secondAttribute="leading" id="nLV-vZ-Cjd"/>
                                         <constraint firstItem="939-zz-3He" firstAttribute="trailing" secondItem="Ruw-IW-Qoc" secondAttribute="trailingMargin" id="oAC-Mg-hPe"/>
-                                        <constraint firstItem="RJf-Q4-vFe" firstAttribute="leading" secondItem="fMj-Yh-ovQ" secondAttribute="leading" id="rzd-Lb-1jd"/>
-                                        <constraint firstItem="939-zz-3He" firstAttribute="leading" secondItem="RJf-Q4-vFe" secondAttribute="trailing" constant="14" id="ytf-Ua-4Fl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -261,6 +271,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lwz-Rg-hxF"/>
+        <segue reference="qvM-8j-vs7"/>
     </inferredMetricsTieBreakers>
 </document>

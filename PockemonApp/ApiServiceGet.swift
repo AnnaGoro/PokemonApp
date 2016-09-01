@@ -38,8 +38,7 @@ class ApiServiceGet {
         
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
-            return photos.filter{ (photo : Photo) -> Bool in
-                
+            return photos.filter{ (photo : Photo) -> Bool in                
                 return photo.albumId! == album.id!
             }
         }
@@ -58,7 +57,16 @@ extension ApiServiceGet {
         let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
         let arrayAlbums : [Album] = Mapper <Album>().mapArray(json)!
         
-        return Observable.just(arrayAlbums)
+        return Observable.create { observer in
+            observer.onNext(arrayAlbums)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+        }
+        
+        
+        
+        }
         
     }
     
@@ -70,9 +78,19 @@ extension ApiServiceGet {
         let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
         let arrayPhotos = Mapper <Photo>().mapArray(json)!
         
-        return Observable.just(arrayPhotos)        
+        return Observable.create { observer in
+            observer.onNext(arrayPhotos)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+        }
         
-    }
+        
+        
+}
+
+
+
     
     
     func getUsers () -> Observable<[User]> {
@@ -82,7 +100,13 @@ extension ApiServiceGet {
         let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
         let arrayUsers : [User] = Mapper <User>().mapArray(json)!
         
-        return Observable.just(arrayUsers)
+        return Observable.create { observer in
+            observer.onNext(arrayUsers)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+        }
+        
         
         
     }
