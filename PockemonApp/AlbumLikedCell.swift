@@ -24,11 +24,11 @@ class AlbumLikedCell : UITableViewCell {
     @IBOutlet weak var numberLabel: UILabel!
 
     
-   // var disposeBagCell:DisposeBag = DisposeBag()
+    var disposeBagCell:DisposeBag = DisposeBag()
     
-  //  override func prepareForReuse() {
-    //    disposeBagCell = DisposeBag()
-   // }
+    override func prepareForReuse() {
+        disposeBagCell = DisposeBag()
+    }
     
 
 

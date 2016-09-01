@@ -12,9 +12,9 @@ import RxSwift
 import RxCocoa
 
 class PhotosCollectionViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
-
-    var viewModelPhotosCollection = ViewModelPhotosCollection()
-
+    
+    private let viewModelPhotosCollection = ViewModelPhotosCollection()
+    
     @IBOutlet var dataSource: UICollectionView!
     private let disposeBag = DisposeBag()
     
@@ -24,17 +24,13 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "some text"
-        
         setUpViewModel()
         
     }
     
-     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModelPhotosCollection.photos.value.count
     }
-    
-    
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -47,25 +43,22 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     }
     
     
-    
-     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
         print("You selected cell #\(indexPath.item)!")
     }
     
     
     private func setUpViewModel() {
         
-        
         viewModelPhotosCollection.photos.asObservable().subscribeNext { ( photos : [Photo]) in
             
             self.dataSource.reloadData()
+            self.title = self.viewModelPhotosCollection.album.value.title
             
-            
-            }.addDisposableTo(disposeBag)
-        
+            }.addDisposableTo(disposeBag)        
         
     }
-
+    
     
 }

@@ -14,7 +14,7 @@ import RxCocoa
 class ViewModelPhotosCollection {
     
     
-    let photos : Variable <[Photo]> = Variable([])
+    var photos : Variable <[Photo]> = Variable([])
     var album : Variable <Album> = Variable(Album())
 
     private let bag = DisposeBag()

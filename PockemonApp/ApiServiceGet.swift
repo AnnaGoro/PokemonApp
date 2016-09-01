@@ -18,49 +18,7 @@ import ObjectMapper
 
 class ApiServiceGet {
     
-  
-   /*
-    init() {
-        
-        apiServiceGet.getAlbums().subscribe(
-            
-            onNext: { (albums : [Album] ) in
-                
-                
-                .flatMapLatest {(albums : [Album]) -> Observable <[Album]>in
-                    
-                    return albums.map{ (album : Album) -> Observable <User> in
-                        return self.apiServiceGet.recieveAlbumOwner(album)
-                    }
-                    }
-                    .combineLatest{ (albums : [Album]) -> Observable <[Album]> in
-                        return albums
-                }
-            }
-            ).addDisposableTo(bag)
-        
-    }
     
-
- 
-    func recieveAlbumsAndUsers () -> Observable <[Album]> {
-    
-        return getAlbums().map{ (albums : [Album]) -> Album in
-                return albums.map{ (album : Album) -> Album in
-                    
-            }
-            }
-            .combineLatest{ (albums : [Album]) -> Observable <[Album]> in
-                return albums
-        }
-    }
-
-    
-    
-    }
-
- */
-
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
@@ -74,24 +32,22 @@ class ApiServiceGet {
     }
     
     
-    
     func recieveAlbumPhotos (album : Album) -> Observable <[Photo]> {
         
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
-            return photos.filter{ (photo : Photo) -> Bool in                
+            return photos.filter{ (photo : Photo) -> Bool in
                 return photo.albumId == album.id
             }
         }
         
-        
-    
     }
     
 }
 
-extension ApiServiceGet {
 
+extension ApiServiceGet {
+    
     func getAlbums() -> Observable<[Album]> {
         
         let path = NSBundle.mainBundle().pathForResource("albums", ofType: "json")
@@ -106,52 +62,50 @@ extension ApiServiceGet {
             return NopDisposable.instance
         }
         
+    }
+    
+}
+
+
+func getPhotos () -> Observable<[Photo]> {
+    
+    let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")
+    let data = NSData(contentsOfFile: path!)
+    let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+    let arrayPhotos = Mapper <Photo>().mapArray(json)!
+    
+    return Observable.create { observer in
+        observer.onNext(arrayPhotos)
+        observer.onCompleted()
         
-        
-        }
-        
+        return NopDisposable.instance
     }
     
     
-    func getPhotos () -> Observable<[Photo]> {
-        
-        let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")
-        let data = NSData(contentsOfFile: path!)
-        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-        let arrayPhotos = Mapper <Photo>().mapArray(json)!
-        
-        return Observable.create { observer in
-            observer.onNext(arrayPhotos)
-            observer.onCompleted()
-            
-            return NopDisposable.instance
-        }
-        
-        
-        
+    
 }
 
 
 
+
+
+func getUsers () -> Observable<[User]> {
     
+    let path = NSBundle.mainBundle().pathForResource("users", ofType: "json")
+    let data = NSData(contentsOfFile: path!)
+    let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+    let arrayUsers : [User] = Mapper <User>().mapArray(json)!
     
-    func getUsers () -> Observable<[User]> {
+    return Observable.create { observer in
+        observer.onNext(arrayUsers)
+        observer.onCompleted()
         
-        let path = NSBundle.mainBundle().pathForResource("users", ofType: "json")
-        let data = NSData(contentsOfFile: path!)
-        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-        let arrayUsers : [User] = Mapper <User>().mapArray(json)!
-        
-        return Observable.create { observer in
-            observer.onNext(arrayUsers)
-            observer.onCompleted()
-            
-            return NopDisposable.instance
-        }
-        
-        
-        
+        return NopDisposable.instance
     }
+    
+    
+    
+}
 
 
 
