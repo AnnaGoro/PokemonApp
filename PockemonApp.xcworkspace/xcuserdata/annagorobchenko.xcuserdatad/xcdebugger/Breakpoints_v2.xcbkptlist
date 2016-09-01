@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/AlbumsListViewController.swift"
-            timestampString = "494421928.150667"
+            timestampString = "494429794.327587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -74,13 +74,109 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/PhotosCollectionViewController.swift"
-            timestampString = "494421697.845308"
+            timestampString = "494435004.786518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PockemonApp/AlbumsListViewController.swift"
+            timestampString = "494435004.786518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PockemonApp.AlbumsListViewController.prepareForSegue (__ObjC.UIStoryboardSegue, sender : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;) -&gt; ()"
+                  moduleName = "PockemonApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/annagorobchenko/Documents/poke/PockemonApp/AlbumsListViewController.swift"
+                  timestampString = "494424119.83448"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "866">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PockemonApp.AlbumsListViewController.prepareForSegue (__ObjC.UIStoryboardSegue, sender : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;) -&gt; ()"
+                  moduleName = "PockemonApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/annagorobchenko/Documents/poke/PockemonApp/AlbumsListViewController.swift"
+                  timestampString = "494424119.834856"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "1432">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PockemonApp/data/ViewModelAlbumsList.swift"
+            timestampString = "494435004.786518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "init()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PockemonApp.ViewModelAlbumsList.(init () -&gt; PockemonApp.ViewModelAlbumsList).(closure #1)"
+                  moduleName = "PockemonApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/annagorobchenko/Documents/poke/PockemonApp/data/ViewModelAlbumsList.swift"
+                  timestampString = "494432511.607924"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PockemonApp.ViewModelAlbumsList.(init () -&gt; PockemonApp.ViewModelAlbumsList).(closure #1).(closure #1)"
+                  moduleName = "PockemonApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/annagorobchenko/Documents/poke/PockemonApp/data/ViewModelAlbumsList.swift"
+                  timestampString = "494432511.60812"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "98">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

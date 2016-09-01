@@ -15,17 +15,30 @@ import RxSwift
 import ObjectMapper
 
 
-
 class ApiServiceGet {
     
+     private let bag = DisposeBag()
     
+    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {
+    
+    
+        return albums.map{ (album : Album) -> Observable <User> in
+            return recieveAlbumOwner(album)
+            }.combineLatest({ (users : [User]) -> [User] in
+            return users
+        })
+    
+    
+    
+    }
+
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
             
-            return users.filter { (user : User) -> Bool in
+            return (users.filter { (user : User) -> Bool in
                 return user.userId == album.userId
-                }.first!
+                }.first)!
             
         }
         
@@ -37,6 +50,7 @@ class ApiServiceGet {
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
             return photos.filter{ (photo : Photo) -> Bool in
+                //return photo.albumId! == album.id!
                 return photo.albumId == album.id
             }
         }
@@ -87,8 +101,6 @@ func getPhotos () -> Observable<[Photo]> {
 
 
 
-
-
 func getUsers () -> Observable<[User]> {
     
     let path = NSBundle.mainBundle().pathForResource("users", ofType: "json")
@@ -97,8 +109,8 @@ func getUsers () -> Observable<[User]> {
     let arrayUsers : [User] = Mapper <User>().mapArray(json)!
     
     return Observable.create { observer in
-        observer.onNext(arrayUsers)
-        observer.onCompleted()
+            observer.onNext(arrayUsers)
+            observer.onCompleted()
         
         return NopDisposable.instance
     }

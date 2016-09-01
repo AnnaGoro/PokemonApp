@@ -13,8 +13,8 @@ import RxCocoa
 
 class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
-    private let viewModelAlbumsList = ViewModelAlbumsList()
-    private let viewModelPhotoCollection = ViewModelPhotosCollection()
+    var viewModelAlbumsList = ViewModelAlbumsList()
+    var viewModelPhotoCollection : ViewModelPhotosCollection?
     
     private let disposeBag = DisposeBag()
     
@@ -24,7 +24,7 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PhotoAlbums"
-        
+        viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
         setUpViewModel()
         
     }    
@@ -49,6 +49,7 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
+        cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
         
         return cell
     }
@@ -56,22 +57,24 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     private func setUpViewModel() {
         
-        viewModelAlbumsList.albums.asObservable().subscribeNext { ( albums : [Album]) in
-            
-            self.dataSource.reloadData()
+        viewModelAlbumsList.albums.asObservable()
+            .subscribeNext { [weak self]( albums : [Album]) in
+            self!.dataSource.reloadData()
             
             }.addDisposableTo(disposeBag)
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
         let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
-     
+        
+        viewModelPhotoCollection!.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
         if segue.identifier == "showPhotosIFromAlbum" {
-            if segue.destinationViewController is PhotosCollectionViewController {
-                
-                viewModelPhotoCollection.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
-            }
+           let destinationController = segue.destinationViewController as! PhotosCollectionViewController
+            
+            destinationController.viewModelPhotosCollection = viewModelPhotoCollection
+            
         }
         
         

@@ -13,7 +13,9 @@ import RxCocoa
 import RxSwift
 
 class ApiService {
-
-
-}
+   
+    var apiServiceGet = ApiServiceGet()
+    
+    
+   }
     

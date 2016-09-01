@@ -10,24 +10,33 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class ViewModelAlbumsList {
-
+struct ViewModelAlbumsList {
+    
     var albums : Variable<[Album]> = Variable([])
-
+    var users : Variable <[User]> = Variable([])
+    
     private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
+    var viewModelPhotosCollection = ViewModelPhotosCollection ()
     
     init() {
-    
+        
+        
         apiServiceGet.getAlbums().subscribe(
-            
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums
-             }
+            }
             ).addDisposableTo(bag)
-       
+        
+        
+        
+        apiServiceGet.recieveAlbumOwners(albums.value).subscribe(
+            onNext: { (users : [User]) in
+                self.users.value = users
+            }
+            ).addDisposableTo(bag)
+        
     }
-   
-    
 }
+

@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-class ViewModelPhotosCollection {
+struct ViewModelPhotosCollection {
     
     
     var photos : Variable <[Photo]> = Variable([])
@@ -23,8 +23,7 @@ class ViewModelPhotosCollection {
     
     init () {
     
-            apiServiceGet.recieveAlbumPhotos(album.value).subscribe(
-            
+            apiServiceGet.recieveAlbumPhotos(album.value).subscribe(            
             onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
             }

@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class ViewModelLikedAlbums {
+struct ViewModelLikedAlbums {
     
     
     private let apiService = ApiService()
