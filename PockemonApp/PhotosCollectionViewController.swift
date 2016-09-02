@@ -20,10 +20,7 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     private let disposeBag = DisposeBag()
     
     private let reuseIdentifier = "photoCell"
-    
    
-  
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +29,8 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(" viewModelPhotosCollection!.photos.value.count  \(viewModelPhotosCollection!.photos.value.count)")
-        return viewModelPhotosCollection!.photos.value.count
+       
+        return (viewModelPhotosCollection?.photos.value.count)!
     }
     
     
@@ -41,9 +38,7 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
   
-        cell.photoImageView.load(viewModelPhotosCollection!.photos.value[indexPath.item].url!)
-        //cell.photoImageView.layer.cornerRadius = 30.0
-       // cell.photoImageView.clipsToBounds = true
+        cell.photoImageView.load((viewModelPhotosCollection?.photos.value[indexPath.item].url!)!)
         
         return cell
     }
@@ -57,7 +52,7 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     
     private func setUpViewModel() {
         
-        viewModelPhotosCollection!.photos.asObservable()
+        viewModelPhotosCollection?.photos.asObservable()
             .subscribeNext {[weak self] (photos : [Photo]) in
                 
             self!.title = self!.viewModelPhotosCollection!.albumGlobal.value.title

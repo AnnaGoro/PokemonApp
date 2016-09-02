@@ -18,10 +18,8 @@ class AlbumsLikedController : UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Photos"
+        self.title = "Favourite albums"
     }
-    
-    
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

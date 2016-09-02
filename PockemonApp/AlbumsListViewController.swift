@@ -14,7 +14,6 @@ import RxCocoa
 class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     var viewModelAlbumsList = ViewModelAlbumsList()
-    var viewModelPhotoCollection : ViewModelPhotosCollection?
     
     private let disposeBag = DisposeBag()
     
@@ -23,13 +22,12 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "PhotoAlbums"
         
-        setUpViewModel()
+        setUpViewModel()        
         
-        // viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
-        
-    }    
+    }
     
     
     override func didReceiveMemoryWarning() {
@@ -46,7 +44,6 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cellId = "albumListCell"
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
@@ -54,6 +51,8 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
         cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         return cell
     }
@@ -63,8 +62,8 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         viewModelAlbumsList.albums.asObservable()
             .subscribeNext { [weak self]( albums : [Album]) in
-            self!.dataSource.reloadData()
-            
+                self!.dataSource.reloadData()
+                
             }.addDisposableTo(disposeBag)
         
     }
@@ -72,17 +71,13 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
-        
+        self.viewModelAlbumsList.indexPathCellRac = Observable.just((selectedIndex?.row)!)
         
         if segue.identifier == "showPhotosIFromAlbum" {
             
-           let destinationController = segue.destinationViewController as! PhotosCollectionViewController
+            let destinationController = segue.destinationViewController as! PhotosCollectionViewController
             
-            viewModelPhotoCollection?.albumGlobal.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
-            
-            viewModelPhotoCollection = ViewModelPhotosCollection(albumGlobal: viewModelAlbumsList.albums.value[(selectedIndex?.item)!])
-            
-            destinationController.viewModelPhotosCollection = viewModelPhotoCollection!
+            destinationController.viewModelPhotosCollection = self.viewModelAlbumsList.viewModelPhotosCollection.value
             
         }
         

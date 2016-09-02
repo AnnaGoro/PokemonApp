@@ -19,8 +19,24 @@ struct ViewModelAlbumsList {
     private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
-   // var viewModelPhotosCollection = ViewModelPhotosCollection ()
+    var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
     
+    
+    var indexPathCellRac : Observable<Int>? {
+        
+        didSet {
+            
+            indexPathCellRac?.map { (indexPath : Int) -> Album in
+                return self.albums.value[indexPath]
+                }.subscribe(
+                    onNext : {(album : Album) in
+                        return self.viewModelPhotosCollection.value
+                            = ViewModelPhotosCollection(albumGlobal: album)
+                        
+                }).addDisposableTo(bag)
+        }
+        
+    }
     
     
     init() {
@@ -42,32 +58,6 @@ struct ViewModelAlbumsList {
         
     }
 }
-/*
- 
- 
- apiServiceGet.getAlbums().subscribe(
- 
- onNext: { (albums : [Album] ) in
- self.albums.value = albums
- 
- albums.map{ (album : Album) -> Observable<User> in
- 
- return self.apiServiceGet.recieveAlbumOwner(album).map({ (user : User) -> User in
- self.user.value = user
- self.users.value.append(self.user.value)
- return user
- })
- return user.value
- }
- } ).addDisposableTo(bag)
- }
-
- 
- 
- 
- 
- 
- */
 
 
 
