@@ -145,48 +145,49 @@
         <scene sceneID="EIS-lJ-jlf">
             <objects>
                 <collectionViewController id="M3w-1a-qA3" customClass="PhotosCollectionViewController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="Y83-Uh-Ie1">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Y83-Uh-Ie1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wx6-UU-SOe">
-                            <size key="itemSize" width="197" height="244"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="wx6-UU-SOe">
+                            <size key="itemSize" width="120" height="120"/>
+                            <size key="headerReferenceSize" width="1" height="1"/>
+                            <size key="footerReferenceSize" width="1" height="1"/>
+                            <inset key="sectionInset" minX="1" minY="1" maxX="1" maxY="1"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="l7f-Ye-RpR" customClass="PhotoCell" customModule="PockemonApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="197" height="244"/>
+                                <rect key="frame" x="1" y="66" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="197" height="244"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0hR-tZ-SZs">
-                                            <rect key="frame" x="8" y="8" width="177" height="157"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0hR-tZ-SZs">
+                                            <rect key="frame" x="10" y="10" width="100" height="100"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmE-w3-EJF">
-                                            <rect key="frame" x="8" y="193" width="177" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="0hR-tZ-SZs" secondAttribute="trailing" constant="-16" id="79W-Tm-68o"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="0hR-tZ-SZs" secondAttribute="bottom" constant="-14" id="Ktc-Fi-2NA"/>
-                                    <constraint firstItem="0hR-tZ-SZs" firstAttribute="top" secondItem="l7f-Ye-RpR" secondAttribute="topMargin" id="VIq-dj-4oD"/>
-                                    <constraint firstItem="0hR-tZ-SZs" firstAttribute="leading" secondItem="l7f-Ye-RpR" secondAttribute="leadingMargin" id="cdy-WH-4Ik"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="0hR-tZ-SZs" secondAttribute="bottom" constant="8" id="8qT-pV-Gxa"/>
+                                    <constraint firstItem="0hR-tZ-SZs" firstAttribute="leading" secondItem="l7f-Ye-RpR" secondAttribute="leadingMargin" constant="8" id="lTr-23-FZO"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="0hR-tZ-SZs" secondAttribute="trailing" constant="8" id="prC-e2-Lr2"/>
+                                    <constraint firstItem="0hR-tZ-SZs" firstAttribute="top" secondItem="l7f-Ye-RpR" secondAttribute="topMargin" constant="8" id="xc3-S5-Vz7"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="albumTitle" destination="hmE-w3-EJF" id="iqi-sr-onM"/>
                                     <outlet property="photoImageView" destination="0hR-tZ-SZs" id="meH-V4-YWS"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ZaS-vM-cxK">
+                            <rect key="frame" x="0.0" y="64" width="600" height="1"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </collectionReusableView>
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QZS-gV-EGp">
+                            <rect key="frame" x="0.0" y="187" width="600" height="1"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="M3w-1a-qA3" id="mdq-N0-KzL"/>
                             <outlet property="delegate" destination="M3w-1a-qA3" id="A9P-25-elZ"/>

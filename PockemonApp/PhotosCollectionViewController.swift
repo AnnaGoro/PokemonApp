@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import ImageLoader
 
 class PhotosCollectionViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
@@ -39,9 +40,11 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
-       
-        cell.albumTitle.text = viewModelPhotosCollection!.photos.value[indexPath.item].url
-       
+  
+        cell.photoImageView.load(viewModelPhotosCollection!.photos.value[indexPath.item].url!)
+        //cell.photoImageView.layer.cornerRadius = 30.0
+       // cell.photoImageView.clipsToBounds = true
+        
         return cell
     }
     

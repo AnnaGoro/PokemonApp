@@ -19,6 +19,16 @@ class ApiServiceGet {
     
      private let bag = DisposeBag()
     
+    
+    func recieveFavouriteAlbums() {
+    
+    
+    
+    
+    }
+    
+    
+    
     func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {    
     
         return albums.map{ (album : Album) -> Observable <User> in
