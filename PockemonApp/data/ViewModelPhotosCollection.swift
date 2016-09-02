@@ -26,13 +26,18 @@ struct ViewModelPhotosCollection {
     init (albumGlobal : Album) {
         
         self.albumGlobal.value = albumGlobal
+        self.albumGlobal.asObservable()
+            .flatMapLatest { (albumGlobal : Album) -> Observable<[Photo]> in
         
-        apiServiceGet.recieveAlbumPhotos(albumGlobal).subscribe(
+                return self.apiServiceGet.recieveAlbumPhotos(albumGlobal)}
+            .subscribe(
             onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
             }
             ).addDisposableTo(bag)
     }
+    
+   
 }
 
 

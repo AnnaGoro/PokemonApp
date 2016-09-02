@@ -11,7 +11,7 @@ import RxDataSources
 import RxSwift
 import RxCocoa
 
-class AlbumsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList = ViewModelAlbumsList()
     
@@ -39,21 +39,12 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return   viewModelAlbumsList.albums.value.count
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-         self.viewModelAlbumsList.indexPathCellRac = Observable.just(indexPath.row)
-        
-        
-    }
-    
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cellId = "albumListCell"
         
@@ -71,10 +62,25 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         //self.viewModelAlbumsList.switchRac =
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+        //cell.switchCheck.setOn(false, animated: true)
         return cell
     }
     
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.viewModelAlbumsList.cellIndexChanged(indexPath.row)
+        
+       // self.viewModelAlbumsList.indexPathCellRac = Observable.just(indexPath.row)
+        
+        //self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
+        
+        print("didSelectRowAtIndexPath \(indexPath.row)")
+        
+    }
+    
+
     
     private func setUpViewModel() {
         
@@ -84,21 +90,34 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
                 
             }.addDisposableTo(disposeBag)
         
+        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
+            .filter { (album) -> Bool in
+                return album != nil
+            }.subscribeNext { (viewModelPhotosCollection) in
+                self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
+            }.addDisposableTo(disposeBag)
+
+        
     }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        //let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
+       // let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
         
        // self.viewModelAlbumsList.indexPathCellRac = Observable.just((selectedIndex?.row)!)
         
-        if segue.identifier == "showPhotosIFromAlbum" {
+       // guard self.viewModelAlbumsList.viewModelPhotosCollection.value != nil else {
+          //  return
+       // }
+
+       // if segue.identifier == "showPhotosIFromAlbum" {
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
             
-            destinationController.viewModelPhotosCollection = self.viewModelAlbumsList.viewModelPhotosCollection.value
+             destinationController.viewModelPhotosCollection = self.viewModelAlbumsList.viewModelPhotosCollection.value
             
-        }
+       // }
         
         
     }

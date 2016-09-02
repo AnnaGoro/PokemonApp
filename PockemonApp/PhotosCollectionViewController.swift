@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import ImageLoader
 
-class PhotosCollectionViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
+class PhotosCollectionViewController : UICollectionViewController {
     
     var viewModelPhotosCollection : ViewModelPhotosCollection?
     
@@ -28,13 +28,13 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
         
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        
         return (viewModelPhotosCollection?.photos.value.count)!
     }
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
   
