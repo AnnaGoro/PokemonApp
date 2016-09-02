@@ -23,9 +23,13 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dataSource.delegate = self
+        self.dataSource.dataSource = self
+        
+     
         self.title = "PhotoAlbums"
         
-        setUpViewModel()        
+        setUpViewModel()
         
     }
     
@@ -40,6 +44,10 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         return   viewModelAlbumsList.albums.value.count
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+         //self.viewModelAlbumsList.indexPathCellRac = Observable.just(indexPath.row)
+    }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

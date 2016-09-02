@@ -43,13 +43,7 @@ class PhotosCollectionViewController : UIViewController, UICollectionViewDataSou
         return cell
     }
     
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-     
-    }
-    
-    
+
     private func setUpViewModel() {
         
         viewModelPhotosCollection?.photos.asObservable()
