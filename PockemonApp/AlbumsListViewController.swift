@@ -25,7 +25,6 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         self.dataSource.delegate = self
         self.dataSource.dataSource = self
-        
      
         self.title = "PhotoAlbums"
         
@@ -46,7 +45,11 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-         //self.viewModelAlbumsList.indexPathCellRac = Observable.just(indexPath.row)
+        
+        
+         self.viewModelAlbumsList.indexPathCellRac = Observable.just(indexPath.row)
+        
+        
     }
     
     
@@ -59,6 +62,13 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
         cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
+        
+        self.viewModelAlbumsList.switchRac =  cell.switchCheck.rx_value.asObservable()
+        
+             //viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
+        //self.viewModelAlbumsList.switchPac.bidirectionalBindTo(cell.switchCheck.bnd_on)
+        
+        //self.viewModelAlbumsList.switchRac =
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -78,8 +88,9 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
-        self.viewModelAlbumsList.indexPathCellRac = Observable.just((selectedIndex?.row)!)
+        //let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
+        
+       // self.viewModelAlbumsList.indexPathCellRac = Observable.just((selectedIndex?.row)!)
         
         if segue.identifier == "showPhotosIFromAlbum" {
             

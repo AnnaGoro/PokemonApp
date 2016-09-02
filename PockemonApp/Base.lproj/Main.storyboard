@@ -57,7 +57,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viZ-7q-bzC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viZ-7q-bzC">
                                             <rect key="frame" x="76" y="11" width="440" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -69,17 +69,16 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OXf-c8-PX9">
-                                            <rect key="frame" x="543" y="24" width="51" height="31"/>
-                                            <color key="onTintColor" red="0.96219474077224731" green="0.93587291240692139" blue="0.86242938041687012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="thumbTintColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4E-mt-ELd">
                                             <rect key="frame" x="25" y="25" width="25" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lT1-E3-8pM">
+                                            <rect key="frame" x="543" y="24" width="51" height="31"/>
+                                            <color key="onTintColor" red="1" green="1" blue="0.0" alpha="0.3306573276" colorSpace="calibratedRGB"/>
+                                        </switch>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="viZ-7q-bzC" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="68" id="6cb-oI-POh"/>
@@ -88,11 +87,10 @@
                                         <constraint firstItem="d0y-9f-C6f" firstAttribute="top" secondItem="viZ-7q-bzC" secondAttribute="bottom" constant="18" id="IUG-be-b6V"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="17" id="Ivv-3i-VVp"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="centerY" secondItem="YmT-fk-e57" secondAttribute="centerY" id="Jnq-vE-zgn"/>
-                                        <constraint firstItem="OXf-c8-PX9" firstAttribute="leading" secondItem="viZ-7q-bzC" secondAttribute="trailing" constant="8" symbolic="YES" id="VaI-Cf-6Xi"/>
+                                        <constraint firstItem="lT1-E3-8pM" firstAttribute="leading" secondItem="d0y-9f-C6f" secondAttribute="trailing" constant="27" id="QVy-Y8-szN"/>
                                         <constraint firstItem="d0y-9f-C6f" firstAttribute="bottom" secondItem="YmT-fk-e57" secondAttribute="bottomMargin" id="a7B-y7-3v1"/>
-                                        <constraint firstItem="OXf-c8-PX9" firstAttribute="leading" secondItem="d0y-9f-C6f" secondAttribute="trailing" constant="8" symbolic="YES" id="dDc-3N-NmC"/>
-                                        <constraint firstItem="W4E-mt-ELd" firstAttribute="centerY" secondItem="OXf-c8-PX9" secondAttribute="centerY" id="gKX-zS-Dip"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="OXf-c8-PX9" secondAttribute="trailing" constant="19" id="pzc-Gq-XLX"/>
+                                        <constraint firstItem="lT1-E3-8pM" firstAttribute="trailing" secondItem="YmT-fk-e57" secondAttribute="trailingMargin" id="ll8-ti-qAc"/>
+                                        <constraint firstItem="lT1-E3-8pM" firstAttribute="centerY" secondItem="YmT-fk-e57" secondAttribute="centerY" id="zH1-k8-0JH"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -102,7 +100,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="number" destination="W4E-mt-ELd" id="3Dv-QK-aho"/>
-                                    <outlet property="switch" destination="YmT-fk-e57" id="gba-xx-jBb"/>
+                                    <outlet property="switchCheck" destination="lT1-E3-8pM" id="Y5G-Nu-kBK"/>
                                     <outlet property="title" destination="viZ-7q-bzC" id="afi-aD-CAk"/>
                                     <outlet property="userName" destination="d0y-9f-C6f" id="cw2-yU-BKL"/>
                                     <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="lwz-Rg-hxF"/>

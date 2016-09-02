@@ -15,13 +15,34 @@ struct ViewModelAlbumsList {
     var albums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
     var user : Variable <User> = Variable(User())
-    
+    var favouritesCheck : Variable<[Bool]> = Variable([])
+    var checkBool : Variable<Bool> = Variable(Bool())
     private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
     
     
+    var switchRac : Observable<Bool>? {
+    
+        didSet {
+        print("*** switchRac ***")
+            switchRac?.map { (check : Bool) -> [Bool] in
+                print(check)
+                self.favouritesCheck.value.append(check)
+                return self.favouritesCheck.value
+                
+            }.subscribe(
+               onNext : { (checks : [Bool]) in
+                    return self.favouritesCheck.value = checks
+                
+         }).addDisposableTo(bag)
+        
+        
+        }
+    
+    }
+   
     var indexPathCellRac : Observable<Int>? {
         
         didSet {

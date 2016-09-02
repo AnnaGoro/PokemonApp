@@ -13,14 +13,17 @@ import RxSwift
 
 class AlbumCell : UITableViewCell {
 
-   
-    @IBOutlet weak var `switch`: UIView!
+    @IBOutlet weak var switchCheck: UISwitch!
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-      
-    
+    var disposeBagCell:DisposeBag = DisposeBag()
+
+    override func prepareForReuse() {
+        disposeBagCell = DisposeBag()
+    }
+
     
 }
