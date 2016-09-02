@@ -18,13 +18,14 @@ class AlbumsListViewController: UITableViewController  {
     private let disposeBag = DisposeBag()
     
     @IBOutlet var dataSource: UITableView!
+    
     let reuseIdentifier = "albumListCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.dataSource.delegate = self
-        self.dataSource.dataSource = self
+       // self.dataSource.delegate = self
+        //self.dataSource.dataSource = self
      
         self.title = "PhotoAlbums"
         
@@ -56,7 +57,7 @@ class AlbumsListViewController: UITableViewController  {
         
         self.viewModelAlbumsList.switchRac =  cell.switchCheck.rx_value.asObservable()
         
-             //viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
+        //viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
         //self.viewModelAlbumsList.switchPac.bidirectionalBindTo(cell.switchCheck.bnd_on)
         
         //self.viewModelAlbumsList.switchRac =
@@ -82,25 +83,6 @@ class AlbumsListViewController: UITableViewController  {
     
 
     
-    private func setUpViewModel() {
-        
-        viewModelAlbumsList.albums.asObservable()
-            .subscribeNext { [weak self]( albums : [Album]) in
-                self!.dataSource.reloadData()
-                
-            }.addDisposableTo(disposeBag)
-        
-        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
-            .filter {[weak self](album) -> Bool in
-                return album != nil
-            }.subscribeNext { [weak self](viewModelPhotosCollection) in
-                self!.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
-            }.addDisposableTo(disposeBag)
-
-        
-    }
-    
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
        // let selectedIndex = self.dataSource.indexPathForCell(sender as! UITableViewCell)
@@ -121,4 +103,26 @@ class AlbumsListViewController: UITableViewController  {
         
         
     }
+    
+    
+    private func setUpViewModel() {
+        
+        viewModelAlbumsList.albums.asObservable()
+            .subscribeNext { [weak self]( albums : [Album]) in
+                self?.dataSource.reloadData()
+                
+            }.addDisposableTo(disposeBag)
+        
+        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
+            .filter { (album) -> Bool in
+                return album != nil
+            }
+            .subscribeNext { [weak self](viewModelPhotosCollection) in
+                self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
+            }.addDisposableTo(disposeBag)
+        
+        
+    }
+    
+
 }

@@ -17,6 +17,7 @@ class PhotosCollectionViewController : UICollectionViewController {
     var viewModelPhotosCollection : ViewModelPhotosCollection?
     
     @IBOutlet var dataSource: UICollectionView!
+    
     private let disposeBag = DisposeBag()
     
     private let reuseIdentifier = "photoCell"
@@ -29,16 +30,30 @@ class PhotosCollectionViewController : UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       
-        return (viewModelPhotosCollection?.photos.value.count)!
+        if let a = viewModelPhotosCollection?.photos.value.count {
+        return a
+            
+        } else {
+            print("viewModelPhotosCollection?.photos.value.count = nil")
+            
+            return 2
+        }
+        
     }
     
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
-  
-        cell.photoImageView.load((viewModelPhotosCollection?.photos.value[indexPath.item].url!)!)
+        
+        if let url = viewModelPhotosCollection?.photos.value[indexPath.item].url {
+        
+        cell.photoImageView.load(url)
+        } else {
+        
+            print("viewModelPhotosCollection?.photos.value[indexPath.item].url  = nil")
+        
+        }
         
         return cell
     }
@@ -47,10 +62,11 @@ class PhotosCollectionViewController : UICollectionViewController {
     private func setUpViewModel() {
         
         viewModelPhotosCollection?.photos.asObservable()
+            
             .subscribeNext {[weak self] (photos : [Photo]) in
                 
-            self!.title = self!.viewModelPhotosCollection!.albumGlobal.value.title
-            self!.dataSource.reloadData()
+            self?.title = self?.viewModelPhotosCollection!.albumGlobal.value.title
+            self?.dataSource.reloadData()
             
             }.addDisposableTo(disposeBag)        
         

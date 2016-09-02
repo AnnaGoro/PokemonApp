@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 
-
 struct ViewModelPhotosCollection {
     
     
@@ -20,16 +19,18 @@ struct ViewModelPhotosCollection {
     var albumGlobal : Variable <Album> = Variable(Album())
     
     private let bag = DisposeBag()
-    //private let apiServiceGet = ApiServiceGet()
     
     
     init (albumGlobal : Album) {
         
         self.albumGlobal.value = albumGlobal
+        
         self.albumGlobal.asObservable()
+            
             .flatMapLatest { (albumGlobal : Album) -> Observable<[Photo]> in
         
                 return ApiServiceGet().recieveAlbumPhotos(albumGlobal)}
+            
             .subscribe(
                 onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
