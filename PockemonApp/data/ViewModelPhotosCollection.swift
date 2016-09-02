@@ -11,14 +11,15 @@ import RxSwift
 import RxCocoa
 
 
+
 struct ViewModelPhotosCollection {
     
     
     var photos : Variable <[Photo]> = Variable([])
-    var album : Variable <Album> = Variable(Album())
-
+  
+    var albumGlobal : Variable <Album> = Variable(Album())
+    
     private let bag = DisposeBag()
-
     private let apiServiceGet = ApiServiceGet()
     var count = 0
     
@@ -37,11 +38,11 @@ struct ViewModelPhotosCollection {
      */
 
   
-    init () {
+    init (albumGlobal : Album) {
         
-        count+=1
-        print(count)
-        apiServiceGet.recieveAlbumPhotos(self.album.value).subscribe(
+       self.albumGlobal.value = albumGlobal
+        
+        apiServiceGet.recieveAlbumPhotos(albumGlobal).subscribe(
             onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
             }

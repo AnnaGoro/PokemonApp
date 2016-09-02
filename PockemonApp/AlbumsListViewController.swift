@@ -27,7 +27,7 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
         
         setUpViewModel()
         
-         viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
+        // viewModelPhotoCollection = viewModelAlbumsList.viewModelPhotosCollection
         
     }    
     
@@ -45,6 +45,8 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cellId = "albumListCell"
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
@@ -76,8 +78,10 @@ class AlbumsListViewController: UIViewController, UITableViewDataSource, UITable
             
            let destinationController = segue.destinationViewController as! PhotosCollectionViewController
             
-            viewModelPhotoCollection!.album.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
-
+            viewModelPhotoCollection?.albumGlobal.value = viewModelAlbumsList.albums.value[(selectedIndex?.item)!]
+            
+            viewModelPhotoCollection = ViewModelPhotosCollection(albumGlobal: viewModelAlbumsList.albums.value[(selectedIndex?.item)!])
+            
             destinationController.viewModelPhotosCollection = viewModelPhotoCollection!
             
         }

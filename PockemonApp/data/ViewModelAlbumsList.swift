@@ -19,7 +19,7 @@ struct ViewModelAlbumsList {
     private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
-    var viewModelPhotosCollection = ViewModelPhotosCollection ()
+   // var viewModelPhotosCollection = ViewModelPhotosCollection ()
     
     
     
