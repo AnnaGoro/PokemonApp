@@ -91,10 +91,10 @@ class AlbumsListViewController: UITableViewController  {
             }.addDisposableTo(disposeBag)
         
         viewModelAlbumsList.viewModelPhotosCollection.asObservable()
-            .filter { (album) -> Bool in
+            .filter {[weak self](album) -> Bool in
                 return album != nil
-            }.subscribeNext { (viewModelPhotosCollection) in
-                self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
+            }.subscribeNext { [weak self](viewModelPhotosCollection) in
+                self!.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil)
             }.addDisposableTo(disposeBag)
 
         

@@ -20,7 +20,7 @@ struct ViewModelPhotosCollection {
     var albumGlobal : Variable <Album> = Variable(Album())
     
     private let bag = DisposeBag()
-    private let apiServiceGet = ApiServiceGet()
+    //private let apiServiceGet = ApiServiceGet()
     
     
     init (albumGlobal : Album) {
@@ -29,9 +29,9 @@ struct ViewModelPhotosCollection {
         self.albumGlobal.asObservable()
             .flatMapLatest { (albumGlobal : Album) -> Observable<[Photo]> in
         
-                return self.apiServiceGet.recieveAlbumPhotos(albumGlobal)}
+                return ApiServiceGet().recieveAlbumPhotos(albumGlobal)}
             .subscribe(
-            onNext: { (photos : [Photo] ) in
+                onNext: { (photos : [Photo] ) in
                 self.photos.value = photos
             }
             ).addDisposableTo(bag)
