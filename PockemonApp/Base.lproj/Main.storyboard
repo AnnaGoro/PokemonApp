@@ -6,11 +6,14 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--All albums-->
         <scene sceneID="tIl-ND-WAs">
             <objects>
                 <navigationController id="ZQj-OK-ARb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="bIP-Kx-Awh"/>
+                    <tabBarItem key="tabBarItem" title="All albums" id="bIP-Kx-Awh">
+                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kja-7J-sam">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -41,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="-1727" y="16"/>
         </scene>
-        <!--Item-->
+        <!--All albums-->
         <scene sceneID="6xP-Oa-0GS">
             <objects>
                 <tableViewController id="11B-l7-BcV" customClass="AlbumsListViewController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -112,7 +115,10 @@
                             <outlet property="delegate" destination="11B-l7-BcV" id="HMn-Qr-kxG"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="2Ta-CD-ePN"/>
+                    <tabBarItem key="tabBarItem" title="All albums" id="2Ta-CD-ePN">
+                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="WU9-xY-UMU"/>
                     <connections>
                         <outlet property="dataSource" destination="VCs-PU-bOE" id="VPl-Du-muE"/>
@@ -122,11 +128,14 @@
             </objects>
             <point key="canvasLocation" x="9" y="-354"/>
         </scene>
-        <!--Item-->
+        <!--Favourite albums-->
         <scene sceneID="qjd-5n-hDv">
             <objects>
                 <navigationController id="2p4-UY-6sQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="KeO-cX-WWS"/>
+                    <tabBarItem key="tabBarItem" title="Favourite albums" id="KeO-cX-WWS">
+                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DFi-Nj-ic7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -199,10 +208,10 @@
             </objects>
             <point key="canvasLocation" x="789" y="-30"/>
         </scene>
-        <!--Item-->
+        <!--Favourite albums-->
         <scene sceneID="TYF-LO-PH8">
             <objects>
-                <tableViewController id="Re0-R3-Dos" customClass="AlbumsLikedController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Re0-R3-Dos" customClass="I" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ih7-gv-ZR0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,7 +278,10 @@
                             <outlet property="delegate" destination="Re0-R3-Dos" id="Qrd-Dc-kLl"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="DyU-JT-2Sn"/>
+                    <tabBarItem key="tabBarItem" title="Favourite albums" id="DyU-JT-2Sn">
+                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="Spv-aa-jaJ"/>
                     <connections>
                         <outlet property="dataSource" destination="Ih7-gv-ZR0" id="I1v-HQ-Xpz"/>
@@ -281,6 +293,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lwz-Rg-hxF"/>
+        <segue reference="qvM-8j-vs7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,11 +26,32 @@ struct ViewModelAlbumsList {
     
     
     var switchRac : Observable<Bool>? {
-    
+       /*
         didSet {
-        print("*** switchRac ***")
-            switchRac?.map { (check : Bool) -> [Bool] in
-                print(check)
+            guard let observable = switchRac else { return }
+            
+            observable
+            
+                .subscribe(
+                    onNext : { (check : Bool) in
+                        print(check)
+                        
+                        return self.checkBool.value = check
+                        
+                        
+                }).addDisposableTo(bag)
+            
+            
+        }
+ */
+  
+        didSet {
+            guard let observable = switchRac else { return }
+            
+            observable
+       
+            .map { (check : Bool) -> [Bool] in
+              //  print("switchRac  \(check)")
                 self.favouritesCheck.value.append(check)
                 return self.favouritesCheck.value
                 
@@ -42,13 +63,14 @@ struct ViewModelAlbumsList {
         
         
         }
+
     
     }
     
     func cellIndexChanged (index : Int) {
-        print(albums.value[index].title)
+        //print(albums.value[index].title)
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
-        print(self.viewModelPhotosCollection.value?.photos.value.first?.title)
+       // print(self.viewModelPhotosCollection.value?.photos.value.first?.title)
 
        
     }

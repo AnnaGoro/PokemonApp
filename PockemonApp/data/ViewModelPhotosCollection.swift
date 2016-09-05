@@ -27,7 +27,7 @@ struct ViewModelPhotosCollection {
         
         self.albumGlobal.asObservable()
             
-            .flatMapLatest { (albumGlobal : Album) -> Observable<[Photo]> in
+            .flatMap { (albumGlobal : Album) -> Observable<[Photo]> in
         
                 return ApiServiceGet().recieveAlbumPhotos(albumGlobal)}
             

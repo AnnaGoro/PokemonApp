@@ -26,6 +26,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         super.viewDidLoad()
         
         setUpViewModel()
+        //self.dataSource.reloadData()
         
     }
     
@@ -36,7 +37,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         } else {
             print("viewModelPhotosCollection?.photos.value.count = nil")
             
-            return 2
+            return 0
         }
         
     }
@@ -66,7 +67,7 @@ class PhotosCollectionViewController : UICollectionViewController {
             .subscribeNext {[weak self] (photos : [Photo]) in
                 
             self?.title = self?.viewModelPhotosCollection!.albumGlobal.value.title
-            self?.dataSource.reloadData()
+           
             
             }.addDisposableTo(disposeBag)        
         
