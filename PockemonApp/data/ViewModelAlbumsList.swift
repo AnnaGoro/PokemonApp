@@ -27,7 +27,6 @@ struct ViewModelAlbumsList {
     var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
     
     
-    
     func observeSwitch () {
         
         
@@ -42,12 +41,12 @@ struct ViewModelAlbumsList {
         didSet {
             guard let observable = switchRac else { return }
             
-            observable
-       
+        observable
       
         .subscribe(
                onNext : { (check : Bool) in
-                    self.favouritesCheck.value.append(check)
+                print(check)
+                self.favouritesCheck.value.append(check)
                 
                 
          }).addDisposableTo(bag)
@@ -72,7 +71,6 @@ struct ViewModelAlbumsList {
     func cellIndexChanged (index : Int) {
        
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
-       
        
     }
     

@@ -20,20 +20,18 @@ class AlbumCell : UITableViewCell {
     @IBOutlet weak var number: UILabel!
     
     var disposeBag: DisposeBag?
-    
-    
-        
-  
+      
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        disposeBag = nil
+    
+        self.disposeBag = DisposeBag()
         //switchCheck.setOn(false, animated: false)
+        ///self.editing = true
         
     }
     
     deinit {
-        
+   
     }
     
 

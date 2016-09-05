@@ -26,7 +26,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         super.viewDidLoad()
         
         setUpViewModel()
-        //self.dataSource.reloadData()
+       
         
     }
     

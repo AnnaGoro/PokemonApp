@@ -22,8 +22,7 @@ class AlbumsListViewController: UITableViewController  {
     let reuseIdentifier = "albumListCell"
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-  
+        super.viewDidLoad()  
      
         self.clearsSelectionOnViewWillAppear = false
         
@@ -32,7 +31,7 @@ class AlbumsListViewController: UITableViewController  {
         setUpViewModel()
         
     }
-    
+    ////http://www.4answered.com/questions/view/1e604df/Why-my-UISwitches-states-are-always-ON
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,16 +60,9 @@ class AlbumsListViewController: UITableViewController  {
         
         self.viewModelAlbumsList.switchRac =  cell.switchCheck.rx_value.asObservable()
         
-        
-        viewModelAlbumsList.favouritesCheck.asObservable()
-            
-            .subscribeNext {( checks : [Bool]) in
-                
-                
-            }.addDisposableTo(disposeBag)
-        
+       // tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
    
-             return cell
+        return cell
     }
     
     
@@ -116,7 +108,17 @@ class AlbumsListViewController: UITableViewController  {
             }.addDisposableTo(disposeBag)
         
         
-    }
+        viewModelAlbumsList.favouritesCheck.asObservable()
+            
+            .subscribeNext {( checks : [Bool]) in
+                
+                // self.editing = true   ////to delete cell with swipe
+                
+            }.addDisposableTo(disposeBag)
+        
+        
+
+         }
     
    /*
     

@@ -24,12 +24,20 @@ class PhotoCell : UICollectionViewCell{
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        disposeBag = nil
+        self.disposeBag = DisposeBag()
     }
     
     deinit {
         
     }
 
-
+    func configureCell () {
+    
+    
+    
+    
+    }
+    
+    
+    
 }
