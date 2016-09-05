@@ -15,6 +15,7 @@ struct Album : Mappable {
     private(set) var id : Int?
     private(set) var userId : Int?
     private(set) var title : String?
+    private (set) var isFavourite : Bool = false
     
     init () {
     

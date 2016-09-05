@@ -24,40 +24,31 @@ struct ViewModelAlbumsList {
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
     
+    var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
+    
+    
+    
+    func observeSwitch () {
+        
+        
+        
+        
+        
+    }
     
     var switchRac : Observable<Bool>? {
-       /*
-        didSet {
-            guard let observable = switchRac else { return }
-            
-            observable
-            
-                .subscribe(
-                    onNext : { (check : Bool) in
-                        print(check)
-                        
-                        return self.checkBool.value = check
-                        
-                        
-                }).addDisposableTo(bag)
-            
-            
-        }
- */
+        
   
         didSet {
             guard let observable = switchRac else { return }
             
             observable
        
-            .map { (check : Bool) -> [Bool] in
-              //  print("switchRac  \(check)")
-                self.favouritesCheck.value.append(check)
-                return self.favouritesCheck.value
+      
+        .subscribe(
+               onNext : { (check : Bool) in
+                    self.favouritesCheck.value.append(check)
                 
-            }.subscribe(
-               onNext : { (checks : [Bool]) in
-                    return self.favouritesCheck.value = checks
                 
          }).addDisposableTo(bag)
         
@@ -66,39 +57,25 @@ struct ViewModelAlbumsList {
 
     
     }
+    /*
+    
+    func cellIndexChangedFavouriteAl (index : Int) {
+    
+    self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouritesCheck.value)
+    
+    
+    }
+    
+    */
+ 
     
     func cellIndexChanged (index : Int) {
-        //print(albums.value[index].title)
+       
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
-       // print(self.viewModelPhotosCollection.value?.photos.value.first?.title)
-
+       
        
     }
     
-    //var albumViewModel: Variable<AlbumViewModel?>
-   /*
-    var indexPathCellRac : Observable<Int>? {
-        
-        didSet {
-            
-            indexPathCellRac?.map { (indexPath : Int) -> Album in
-                print(" indexPathCellRac  \(indexPath)")
-                return self.albums.value[indexPath]
-                }.subscribe(
-                    onNext : {(album : Album) in
-                        print(self.viewModelPhotosCollection.value?.albumGlobal.value.title)
-                        return self.viewModelPhotosCollection.value
-                            = ViewModelPhotosCollection(albumGlobal: album)
-                       
-                        
-                }).addDisposableTo(bag)
-        }
-        
-    }
-    
-
-    
-    */
     
      init() {
         

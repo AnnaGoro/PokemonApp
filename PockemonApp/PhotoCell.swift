@@ -16,13 +16,20 @@ class PhotoCell : UICollectionViewCell{
 
     @IBOutlet weak var photoImageView: UIImageView!
     
-    var disposeBagCell:DisposeBag = DisposeBag()
+   var disposeBag: DisposeBag?
     
     
     @IBOutlet weak var albumTitle: UILabel!
     
     override func prepareForReuse() {
-        disposeBagCell = DisposeBag()
+        super.prepareForReuse()
+        
+        disposeBag = nil
     }
+    
+    deinit {
+        
+    }
+
 
 }

@@ -10,12 +10,45 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct ViewModelLikedAlbums {
+struct ViewModelFavouriteAlbums {
     
-    
-    private let apiService = ApiService()
+    var albums : Variable<[Album]> = Variable([])
+    var users : Variable <[User]> = Variable([])
+
+    private let apiServiceGet = ApiServiceGet()
+   
     private let bag = DisposeBag()
     
+    var photos : Variable <[Photo]> = Variable([])
+    
+    var album : Variable <Album> = Variable(Album())
+    
+   var favouritesCheck : Variable<[Bool]> = Variable([])
+    
+    
+    
+    init(favouritesCheck : [Bool]) {
+        
+        
+        apiServiceGet.getAlbums()
+       
+            .subscribe(
+            onNext: { (albums : [Album] ) in
+           
+                self.albums.value = albums
+            }
+            ).addDisposableTo(bag)
+        
+        
+        
+        apiServiceGet.recieveAlbumOwners(albums.value).subscribe(
+            onNext: { (users : [User]) in
+                self.users.value = users
+            }
+            ).addDisposableTo(bag)
+        
+    }
+
 
     
     

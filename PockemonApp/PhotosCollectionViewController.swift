@@ -67,7 +67,7 @@ class PhotosCollectionViewController : UICollectionViewController {
             .subscribeNext {[weak self] (photos : [Photo]) in
                 
             self?.title = self?.viewModelPhotosCollection!.albumGlobal.value.title
-           
+            self!.dataSource.reloadData()
             
             }.addDisposableTo(disposeBag)        
         

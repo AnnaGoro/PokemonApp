@@ -269,7 +269,7 @@
                                     <outlet property="switch" destination="939-zz-3He" id="THc-WY-VPI"/>
                                     <outlet property="titleLabel" destination="RJf-Q4-vFe" id="Ka0-y0-bFp"/>
                                     <outlet property="userNameLabel" destination="fMj-Yh-ovQ" id="5DO-dh-hEq"/>
-                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="qvM-8j-vs7"/>
+                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosFromFavouriteAlbum" id="qvM-8j-vs7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
