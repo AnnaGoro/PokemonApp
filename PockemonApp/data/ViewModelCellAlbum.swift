@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
-class ViewModelCellAlbum {
+struct ViewModelCellAlbum {
 
-
-
-
-
-}
+   
+    var switchState : Variable <Bool> = Variable(false)
+    
+   }
+ 
+ 
+ 

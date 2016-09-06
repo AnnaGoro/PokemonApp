@@ -12,27 +12,38 @@ import RxCocoa
 import RxSwift
 
 class AlbumCell : UITableViewCell {
-
+   
+    var viewModelAlbumList = ViewModelAlbumsList()
+    
     @IBOutlet weak var switchCheck: UISwitch!
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-    var disposeBag: DisposeBag?
-      
+    private(set) var disposeBag = DisposeBag()
+    
+    
     override func prepareForReuse() {
-        super.prepareForReuse()
-    
-        self.disposeBag = DisposeBag()
-        //switchCheck.setOn(false, animated: false)
-        ///self.editing = true
         
+        self.disposeBag = DisposeBag()
+        
+        super.prepareForReuse()        
+        
+    }   
+
+    
+    
+    func changeSwitchState(index : Int) {
+        
+               
+        self.viewModelAlbumList.favouritesCheck.asObservable().subscribeNext {(values : [Bool]) in
+         
+            self.switchCheck.setOn(values[index], animated: false)
+            
+            }.addDisposableTo(disposeBag)
     }
     
-    deinit {
-   
-    }
     
 
 }

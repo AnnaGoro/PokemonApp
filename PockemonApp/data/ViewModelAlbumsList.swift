@@ -15,10 +15,9 @@ struct ViewModelAlbumsList {
     var albums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
     var user : Variable <User> = Variable(User())
-    
-    var favouritesCheck : Variable<[Bool]> = Variable([])
-    
-    var checkBool : Variable<Bool> = Variable(Bool())
+   
+    var favouritesCheck : Variable<[Bool]> = Variable([Bool] (count : 100, repeatedValue: false ))
+  
     private let apiServiceGet = ApiServiceGet()
     private let bag = DisposeBag()
     
@@ -26,47 +25,11 @@ struct ViewModelAlbumsList {
     
     var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
     
-    
-    func observeSwitch () {
-        
-        
-        
-        
-        
-    }
-    
-    var switchRac : Observable<Bool>? {
-        
-  
-        didSet {
-            guard let observable = switchRac else { return }
-            
-        observable
-      
-        .subscribe(
-               onNext : { (check : Bool) in
-                print(check)
-                self.favouritesCheck.value.append(check)
-                
-                
-         }).addDisposableTo(bag)
-        
-        
-        }
+    func switchStateChanged(index : Int, checkBoolSwitch : Bool){
 
-    
-    }
-    /*
-    
-    func cellIndexChangedFavouriteAl (index : Int) {
-    
-    self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouritesCheck.value)
-    
-    
+        self.favouritesCheck.value[index] = checkBoolSwitch
     }
     
-    */
- 
     
     func cellIndexChanged (index : Int) {
        
@@ -81,6 +44,8 @@ struct ViewModelAlbumsList {
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums
+                
+                
             }
             ).addDisposableTo(bag)
         

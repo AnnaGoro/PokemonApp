@@ -15,7 +15,9 @@ class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList = ViewModelAlbumsList()
     
-    private let disposeBag = DisposeBag()
+    //var viewModelCell = ViewModelCellAlbum()
+    
+    private(set) var disposeBag = DisposeBag()
     
     @IBOutlet var dataSource: UITableView!
     
@@ -24,15 +26,24 @@ class AlbumsListViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()  
      
-        self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = true
         
         self.title = "PhotoAlbums"
         
         setUpViewModel()
         
+        self.dataSource.reloadData()
     }
+    
     ////http://www.4answered.com/questions/view/1e604df/Why-my-UISwitches-states-are-always-ON
     
+    /*
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        dataSource.reloadData()
+    }
+    
+ */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -46,22 +57,26 @@ class AlbumsListViewController: UITableViewController  {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cellId = "albumListCell"
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
         
         cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
         cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
     
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        cell.changeSwitchState(indexPath.row)
         
- 
+        cell.switchCheck.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
+            
+            self?.viewModelAlbumsList.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
+    
+        }.addDisposableTo(cell.disposeBag)
         
-        self.viewModelAlbumsList.switchRac =  cell.switchCheck.rx_value.asObservable()
+
         
-       // tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-   
+        
+               
+
         return cell
     }
     
@@ -107,33 +122,5 @@ class AlbumsListViewController: UITableViewController  {
                 return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
             }.addDisposableTo(disposeBag)
         
-        
-        viewModelAlbumsList.favouritesCheck.asObservable()
-            
-            .subscribeNext {( checks : [Bool]) in
-                
-                // self.editing = true   ////to delete cell with swipe
-                
-            }.addDisposableTo(disposeBag)
-        
-        
-
-         }
-    
-   /*
-    
-    func sendDataToFavouriteAlbums() {
-    
-    
-        let destinationController =  as! AlbumsLikedController
-        
-        destinationController.viewModelFavouriteAlbumsCollection = self.viewModelAlbumsList.viewModelFavouriteAlbumsCollection.value
-        
-    
-    
-    
     }
- 
- */
-
 }
