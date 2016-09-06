@@ -26,7 +26,7 @@ class AlbumsListViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()  
      
-        self.clearsSelectionOnViewWillAppear = true
+      //  self.clearsSelectionOnViewWillAppear = true
         
         self.title = "PhotoAlbums"
         
@@ -64,7 +64,7 @@ class AlbumsListViewController: UITableViewController  {
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
         cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
     
-        cell.changeSwitchState(indexPath.row)
+        cell.changeSwitchState(viewModelAlbumsList.viewModelCellAlbums.value[indexPath.row])
         
         cell.switchCheck.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
             
@@ -72,10 +72,6 @@ class AlbumsListViewController: UITableViewController  {
     
         }.addDisposableTo(cell.disposeBag)
         
-
-        
-        
-               
 
         return cell
     }
@@ -112,6 +108,13 @@ class AlbumsListViewController: UITableViewController  {
                 self!.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
+        
+        viewModelAlbumsList.viewModelCellAlbums.asObservable()
+            .subscribeNext { [weak self]( viewModelCellAlbums : [ViewModelCellAlbum]) in
+                self!.dataSource.reloadData()
+                
+            }.addDisposableTo(disposeBag)
+
         
         viewModelAlbumsList.viewModelPhotosCollection.asObservable()
             .filter { (album) -> Bool in
