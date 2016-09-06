@@ -16,7 +16,7 @@ struct ViewModelCellAlbum {
     // var title: String
     // var number: String
     
-     var switchState : Variable <Bool> = Variable(false)
+     //var switchState : Variable <Bool> = Variable(false)
     
     
     

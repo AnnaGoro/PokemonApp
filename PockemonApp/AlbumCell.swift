@@ -15,7 +15,9 @@ class AlbumCell : UITableViewCell {
    
     var viewModelAlbumList = ViewModelAlbumsList()
     
-    var viewModelCellAlbum : ViewModelCellAlbum?
+   // var viewModelCellAlbum : ViewModelCellAlbum?
+    
+    var checkBoolValue : Bool?
     
     @IBOutlet weak var switchCheck: UISwitch!
     
@@ -36,44 +38,37 @@ class AlbumCell : UITableViewCell {
 
     /*
     
-    func changeCellDataState(viewModelCellAlbum : ViewModelCellAlbum) {
-        
-        self.viewModelCellAlbum = viewModelCellAlbum
-        
-        self.viewModelCellAlbum?.number.asObservable().subscribeNext{(number) in
-            self.number.text! = String(number)
-            }.addDisposableTo(disposeBag)
-        
-        self.viewModelCellAlbum?.switchCheck.asObservable().subscribeNext {(checkBoolValue) in
-            self.switchCheck.setOn(checkBoolValue, animated: false)
-            }.addDisposableTo(disposeBag)
-        
-        self.viewModelCellAlbum?.title.asObservable().subscribeNext{(title) in
-            self.title.text! = title
-            }.addDisposableTo(disposeBag)
-        
-        self.viewModelCellAlbum?.userName.asObservable().subscribeNext{(user) in
-            self.userName.text! = (user?.username!)!
-            }.addDisposableTo(disposeBag)
-        
+     
+     
+     func changeSwitchState(viewModel : ViewModelCellAlbum) {
+     
+     print("changeSwitchState")
+     
+     self.viewModelCellAlbum = viewModel
+     
+     self.viewModelCellAlbum?.switchState.asObservable().subscribeNext { (switchState : Bool) in
+     
+     self.switchCheck.setOn(switchState, animated: false)
+     print(switchState)
+     
+     }.addDisposableTo(self.disposeBag)
+     }
+     
 
-    }
     
     */
     
     
-    func changeSwitchState(viewModel : ViewModelCellAlbum) {
+    
+    func changeSwitchState(checkBoolValue : Bool) {
         
         print("changeSwitchState")
         
-        self.viewModelCellAlbum = viewModel
+        self.checkBoolValue = checkBoolValue
+        self.switchCheck.setOn(checkBoolValue, animated: false)
         
-        self.viewModelCellAlbum?.switchState.asObservable().subscribeNext { (switchState : Bool) in
-         
-            self.switchCheck.setOn(switchState, animated: false)
-            print(switchState)
+        print(checkBoolValue)
             
-            }.addDisposableTo(self.disposeBag)
     }
     
     

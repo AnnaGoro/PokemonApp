@@ -16,11 +16,10 @@ struct ViewModelAlbumsList {
     var users : Variable <[User]> = Variable([])
     var user : Variable <User> = Variable(User())
    
-   // var favouritesCheck : Variable<[Bool]>?
+    var favouritesCheck : Variable<[Bool]> = Variable([])
     
     
-    var viewModelCellAlbums : Variable <[ViewModelCellAlbum]> = Variable([])
-    
+    var viewModelCellAlbums : Variable <[ViewModelCellAlbum]> = Variable([])    
   
     private let apiServiceGet = ApiServiceGet()
     var bag = DisposeBag()
@@ -32,7 +31,8 @@ struct ViewModelAlbumsList {
     
     func switchStateChanged(index : Int, checkBoolSwitch : Bool){
         print("switchStateChanged")
-        self.viewModelCellAlbums.value[index].switchState.value = checkBoolSwitch
+        self.favouritesCheck.value[index] = checkBoolSwitch
+        //self.viewModelCellAlbums.value[index].switchState.value = checkBoolSwitch
     }
     
     
@@ -45,12 +45,6 @@ struct ViewModelAlbumsList {
     
      init() {
         
-        for _  in 0...100 {
-            
-            var a = ViewModelCellAlbum()
-            self.viewModelCellAlbums.value.append(a)
-            
-            }
         
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
@@ -64,16 +58,26 @@ struct ViewModelAlbumsList {
         
         apiServiceGet.recieveAlbumOwners(albums.value).subscribe(
             onNext: { (users : [User]) in
-                var a = ViewModelCellAlbum()
-                self.viewModelCellAlbums.value.append(a)
                 
                 self.users.value = users
             }
             ).addDisposableTo(bag)
-                 //self.viewModelCellAlbums  = Variable([ViewModelCellAlbum] (count : albums.value.count, repeatedValue: ViewModelCellAlbum() ))
-    }
+        /*
+        for _  in 0...users.value.count {
+            
+            var a = ViewModelCellAlbum()
+            self.viewModelCellAlbums.value.append(a)
+        }
+         */
+        for _  in 0...users.value.count {
+            
+            let a = false
+            self.favouritesCheck.value.append(a)
+
+            //self.viewModelCellAlbums  = Variable([ViewModelCellAlbum] (count : albums.value.count, repeatedValue: ViewModelCellAlbum() ))
+        }
 }
 
 
-
+}
 

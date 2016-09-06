@@ -64,7 +64,7 @@ class AlbumsListViewController: UITableViewController  {
         cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
         cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
     
-        cell.changeSwitchState(viewModelAlbumsList.viewModelCellAlbums.value[indexPath.row])
+        cell.changeSwitchState(viewModelAlbumsList.favouritesCheck.value[indexPath.row])
         
         cell.switchCheck.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
             
@@ -109,9 +109,9 @@ class AlbumsListViewController: UITableViewController  {
                 
             }.addDisposableTo(disposeBag)
         
-        viewModelAlbumsList.viewModelCellAlbums.asObservable()
-            .subscribeNext { [weak self]( viewModelCellAlbums : [ViewModelCellAlbum]) in
-                self!.dataSource.reloadData()
+        viewModelAlbumsList.favouritesCheck.asObservable()
+            .subscribeNext { [weak self]( switchBoolStates : [Bool]) in
+               // self!.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
 
