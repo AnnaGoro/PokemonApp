@@ -211,8 +211,8 @@
         <!--Favourite albums-->
         <scene sceneID="TYF-LO-PH8">
             <objects>
-                <tableViewController id="Re0-R3-Dos" customClass="I" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ih7-gv-ZR0">
+                <tableViewController id="Re0-R3-Dos" customClass="AlbumsLikedController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ih7-gv-ZR0" userLabel="Albums Liked Controller">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -266,7 +266,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="numberLabel" destination="eLC-ex-4qp" id="Iew-LQ-hgT"/>
-                                    <outlet property="switch" destination="939-zz-3He" id="THc-WY-VPI"/>
+                                    <outlet property="switchLike" destination="939-zz-3He" id="750-Zk-sL7"/>
                                     <outlet property="titleLabel" destination="RJf-Q4-vFe" id="Ka0-y0-bFp"/>
                                     <outlet property="userNameLabel" destination="fMj-Yh-ovQ" id="5DO-dh-hEq"/>
                                     <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosFromFavouriteAlbum" id="qvM-8j-vs7"/>
@@ -274,8 +274,7 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Re0-R3-Dos" id="zFq-Cx-Jve"/>
-                            <outlet property="delegate" destination="Re0-R3-Dos" id="Qrd-Dc-kLl"/>
+                            <outlet property="dataSource" destination="Re0-R3-Dos" id="0ba-7A-ZU6"/>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Favourite albums" id="DyU-JT-2Sn">
@@ -284,7 +283,7 @@
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="Spv-aa-jaJ"/>
                     <connections>
-                        <outlet property="dataSource" destination="Ih7-gv-ZR0" id="I1v-HQ-Xpz"/>
+                        <outlet property="dataSource" destination="Ih7-gv-ZR0" id="LT1-UU-dxc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kvy-Ie-tsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -293,6 +292,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lwz-Rg-hxF"/>
+        <segue reference="qvM-8j-vs7"/>
     </inferredMetricsTieBreakers>
 </document>

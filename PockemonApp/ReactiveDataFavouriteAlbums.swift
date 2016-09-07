@@ -7,12 +7,13 @@
 //
 
 import Foundation
-
+import RxSwift
+import RxCocoa
 
 class ReactiveDataFavouriteAlbums {
 
 
-
+    static var viewModel : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
 
 
 }

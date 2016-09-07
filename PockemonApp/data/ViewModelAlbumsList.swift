@@ -30,8 +30,10 @@ struct ViewModelAlbumsList {
   
         self.favouritesCheck.value[index] = checkBoolSwitch
         
-        
         self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(index: index, checkBoolSwitch: checkBoolSwitch)
+        
+        ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
+        
         //self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouriteChecks: favouritesCheck.value)
       
     }
@@ -54,7 +56,7 @@ struct ViewModelAlbumsList {
             }
             ).addDisposableTo(bag)
         
-        apiServiceGet.recieveAlbumOwners(albums.value).subscribe(
+        apiServiceGet.recieveAlbumOwners(self.albums.value).subscribe(
             onNext: { (users : [User]) in
                 
                 self.users.value = users

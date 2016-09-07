@@ -19,9 +19,11 @@ class ApiServiceGet {
     
     private let bag = DisposeBag()
     
+    //var favouriteAlbums : [Album] = [Album]()
     
-    func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
-        
+    func recieveFavouriteAlbum(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
+       
+       // var favouriteAlbum : Album?
         var favouriteAlbums : Variable <[Album]> = Variable([Album]())
         
         if checkBoolSwitch  {
@@ -34,10 +36,19 @@ class ApiServiceGet {
             
         }        
         
-        print(favouriteAlbums.value)
-        return favouriteAlbums.asObservable()
-    }
+        print(favouriteAlbums)
+       
+        return Observable.create { observer in
+            observer.onNext(favouriteAlbums.value)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+            
+        }
+        
+
     
+    }
     
     
     /*
@@ -102,7 +113,7 @@ class ApiServiceGet {
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
             return photos.filter{ (photo : Photo) -> Bool in
-                //return photo.albumId! == album.id!
+             
                 return photo.albumId == album.id
             }
         }
@@ -133,7 +144,7 @@ extension ApiServiceGet {
         
     }
     
-}
+
 
 
 func getPhotos () -> Observable<[Photo]> {
@@ -168,5 +179,5 @@ func getUsers () -> Observable<[User]> {
     
 }
 
-
+}
 

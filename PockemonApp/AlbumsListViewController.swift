@@ -29,8 +29,7 @@ class AlbumsListViewController: UITableViewController  {
         self.title = "PhotoAlbums"
         
         setUpViewModel()
-        
-        //var vm = ViewModelFavouriteAlbums(favouriteChecks: viewModelAlbumsList.favouritesCheck.value)
+      //  var vm = ViewModelFavouriteAlbums(favouritesCheck: viewModelAlbumsList.favouritesCheck.value)
     
         
         self.dataSource.reloadData()

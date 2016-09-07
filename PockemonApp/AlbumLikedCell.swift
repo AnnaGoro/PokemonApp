@@ -14,9 +14,9 @@ import RxSwift
 
 
 class AlbumLikedCell : UITableViewCell {
-
-    @IBOutlet weak var `switch`: UISwitch!
+   
     
+    @IBOutlet weak var switchLike: UISwitch!
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var userNameLabel: UILabel!
@@ -24,10 +24,11 @@ class AlbumLikedCell : UITableViewCell {
     @IBOutlet weak var numberLabel: UILabel!
 
     
-    var disposeBagCell:DisposeBag = DisposeBag()
+    private(set) var disposeBag = DisposeBag()
     
     override func prepareForReuse() {
-        disposeBagCell = DisposeBag()
+        
+        self.disposeBag = DisposeBag()
     }
     
 

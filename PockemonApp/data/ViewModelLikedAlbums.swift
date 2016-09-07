@@ -20,14 +20,7 @@ struct ViewModelFavouriteAlbums {
    
     private let bag = DisposeBag()
     
-    var photos : Variable <[Photo]> = Variable([])
-    
-    var album : Variable <Album> = Variable(Album())
-    
-    var favouritesCheck : Variable<[Bool]> = Variable([])
-    
-    
-    
+        
     init(index : Int, checkBoolSwitch : Bool) {
         
         
@@ -37,13 +30,13 @@ struct ViewModelFavouriteAlbums {
             }
             ).addDisposableTo(bag)
             
-        apiServiceGet.recieveFavouriteAlbums(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
+        apiServiceGet.recieveFavouriteAlbum(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
             onNext: { (albums : [Album] ) in
                 self.favouriteAlbums.value = albums
             }
             ).addDisposableTo(bag)
         
-        apiServiceGet.recieveAlbumOwners(favouriteAlbums.value).subscribe(
+        apiServiceGet.recieveAlbumOwners(self.favouriteAlbums.value).subscribe(
             onNext: { (users : [User]) in
                 self.users.value = users
             }
