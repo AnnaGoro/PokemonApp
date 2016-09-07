@@ -29,7 +29,10 @@ struct ViewModelAlbumsList {
     func switchStateChanged(index : Int, checkBoolSwitch : Bool){
   
         self.favouritesCheck.value[index] = checkBoolSwitch
-        self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouriteChecks: favouritesCheck.value)
+        
+        
+        self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(index: index, checkBoolSwitch: checkBoolSwitch)
+        //self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouriteChecks: favouritesCheck.value)
       
     }
     

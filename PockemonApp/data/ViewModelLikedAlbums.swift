@@ -24,11 +24,11 @@ struct ViewModelFavouriteAlbums {
     
     var album : Variable <Album> = Variable(Album())
     
-   var favouritesCheck : Variable<[Bool]> = Variable([])
+    var favouritesCheck : Variable<[Bool]> = Variable([])
     
     
     
-    init(favouriteChecks : [Bool]) {
+    init(index : Int, checkBoolSwitch : Bool) {
         
         
         apiServiceGet.getAlbums().subscribe(
@@ -37,7 +37,7 @@ struct ViewModelFavouriteAlbums {
             }
             ).addDisposableTo(bag)
             
-        apiServiceGet.recieveFavouriteAlbums(albums.value, favouriteChecks: favouriteChecks).subscribe(
+        apiServiceGet.recieveFavouriteAlbums(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
             onNext: { (albums : [Album] ) in
                 self.favouriteAlbums.value = albums
             }

@@ -30,7 +30,7 @@ class AlbumsListViewController: UITableViewController  {
         
         setUpViewModel()
         
-        var vm = ViewModelFavouriteAlbums(favouriteChecks: viewModelAlbumsList.favouritesCheck.value)
+        //var vm = ViewModelFavouriteAlbums(favouriteChecks: viewModelAlbumsList.favouritesCheck.value)
     
         
         self.dataSource.reloadData()

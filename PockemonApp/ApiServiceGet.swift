@@ -19,48 +19,72 @@ class ApiServiceGet {
     
     private let bag = DisposeBag()
     
-    func recieveFavouriteAlbums(albums : [Album], favouriteChecks : [Bool]) -> Observable <[Album]> {
-        var favouriteAlbums : Variable <[Album]> = Variable([Album]())
-       //return albums.map { (albums : [Album]) -> [Album]  in
+    
+    func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
         
-            //return NopDisposable.instance
-                for indexArr in 0..<favouriteChecks.count {
-                    
-                    if favouriteChecks[indexArr] {
-                        print(indexArr)
-                        print(favouriteChecks[indexArr])
-                        print(albums[indexArr].title)
-                        favouriteAlbums.value.append(albums[indexArr])
-                        
-                        return favouriteAlbums.asObservable()
-                    } else  {print("favouriteAlbums = nil")}
-        }
-        return Observable.create { observer in
-            observer.onNext(favouriteAlbums.value)
-            observer.onCompleted()
+        var favouriteAlbums : Variable <[Album]> = Variable([Album]())
+        
+        if checkBoolSwitch  {
+            favouriteAlbums.value.append(albums[index])
+            print (albums[index])
             
-            return NopDisposable.instance
-       
-        }
-
-           // }
-           // .addDisposableTo(bag)
-
+            
+        } else {
+            print ("checkBoolSwitch = \(checkBoolSwitch)")
+            
+        }        
+        
+        print(favouriteAlbums.value)
+        return favouriteAlbums.asObservable()
+    }
     
-    }    
     
     
-    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {    
-    
+    /*
+     
+     func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
+     
+     var favouriteAlbums : Variable <[Album]> = Variable([Album]())
+     
+     for indexArr in 0..<favouriteChecks.count {
+     
+     if favouriteChecks[indexArr] == true{
+     print(indexArr)
+     print(favouriteChecks[indexArr])
+     print(albums[indexArr].title)
+     
+     favouriteAlbums.value.append(albums[indexArr])
+     
+     return favouriteAlbums.asObservable()
+     } else  {
+     print("favouriteAlbums = nil")}
+     }
+     return Observable.create { observer in
+     observer.onNext(favouriteAlbums.value)
+     observer.onCompleted()
+     
+     return NopDisposable.instance
+     
+     }
+     
+     // }
+     // .addDisposableTo(bag)
+     
+     
+     }
+     
+     */
+    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {
+        
         return albums.map{ (album : Album) -> Observable <User> in
             return recieveAlbumOwner(album)
             }.combineLatest({ (users : [User]) -> [User] in
-            return users
-        })
+                return users
+            })
         
-    
+        
     }
-
+    
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
@@ -136,8 +160,8 @@ func getUsers () -> Observable<[User]> {
     let arrayUsers : [User] = Mapper <User>().mapArray(json)!
     
     return Observable.create { observer in
-            observer.onNext(arrayUsers)
-            observer.onCompleted()
+        observer.onNext(arrayUsers)
+        observer.onCompleted()
         
         return NopDisposable.instance
     }

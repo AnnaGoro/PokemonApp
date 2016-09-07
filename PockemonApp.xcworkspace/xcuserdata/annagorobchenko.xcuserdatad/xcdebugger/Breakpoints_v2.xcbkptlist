@@ -387,11 +387,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/data/ViewModelAlbumsList.swift"
-            timestampString = "494933478.084131"
+            timestampString = "494939281.162076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "switchStateChanged(_:checkBoolSwitch:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -536,7 +536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "init(favouriteChecks:)"
+            landmarkName = "init(index:checkBoolSwitch:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -547,13 +547,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/ApiServiceGet.swift"
-            timestampString = "494930887.143105"
+            timestampString = "494939441.774104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "recieveFavouriteAlbums(_:favouriteChecks:)"
-            landmarkType = "5">
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "ApiServiceGet"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -563,13 +563,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/ApiServiceGet.swift"
-            timestampString = "494931957.766497"
+            timestampString = "494939441.774104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "recieveFavouriteAlbums(_:favouriteChecks:)"
-            landmarkType = "5">
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "ApiServiceGet"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
