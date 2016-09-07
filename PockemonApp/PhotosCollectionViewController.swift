@@ -49,7 +49,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         
         if let url = viewModelPhotosCollection?.photos.value[indexPath.item].url {
         
-        cell.photoImageView.load(url)
+            cell.photoImageView.load(url)
         } else {
         
             print("viewModelPhotosCollection?.photos.value[indexPath.item].url  = nil")

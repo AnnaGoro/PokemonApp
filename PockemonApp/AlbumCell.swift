@@ -12,10 +12,8 @@ import RxCocoa
 import RxSwift
 
 class AlbumCell : UITableViewCell {
-   
-    var viewModelAlbumList = ViewModelAlbumsList()
     
-   // var viewModelCellAlbum : ViewModelCellAlbum?
+    var viewModelAlbumList = ViewModelAlbumsList()
     
     var checkBoolValue : Bool?
     
@@ -34,43 +32,17 @@ class AlbumCell : UITableViewCell {
         
         super.prepareForReuse()
         
-    }   
-
-    /*
-    
-     
-     
-     func changeSwitchState(viewModel : ViewModelCellAlbum) {
-     
-     print("changeSwitchState")
-     
-     self.viewModelCellAlbum = viewModel
-     
-     self.viewModelCellAlbum?.switchState.asObservable().subscribeNext { (switchState : Bool) in
-     
-     self.switchCheck.setOn(switchState, animated: false)
-     print(switchState)
-     
-     }.addDisposableTo(self.disposeBag)
-     }
-     
-
-    
-    */
+    }
     
     
-    
-    func changeSwitchState(checkBoolValue : Bool) {
-        
-        print("changeSwitchState")
+    func changeSwitchState(checkBoolValue : Bool) {        
         
         self.checkBoolValue = checkBoolValue
         self.switchCheck.setOn(checkBoolValue, animated: false)
         
-        print(checkBoolValue)
-            
+        
     }
     
     
-
+    
 }

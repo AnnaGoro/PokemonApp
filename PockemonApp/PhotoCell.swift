@@ -12,30 +12,24 @@ import RxCocoa
 import RxSwift
 
 class PhotoCell : UICollectionViewCell{
-
-
+    
+    
     @IBOutlet weak var photoImageView: UIImageView!
     
-   var disposeBag: DisposeBag?
+    var disposeBag: DisposeBag?
     
     
     @IBOutlet weak var albumTitle: UILabel!
     
     override func prepareForReuse() {
-        super.prepareForReuse()
         
         self.disposeBag = DisposeBag()
+        
+        super.prepareForReuse()
     }
     
     deinit {
         
-    }
-
-    func configureCell () {
-    
-    
-    
-    
     }
     
     

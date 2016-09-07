@@ -17,11 +17,10 @@ import ObjectMapper
 
 class ApiServiceGet {
     
-     private let bag = DisposeBag()
+    private let bag = DisposeBag()
     
     
     func recieveFavouriteAlbums() {
-    
     
     
     

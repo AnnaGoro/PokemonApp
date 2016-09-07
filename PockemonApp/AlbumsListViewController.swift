@@ -14,8 +14,7 @@ import RxCocoa
 class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList = ViewModelAlbumsList()
-    
-    //var viewModelCell = ViewModelCellAlbum()
+
     
     private(set) var disposeBag = DisposeBag()
     
@@ -24,9 +23,8 @@ class AlbumsListViewController: UITableViewController  {
     let reuseIdentifier = "albumListCell"
     
     override func viewDidLoad() {
-        super.viewDidLoad()  
-     
-      //  self.clearsSelectionOnViewWillAppear = true
+        
+        super.viewDidLoad()
         
         self.title = "PhotoAlbums"
         
@@ -121,7 +119,6 @@ class AlbumsListViewController: UITableViewController  {
                 return album != nil
             }
             .subscribeNext { [weak self](viewModelPhotosCollection) in
-                //print("album != nil and performSegueWithIdentifier showPhotosIFromAlbum")
                 return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
             }.addDisposableTo(disposeBag)
         
