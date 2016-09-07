@@ -14,7 +14,6 @@ struct ViewModelAlbumsList {
     
     var albums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
-    var user : Variable <User> = Variable(User())
    
     var favouritesCheck : Variable<[Bool]> = Variable([])
  
@@ -26,9 +25,11 @@ struct ViewModelAlbumsList {
     var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
     
     
+    
     func switchStateChanged(index : Int, checkBoolSwitch : Bool){
   
         self.favouritesCheck.value[index] = checkBoolSwitch
+        self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouriteChecks: favouritesCheck.value)
       
     }
     
@@ -42,6 +43,7 @@ struct ViewModelAlbumsList {
     
      init() {
         
+       
         
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in

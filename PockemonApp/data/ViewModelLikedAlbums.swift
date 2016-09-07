@@ -13,6 +13,7 @@ import RxSwift
 struct ViewModelFavouriteAlbums {
     
     var albums : Variable<[Album]> = Variable([])
+    var favouriteAlbums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
 
     private let apiServiceGet = ApiServiceGet()
@@ -27,21 +28,22 @@ struct ViewModelFavouriteAlbums {
     
     
     
-    init(favouritesCheck : [Bool]) {
+    init(favouriteChecks : [Bool]) {
         
         
-        apiServiceGet.getAlbums()
-       
-            .subscribe(
+        apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
-           
                 self.albums.value = albums
             }
             ).addDisposableTo(bag)
+            
+        apiServiceGet.recieveFavouriteAlbums(albums.value, favouriteChecks: favouriteChecks).subscribe(
+            onNext: { (albums : [Album] ) in
+                self.favouriteAlbums.value = albums
+            }
+            ).addDisposableTo(bag)
         
-        
-        
-        apiServiceGet.recieveAlbumOwners(albums.value).subscribe(
+        apiServiceGet.recieveAlbumOwners(favouriteAlbums.value).subscribe(
             onNext: { (users : [User]) in
                 self.users.value = users
             }

@@ -23,8 +23,7 @@ class AlbumCell : UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-    private(set) var disposeBag = DisposeBag()
-    
+    private(set) var disposeBag = DisposeBag()    
     
     override func prepareForReuse() {
         
