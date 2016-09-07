@@ -15,6 +15,7 @@ import RxSwift
 class AlbumsLikedController : UITableViewController {
     
     private(set) var disposeBag = DisposeBag()
+    @IBOutlet weak var favouriteAlbuumsTabBtn: UITabBarItem!
     
     @IBOutlet weak var dataSource: UITableView!
     
@@ -24,6 +25,8 @@ class AlbumsLikedController : UITableViewController {
         self.title = "Favourite albums"
         
         setUpViewModel()
+        
+        favouriteAlbuumsTabBtn.badgeValue = String(ReactiveDataFavouriteAlbums.viewModel.value?.favouriteAlbums.value.count)
     }
     
     
@@ -46,7 +49,13 @@ class AlbumsLikedController : UITableViewController {
         cell.numberLabel.text = String(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!)
         cell.titleLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!
         cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!
-               
+        cell.changeSwitchState(ReactiveDataFavouriteAlbums.viewModel.value!.favouritesCheck.value[indexPath.row])
+        cell.switchLike.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
+            
+            ReactiveDataFavouriteAlbums.viewModel.value!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
+            
+            }.addDisposableTo(cell.disposeBag)
+
         return cell
     }
 

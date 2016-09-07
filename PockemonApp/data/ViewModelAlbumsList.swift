@@ -32,7 +32,7 @@ struct ViewModelAlbumsList {
         
         if checkBoolSwitch {
             
-        self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: checkBoolSwitch)
+            self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: checkBoolSwitch)
         }
         
     }
@@ -47,7 +47,7 @@ struct ViewModelAlbumsList {
     
     func setViewModelToStatic () {
     
-    ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
+        ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
     
     }
     
@@ -56,9 +56,6 @@ struct ViewModelAlbumsList {
        
         self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
         
-      
-        
-
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums

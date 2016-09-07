@@ -15,14 +15,21 @@ struct ViewModelFavouriteAlbums {
     var albums : Variable<[Album]> = Variable([])
     var favouriteAlbums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
-    
+    var favouritesCheck : Variable<[Bool]> = Variable([])
     private let apiServiceGet = ApiServiceGet()
     
     private let bag = DisposeBag()
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
-
     
+    
+
+    func switchStateChanged(index : Int, checkBoolSwitch : Bool){
+        
+        self.favouritesCheck.value[index] = checkBoolSwitch
+        
+    }
+
     func getViewModelFavouriteAlbumsData (index : Int, checkBoolSwitch : Bool) {
         
         
@@ -54,6 +61,12 @@ struct ViewModelFavouriteAlbums {
             ).addDisposableTo(bag)
         
         
+        for _  in 0...users.value.count {
+            
+            let a = true
+            self.favouritesCheck.value.append(a)
+            
+        }
     }
     
     

@@ -17,18 +17,28 @@ class AlbumLikedCell : UITableViewCell {
    
     
     @IBOutlet weak var switchLike: UISwitch!
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var numberLabel: UILabel!
 
+    private var checkBoolValue = false
     
     private(set) var disposeBag = DisposeBag()
     
     override func prepareForReuse() {
         
         self.disposeBag = DisposeBag()
+    }
+    
+    func changeSwitchState(checkBoolValue : Bool) {
+        
+        self.checkBoolValue = checkBoolValue
+        self.switchLike.setOn(checkBoolValue, animated: false)
+        
+        
     }
     
 

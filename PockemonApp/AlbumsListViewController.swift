@@ -15,6 +15,7 @@ class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList = ViewModelAlbumsList()
 
+     @IBOutlet weak var allAlbumsTabBtn: UITabBarItem!
     
     private(set) var disposeBag = DisposeBag()
     
@@ -28,23 +29,23 @@ class AlbumsListViewController: UITableViewController  {
         
         self.title = "PhotoAlbums"
         
-        setUpViewModel()
-      //  var vm = ViewModelFavouriteAlbums(favouritesCheck: viewModelAlbumsList.favouritesCheck.value)
-    
         
+            
+        setUpViewModel()
+        
+        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
+            .filter { $0 != nil }
+            .map { $0 }
+            
+            .subscribeNext { [weak self](viewModelPhotosCollection) in
+                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
+            }.addDisposableTo(disposeBag)
+
+        allAlbumsTabBtn.badgeValue = String(viewModelAlbumsList.albums.value.count)
         self.dataSource.reloadData()
     }
     
-    ////http://www.4answered.com/questions/view/1e604df/Why-my-UISwitches-states-are-always-ON
-    
-    /*
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        dataSource.reloadData()
-    }
-    
- */
-    override func didReceiveMemoryWarning() {
+       override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
@@ -53,8 +54,8 @@ class AlbumsListViewController: UITableViewController  {
      
         viewModelAlbumsList.setViewModelToStatic ()
     }
-        
     
+   
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return   viewModelAlbumsList.albums.value.count
@@ -121,14 +122,6 @@ class AlbumsListViewController: UITableViewController  {
                 
             }.addDisposableTo(disposeBag)
 
-        
-        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
-            .filter { (album) -> Bool in
-                return album != nil
-            }
-            .subscribeNext { [weak self](viewModelPhotosCollection) in
-                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
-            }.addDisposableTo(disposeBag)
         
     }
 }

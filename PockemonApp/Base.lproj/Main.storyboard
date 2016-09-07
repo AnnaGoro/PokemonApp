@@ -10,9 +10,9 @@
         <scene sceneID="tIl-ND-WAs">
             <objects>
                 <navigationController id="ZQj-OK-ARb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All albums" id="bIP-Kx-Awh">
-                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="All albums" image="gallery" id="bIP-Kx-Awh">
+                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-2"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kja-7J-sam">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="-1727" y="16"/>
         </scene>
-        <!--All albums-->
+        <!--All Albums-->
         <scene sceneID="6xP-Oa-0GS">
             <objects>
                 <tableViewController id="11B-l7-BcV" customClass="AlbumsListViewController" customModule="PockemonApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,12 +115,13 @@
                             <outlet property="delegate" destination="11B-l7-BcV" id="HMn-Qr-kxG"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="All albums" id="2Ta-CD-ePN">
-                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="All Albums" image="gallery" id="2Ta-CD-ePN">
+                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="WU9-xY-UMU"/>
                     <connections>
+                        <outlet property="allAlbumsTabBtn" destination="2Ta-CD-ePN" id="qmN-v3-dSW"/>
                         <outlet property="dataSource" destination="VCs-PU-bOE" id="VPl-Du-muE"/>
                     </connections>
                 </tableViewController>
@@ -132,9 +133,9 @@
         <scene sceneID="qjd-5n-hDv">
             <objects>
                 <navigationController id="2p4-UY-6sQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favourite albums" id="KeO-cX-WWS">
-                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="Favourite albums" image="photos" id="KeO-cX-WWS">
+                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-2"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DFi-Nj-ic7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -245,10 +246,9 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="939-zz-3He">
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="939-zz-3He">
                                             <rect key="frame" x="543" y="19" width="51" height="31"/>
                                             <color key="onTintColor" red="0.96012519210000002" green="1" blue="0.021480288819999999" alpha="0.27069481379999999" colorSpace="calibratedRGB"/>
-                                            <color key="thumbTintColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -277,13 +277,14 @@
                             <outlet property="dataSource" destination="Re0-R3-Dos" id="0ba-7A-ZU6"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Favourite albums" id="DyU-JT-2Sn">
-                        <inset key="imageInsets" minX="-1" minY="-1" maxX="-1" maxY="-1"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="Favourite albums" image="photos" id="DyU-JT-2Sn">
+                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="Spv-aa-jaJ"/>
                     <connections>
                         <outlet property="dataSource" destination="Ih7-gv-ZR0" id="LT1-UU-dxc"/>
+                        <outlet property="favouriteAlbuumsTabBtn" destination="DyU-JT-2Sn" id="d0o-ac-xDw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kvy-Ie-tsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -291,6 +292,10 @@
             <point key="canvasLocation" x="-3" y="388"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gallery" width="48" height="48"/>
+        <image name="photos" width="48" height="48"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qvM-8j-vs7"/>
     </inferredMetricsTieBreakers>
