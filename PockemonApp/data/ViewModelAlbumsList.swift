@@ -33,14 +33,8 @@ struct ViewModelAlbumsList {
         if checkBoolSwitch {
             
         self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: checkBoolSwitch)
-            print("checkBoolSwitch \(checkBoolSwitch)")
-       // self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(index: index, checkBoolSwitch: checkBoolSwitch)
-        
-       // ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
-            
         }
-        //self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums(favouriteChecks: favouritesCheck.value)
-      
+        
     }
     
     
@@ -62,7 +56,7 @@ struct ViewModelAlbumsList {
        
         self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
         
-       // ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
+      
         
 
         apiServiceGet.getAlbums().subscribe(

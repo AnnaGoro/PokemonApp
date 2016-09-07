@@ -50,7 +50,7 @@ class AlbumsListViewController: UITableViewController  {
     
     
     override func viewWillDisappear(animated: Bool) {
-        print("viewWillDisappear")
+     
         viewModelAlbumsList.setViewModelToStatic ()
     }
         

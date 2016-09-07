@@ -20,6 +20,9 @@ struct ViewModelFavouriteAlbums {
     
     private let bag = DisposeBag()
     
+    var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
+
+    
     func getViewModelFavouriteAlbumsData (index : Int, checkBoolSwitch : Bool) {
         
         
@@ -32,22 +35,14 @@ struct ViewModelFavouriteAlbums {
         
         apiServiceGet.recieveFavouriteAlbum(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
             onNext: { (albums : [Album] ) in
-                // self.favouriteAlbums.value = albums
+            
             }
             ).addDisposableTo(bag)
         
         apiServiceGet.favouriteAlbums.asObservable().subscribe( onNext: { (albums : [Album] ) in
             
             self.favouriteAlbums.value = albums
-            print("--------------------------------------------------")
             
-            for value in  self.favouriteAlbums.value  {
-                
-                
-                print(value)
-                
-            }
-            print()
             }
             ).addDisposableTo(bag)
         
@@ -58,60 +53,19 @@ struct ViewModelFavouriteAlbums {
             }
             ).addDisposableTo(bag)
         
+        
+    }
+    
+    
+    func cellIndexChanged (index : Int) {
+        
+        self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
+        
+    }
+    
+    
+    
 
-        
-        
-        
-    }
-    
-    init () {
-    
-    }
-    
-    
-    
-    
-    init(index : Int, checkBoolSwitch : Bool) {
-        
-        
-        apiServiceGet.getAlbums().subscribe(
-            onNext: { (albums : [Album] ) in
-                self.albums.value = albums
-            }
-            ).addDisposableTo(bag)
-        
-        
-        apiServiceGet.recieveFavouriteAlbum(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
-            onNext: { (albums : [Album] ) in
-                // self.favouriteAlbums.value = albums
-            }
-            ).addDisposableTo(bag)
-        
-        apiServiceGet.favouriteAlbums.asObservable().subscribe( onNext: { (albums : [Album] ) in
-            
-            self.favouriteAlbums.value = albums
-            print("--------------------------------------------------")
-      
-            for value in  self.favouriteAlbums.value  {
-                
-                
-                print(value)
-                
-            }
-            print()
-            }
-            ).addDisposableTo(bag)
-        
-        
-        apiServiceGet.recieveAlbumOwners(self.favouriteAlbums.value).subscribe(
-            onNext: { (users : [User]) in
-                self.users.value = users
-            }
-            ).addDisposableTo(bag)
-        
-    }
-    
-    
     
     
 }

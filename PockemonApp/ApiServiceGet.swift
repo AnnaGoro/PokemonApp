@@ -22,73 +22,20 @@ class ApiServiceGet {
     let favouriteAlbums : Variable<[Album]> = Variable([Album]())
     
     func recieveFavouriteAlbum(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
-       
-        //var favouriteAlbum : Album?
-        //var favouriteAlbums : Variable <[Album]> = Variable([Album]())
+        
         
         if checkBoolSwitch  {
+            
             self.favouriteAlbums.value.append(albums[index])
-            //favouriteAlbum = albums[index]
-           // print (albums[index])
-            
-            
-        } else {
-           // print ("checkBoolSwitch = \(checkBoolSwitch)")
-            
-        }        
-        
-        //print(self.favouriteAlbums)
-       
-       
-        
-        return Observable.just(self.favouriteAlbums.value)
-        //return Observable.create { observer in
-           /// observer.onNext(self.favouriteAlbums.value)
-            //observer.onCompleted()
-            
-           // return NopDisposable.instance
             
         }
         
-
+        return Observable.just(self.favouriteAlbums.value)
+        
+        
+    }
     
     
-    
-    
-    /*
-     
-     func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
-     
-     var favouriteAlbums : Variable <[Album]> = Variable([Album]())
-     
-     for indexArr in 0..<favouriteChecks.count {
-     
-     if favouriteChecks[indexArr] == true{
-     print(indexArr)
-     print(favouriteChecks[indexArr])
-     print(albums[indexArr].title)
-     
-     favouriteAlbums.value.append(albums[indexArr])
-     
-     return favouriteAlbums.asObservable()
-     } else  {
-     print("favouriteAlbums = nil")}
-     }
-     return Observable.create { observer in
-     observer.onNext(favouriteAlbums.value)
-     observer.onCompleted()
-     
-     return NopDisposable.instance
-     
-     }
-     
-     // }
-     // .addDisposableTo(bag)
-     
-     
-     }
-     
-     */
     func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {
         
         return albums.map{ (album : Album) -> Observable <User> in
@@ -117,7 +64,7 @@ class ApiServiceGet {
         return getPhotos().map { (photos: [Photo]) -> [Photo] in
             
             return photos.filter{ (photo : Photo) -> Bool in
-             
+                
                 return photo.albumId == album.id
             }
         }
@@ -148,40 +95,40 @@ extension ApiServiceGet {
         
     }
     
-
-
-
-func getPhotos () -> Observable<[Photo]> {
     
-    let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")
-    let data = NSData(contentsOfFile: path!)
-    let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-    let arrayPhotos = Mapper <Photo>().mapArray(json)!
     
-    return Observable.create { observer in
-        observer.onNext(arrayPhotos)
-        observer.onCompleted()
+    
+    func getPhotos () -> Observable<[Photo]> {
         
-        return NopDisposable.instance
+        let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")
+        let data = NSData(contentsOfFile: path!)
+        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+        let arrayPhotos = Mapper <Photo>().mapArray(json)!
+        
+        return Observable.create { observer in
+            observer.onNext(arrayPhotos)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+        }
+        
     }
     
-}
-
-func getUsers () -> Observable<[User]> {
-    
-    let path = NSBundle.mainBundle().pathForResource("users", ofType: "json")
-    let data = NSData(contentsOfFile: path!)
-    let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-    let arrayUsers : [User] = Mapper <User>().mapArray(json)!
-    
-    return Observable.create { observer in
-        observer.onNext(arrayUsers)
-        observer.onCompleted()
+    func getUsers () -> Observable<[User]> {
         
-        return NopDisposable.instance
+        let path = NSBundle.mainBundle().pathForResource("users", ofType: "json")
+        let data = NSData(contentsOfFile: path!)
+        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+        let arrayUsers : [User] = Mapper <User>().mapArray(json)!
+        
+        return Observable.create { observer in
+            observer.onNext(arrayUsers)
+            observer.onCompleted()
+            
+            return NopDisposable.instance
+        }
+        
     }
     
-}
-
 }
 
