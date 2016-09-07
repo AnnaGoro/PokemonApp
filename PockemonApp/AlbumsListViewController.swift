@@ -49,6 +49,12 @@ class AlbumsListViewController: UITableViewController  {
     }
     
     
+    override func viewWillDisappear(animated: Bool) {
+        print("viewWillDisappear")
+        viewModelAlbumsList.setViewModelToStatic ()
+    }
+        
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return   viewModelAlbumsList.albums.value.count

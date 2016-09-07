@@ -19,36 +19,40 @@ class ApiServiceGet {
     
     private let bag = DisposeBag()
     
-    //var favouriteAlbums : [Album] = [Album]()
+    let favouriteAlbums : Variable<[Album]> = Variable([Album]())
     
     func recieveFavouriteAlbum(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
        
-       // var favouriteAlbum : Album?
-        var favouriteAlbums : Variable <[Album]> = Variable([Album]())
+        //var favouriteAlbum : Album?
+        //var favouriteAlbums : Variable <[Album]> = Variable([Album]())
         
         if checkBoolSwitch  {
-            favouriteAlbums.value.append(albums[index])
-            print (albums[index])
+            self.favouriteAlbums.value.append(albums[index])
+            //favouriteAlbum = albums[index]
+           // print (albums[index])
             
             
         } else {
-            print ("checkBoolSwitch = \(checkBoolSwitch)")
+           // print ("checkBoolSwitch = \(checkBoolSwitch)")
             
         }        
         
-        print(favouriteAlbums)
+        //print(self.favouriteAlbums)
        
-        return Observable.create { observer in
-            observer.onNext(favouriteAlbums.value)
-            observer.onCompleted()
+       
+        
+        return Observable.just(self.favouriteAlbums.value)
+        //return Observable.create { observer in
+           /// observer.onNext(self.favouriteAlbums.value)
+            //observer.onCompleted()
             
-            return NopDisposable.instance
+           // return NopDisposable.instance
             
         }
         
 
     
-    }
+    
     
     
     /*

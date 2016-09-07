@@ -46,13 +46,13 @@ class AlbumsLikedController : UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumLikedCell
         
         cell.numberLabel.text = String(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!)
-        print((ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!))
+      //  print((ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!))
         
         cell.titleLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!
-        print(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!)
+        //print(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!)
         
         cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!
-        print(ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!)
+       // print(ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!)
         
         cell.switchLike.setOn(true, animated: false)
         
@@ -61,9 +61,10 @@ class AlbumsLikedController : UITableViewController {
 
     private func setUpViewModel() {
         
-        print ("***********************")
+        //print ("***********************")
         
-        print(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value)
+        //print(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value)
+        
         ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.asObservable()
             
             .subscribeNext {[weak self] (albums : [Album]) in
