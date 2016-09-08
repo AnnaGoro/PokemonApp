@@ -139,7 +139,7 @@ class AlbumsListViewController: UITableViewController  {
         
         viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
             .filter { $0 != nil }
-            .map { $0 }
+            //.map { $0 }
             
             .subscribeNext { [weak self](viewModelPhotosCollection) in
                 return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!

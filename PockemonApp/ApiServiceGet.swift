@@ -21,11 +21,12 @@ class ApiServiceGet {
     
     let favouriteAlbums : Variable<[Album]> = Variable([Album]())
     
-    func recieveFavouriteAlbum(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
+    func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
         
         
         if checkBoolSwitch  {
-            
+            print("append")
+            print(albums[index].title)
             self.favouriteAlbums.value.append(albums[index])
             
         }

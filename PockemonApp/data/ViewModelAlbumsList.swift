@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct ViewModelAlbumsList {
+class ViewModelAlbumsList {
     
     var albums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
@@ -22,7 +22,7 @@ struct ViewModelAlbumsList {
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
     
-    var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
+    var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(ViewModelFavouriteAlbums())
     
     
     
@@ -46,7 +46,7 @@ struct ViewModelAlbumsList {
     
     
     func setViewModelToStatic () {
-    
+     
         ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
     
     }
@@ -54,7 +54,7 @@ struct ViewModelAlbumsList {
      init() {
         print("init ViewModelAlbumsList")
        
-        self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
+        //   self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
                
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
@@ -69,15 +69,31 @@ struct ViewModelAlbumsList {
             }
             ).addDisposableTo(bag)
        
+        print("-------- self.users.value.count --------")
+        print(self.users.value.count)
+        print()
         
-        for _  in 0...users.value.count {
+        
+        if (ReactiveDataFavouriteAlbums.favouritesCheck.value.count < users.value.count-2) {
+            print("******************")
+            print(ReactiveDataFavouriteAlbums.favouritesCheck.value.count)
+
+            for _  in 0...self.users.value.count {
             
-            let a = false
-            ReactiveDataFavouriteAlbums.favouritesCheck.value.append(a)
+                let a = false
+                ReactiveDataFavouriteAlbums.favouritesCheck.value.append(a)
 
         }
-}
+        }
+        print("********   checks after   **********")
+        print(ReactiveDataFavouriteAlbums.favouritesCheck.value.count)
+       }
 
+    deinit{
     
+    print("deinit ViewModelAlbumsList")
+    
+    }
+
 }
 

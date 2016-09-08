@@ -48,7 +48,13 @@ class AlbumsLikedController : UITableViewController {
         
         cell.numberLabel.text = String(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!)
         cell.titleLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!
-        cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!
+        
+        
+        print("count of users:")
+        print(ReactiveDataFavouriteAlbums.viewModel.value?.albumOwners.value.count)
+        
+        
+        cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value?.albumOwners.value[indexPath.row].name
         
         cell.changeSwitchState(ReactiveDataFavouriteAlbums.favouritesCheck.value[ReactiveDataFavouriteAlbums.viewModel.value!.albums.value.indexOf(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row])!])
         
@@ -88,11 +94,23 @@ class AlbumsLikedController : UITableViewController {
         
         ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.asObservable()
             
-            .subscribeNext {[weak self] (albums : [Album]) in
+            .subscribeNext { (albums : [Album]) in
              
-                self!.dataSource.reloadData()
+                self.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
+        
+        
+        ReactiveDataFavouriteAlbums.viewModel.value!.albumOwners.asObservable()
+            
+            .subscribeNext { (users : [User]) in
+                print("albumOwners in AlbumsLikedController")
+                print(users.count)
+                print("-----------------------------------")
+                self.dataSource.reloadData()
+                
+            }.addDisposableTo(disposeBag)
+
         
         ReactiveDataFavouriteAlbums.viewModel.value!.viewModelPhotosCollection.asObservable()
             .filter { (album) -> Bool in
@@ -101,6 +119,9 @@ class AlbumsLikedController : UITableViewController {
             .subscribeNext { [weak self](viewModelPhotosCollection) in
                 return (self?.performSegueWithIdentifier("showPhotosFromFavouriteAlbum", sender: nil))!
             }.addDisposableTo(disposeBag)
+        
+        
+        
     }
     
 

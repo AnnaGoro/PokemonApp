@@ -46,13 +46,19 @@ class ReactiveDataFavouriteAlbums {
         
         if  (viewModel.value?.favouriteAlbums.value.contains(album)) == true {
             
+            
             print((viewModel.value?.albums.value.indexOf(album))!)
             
             print(favouritesCheck.value[(viewModel.value?.albums.value.indexOf(album))!])
             
+            
             self.favouritesCheck.value[(viewModel.value?.albums.value.indexOf(album))!] = false
             
+            
             print(favouritesCheck.value[(viewModel.value?.albums.value.indexOf(album))!])
+            
+            
+            viewModel.value?.albumOwners.value.removeAtIndex((viewModel.value?.favouriteAlbums.value.indexOf(album))!)
             
             viewModel.value?.favouriteAlbums.value.removeAtIndex((viewModel.value?.favouriteAlbums.value.indexOf(album))!)
             

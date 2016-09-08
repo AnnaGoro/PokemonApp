@@ -14,7 +14,7 @@ struct ViewModelFavouriteAlbums {
     
     var albums : Variable<[Album]> = Variable([])
     var favouriteAlbums : Variable<[Album]> = Variable([])
-    var users : Variable <[User]> = Variable([])
+    var albumOwners : Variable <[User]> = Variable([])
    // var favouritesCheck : Variable<[Bool]> = Variable([])
     private let apiServiceGet = ApiServiceGet()
     
@@ -54,32 +54,37 @@ struct ViewModelFavouriteAlbums {
             ).addDisposableTo(bag)
         
         
-        apiServiceGet.recieveFavouriteAlbum(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
+        apiServiceGet.recieveFavouriteAlbums(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
             onNext: { (albums : [Album] ) in
                 print("recieveFavouriteAlbum")
-               //  self.favouriteAlbums.value = albums
+                 self.favouriteAlbums.value = albums
             
             }
             ).addDisposableTo(bag)
-        
+       /*
         apiServiceGet.favouriteAlbums.asObservable().subscribe( onNext: { (albums : [Album] ) in
             
-                self.favouriteAlbums.value = albums
+                //self.favouriteAlbums.value = albums
             
             }
             ).addDisposableTo(bag)
         
+          */
         
         apiServiceGet.recieveAlbumOwners(self.favouriteAlbums.value).subscribe(
             onNext: { (users : [User]) in
-                self.users.value = users
+                self.albumOwners.value = users
+                //print(users)
             }
             ).addDisposableTo(bag)
         
-       
         
+        print("recieveAlbumOwners in ViewModelFavouriteAlbums")
+        print(self.albumOwners.value.count)
     }
     
+    
+    init () {}
     
     func cellIndexChanged (index : Int) {
         
