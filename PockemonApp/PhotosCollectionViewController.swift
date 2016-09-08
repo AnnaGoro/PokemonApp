@@ -26,9 +26,10 @@ class PhotosCollectionViewController : UICollectionViewController {
         super.viewDidLoad()
         
         setUpViewModel()
-        
+       
         
     }
+    
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let a = viewModelPhotosCollection?.photos.value.count {
@@ -68,7 +69,7 @@ class PhotosCollectionViewController : UICollectionViewController {
             .subscribeNext {[weak self] (photos : [Photo]) in
                 
                 self?.title = self?.viewModelPhotosCollection!.albumGlobal.value.title
-                self!.dataSource.reloadData()
+                
                 
             }.addDisposableTo(disposeBag)
         

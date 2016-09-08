@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-struct ViewModelPhotosCollection {
+class ViewModelPhotosCollection {
     
     
     var photos : Variable <[Photo]> = Variable([])
@@ -38,7 +38,18 @@ struct ViewModelPhotosCollection {
             ).addDisposableTo(bag)
     }
     
-   
+    
+    
+    
+    
+    
+    
+   deinit {
+        
+    print("deinit ViewModelPhotosCollection")
+        
+        
+    }
 }
 
 

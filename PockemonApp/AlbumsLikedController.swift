@@ -26,10 +26,10 @@ class AlbumsLikedController : UITableViewController {
         
         setUpViewModel()
         
-        favouriteAlbuumsTabBtn.badgeValue = String(ReactiveDataFavouriteAlbums.viewModel.value?.favouriteAlbums.value.count)
+        //favouriteAlbuumsTabBtn.badgeValue = ReactiveDataFavouriteAlbums.viewModel.value?.favouriteAlbums.value.count
     }
     
-    
+        
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let count = ReactiveDataFavouriteAlbums.viewModel.value?.favouriteAlbums.value.count {
@@ -49,7 +49,9 @@ class AlbumsLikedController : UITableViewController {
         cell.numberLabel.text = String(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!)
         cell.titleLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!
         cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.users.value[indexPath.row].name!
-        cell.changeSwitchState(ReactiveDataFavouriteAlbums.viewModel.value!.favouritesCheck.value[indexPath.row])
+        
+        cell.changeSwitchState(ReactiveDataFavouriteAlbums.favouritesCheck.value[ReactiveDataFavouriteAlbums.viewModel.value!.albums.value.indexOf(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row])!])
+        
         cell.switchLike.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
             
             ReactiveDataFavouriteAlbums.viewModel.value!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)

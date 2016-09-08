@@ -106,7 +106,7 @@
                                     <outlet property="switchCheck" destination="lT1-E3-8pM" id="Y5G-Nu-kBK"/>
                                     <outlet property="title" destination="viZ-7q-bzC" id="afi-aD-CAk"/>
                                     <outlet property="userName" destination="d0y-9f-C6f" id="cw2-yU-BKL"/>
-                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="lwz-Rg-hxF"/>
+                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="SaV-0L-uzJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -297,6 +297,6 @@
         <image name="photos" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qvM-8j-vs7"/>
+        <segue reference="SaV-0L-uzJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -34,7 +34,7 @@ class AlbumCell : UITableViewCell {
     }
     
     
-    func changeSwitchState(checkBoolValue : Bool) {        
+    func changeSwitchState(checkBoolValue : Bool) {
         
         self.checkBoolValue = checkBoolValue
         self.switchCheck.setOn(checkBoolValue, animated: false)

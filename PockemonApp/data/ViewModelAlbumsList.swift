@@ -15,7 +15,7 @@ struct ViewModelAlbumsList {
     var albums : Variable<[Album]> = Variable([])
     var users : Variable <[User]> = Variable([])
    
-    var favouritesCheck : Variable<[Bool]> = Variable([])
+  //  var viewModelAlbumsList : Variable<ViewModelAlbumsList> = Variable(ViewModelAlbumsList())
  
     private let apiServiceGet = ApiServiceGet()
     var bag = DisposeBag()
@@ -28,18 +28,18 @@ struct ViewModelAlbumsList {
     
     func switchStateChanged(index : Int, checkBoolSwitch : Bool){
   
-        self.favouritesCheck.value[index] = checkBoolSwitch
+        ReactiveDataFavouriteAlbums.switchChangedStateObservable(index, boolState: checkBoolSwitch)
         
         if checkBoolSwitch {
             
-            self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: checkBoolSwitch)
+            self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: ReactiveDataFavouriteAlbums.favouritesCheck.value[index])
         }
         
     }
     
     
     func cellIndexChanged (index : Int) {
-       
+        print("cellIndexChanged")
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
        
     }
@@ -52,10 +52,10 @@ struct ViewModelAlbumsList {
     }
     
      init() {
-        
+        print("init ViewModelAlbumsList")
        
         self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
-        
+               
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums
@@ -73,11 +73,11 @@ struct ViewModelAlbumsList {
         for _  in 0...users.value.count {
             
             let a = false
-            self.favouritesCheck.value.append(a)
+            ReactiveDataFavouriteAlbums.favouritesCheck.value.append(a)
 
         }
 }
 
-
+    
 }
 

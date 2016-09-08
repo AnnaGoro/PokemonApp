@@ -13,9 +13,10 @@ import RxCocoa
 
 class AlbumsListViewController: UITableViewController  {
     
-    var viewModelAlbumsList = ViewModelAlbumsList()
+    var viewModelAlbumsList : ViewModelAlbumsList?
 
-     @IBOutlet weak var allAlbumsTabBtn: UITabBarItem!
+    
+    @IBOutlet weak var allAlbumsTabBtn: UITabBarItem!
     
     private(set) var disposeBag = DisposeBag()
     
@@ -26,6 +27,10 @@ class AlbumsListViewController: UITableViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        print("viewDidLoad")
+        viewModelAlbumsList = ViewModelAlbumsList()
+        
+       // ReactiveDataFavouriteAlbums.viewModelAlbums.value = self.viewModelAlbumsList
         
         self.title = "PhotoAlbums"
         
@@ -33,17 +38,18 @@ class AlbumsListViewController: UITableViewController  {
             
         setUpViewModel()
         
-        viewModelAlbumsList.viewModelPhotosCollection.asObservable()
-            .filter { $0 != nil }
-            .map { $0 }
-            
-            .subscribeNext { [weak self](viewModelPhotosCollection) in
-                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
-            }.addDisposableTo(disposeBag)
-
-        allAlbumsTabBtn.badgeValue = String(viewModelAlbumsList.albums.value.count)
+               allAlbumsTabBtn.badgeValue = String(viewModelAlbumsList?.albums.value.count)
+       // self.dataSource.reloadData()
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        print()
+        print("viewWillAppear")
+        print()
         self.dataSource.reloadData()
     }
+    
     
        override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,13 +58,13 @@ class AlbumsListViewController: UITableViewController  {
     
     override func viewWillDisappear(animated: Bool) {
      
-        viewModelAlbumsList.setViewModelToStatic ()
+        viewModelAlbumsList!.setViewModelToStatic ()
     }
     
    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return   viewModelAlbumsList.albums.value.count
+        return   (viewModelAlbumsList?.albums.value.count)!
     }
     
     
@@ -67,27 +73,34 @@ class AlbumsListViewController: UITableViewController  {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
         
-        cell.number.text = String(viewModelAlbumsList.albums.value[indexPath.row].id!)
-        cell.title.text = viewModelAlbumsList.albums.value[indexPath.row].title!
-        cell.userName.text = viewModelAlbumsList.users.value[indexPath.row].name!
-    
-        cell.changeSwitchState(viewModelAlbumsList.favouritesCheck.value[indexPath.row])
+        cell.number.text = String(viewModelAlbumsList!.albums.value[indexPath.row].id!)
+        cell.title.text = viewModelAlbumsList!.albums.value[indexPath.row].title!
+        cell.userName.text = viewModelAlbumsList!.users.value[indexPath.row].name!
+        
+        
+        cell.changeSwitchState((ReactiveDataFavouriteAlbums.favouritesCheck.value[indexPath.row]))
+
         
         cell.switchCheck.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
             
-            self?.viewModelAlbumsList.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
-    
-        }.addDisposableTo(cell.disposeBag)
-        
+           // print("switchCheck switchStateChanged cellForRowAtIndexPath in AlbumListViewController")
 
+           self!.viewModelAlbumsList!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
+           
+           
+            }.addDisposableTo(cell.disposeBag)
+        
+         
+        
+      
         return cell
     }
     
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        self.viewModelAlbumsList.cellIndexChanged(indexPath.row)
+        print("didSelectRowAtIndexPath")
+        viewModelAlbumsList!.cellIndexChanged(indexPath.row)
 
     }
     
@@ -95,14 +108,16 @@ class AlbumsListViewController: UITableViewController  {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
     
-
-        if segue.identifier == "showPhotosIFromAlbum" {
+        print("prepareForSegue")
+        //if segue.identifier == "showPhotosIFromAlbum" {
+        if viewModelAlbumsList!.viewModelPhotosCollection.value != nil {
+        //if !(self.viewModelAlbumsList.viewModelPhotosCollection.value?.photos.value.isEmpty) {
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
-            
-             destinationController.viewModelPhotosCollection = self.viewModelAlbumsList.viewModelPhotosCollection.value
-       
+            print("destinationController")
+             destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
         }
+       // }
         
         
     }
@@ -110,17 +125,26 @@ class AlbumsListViewController: UITableViewController  {
     
     private func setUpViewModel() {
         
-        viewModelAlbumsList.albums.asObservable()
+        viewModelAlbumsList?.albums.asObservable()
             .subscribeNext { [weak self]( albums : [Album]) in
                 self!.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
         
-        viewModelAlbumsList.favouritesCheck.asObservable()
+        ReactiveDataFavouriteAlbums.favouritesCheck.asObservable()
             .subscribeNext { [weak self]( switchBoolStates : [Bool]) in
                // self!.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
+        
+        viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
+            .filter { $0 != nil }
+            .map { $0 }
+            
+            .subscribeNext { [weak self](viewModelPhotosCollection) in
+                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
+            }.addDisposableTo(disposeBag)
+        
 
         
     }

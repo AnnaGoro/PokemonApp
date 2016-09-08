@@ -9,7 +9,12 @@
 import Foundation
 import ObjectMapper
 
-struct Album : Mappable {
+
+func ==(lhs: Album, rhs: Album) -> Bool {
+    return lhs.id == rhs.id
+}
+
+struct Album : Mappable, Equatable{
     
    
     private(set) var id : Int?
@@ -31,4 +36,8 @@ struct Album : Mappable {
         userId <- map["userId"]
         title <- map["title"]
     }
+    
+    
+    
 }
+
