@@ -15,38 +15,64 @@ struct ViewModelFavouriteAlbums {
     var albums : Variable<[Album]> = Variable([])
     var favouriteAlbums : Variable<[Album]> = Variable([])
     var albumOwners : Variable <[User]> = Variable([])
-   // var favouritesCheck : Variable<[Bool]> = Variable([])
-    private let apiServiceGet = ApiServiceGet()
+
+    var viewModelCellsArray : Variable<[ViewModFavouriteAlbumCell]> = Variable([ViewModFavouriteAlbumCell]())
     
-   // private var viewModelAllAlbums = ViewModelAlbumsList()
+    private let apiServiceGet = ApiServiceGet()
     
     private let bag = DisposeBag()
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
-  //  var viewModelAlbumList : Variable<ViewModelAlbumsList?> = Variable(ViewModelAlbumsList())
+ 
     
-
-    func switchStateChanged(index : Int, checkBoolSwitch : Bool){
+    func getViewModelFavouriteAlbumsData (index : Int) {
         
-       // ReactiveDataFavouriteAlbums.favouritesCheck.value[index] = checkBoolSwitch
         
-        if !checkBoolSwitch {
+        print("getViewModelFavouriteAlbumsData")
         
-            ReactiveDataFavouriteAlbums.deleteUnFavouriteAlbum(favouriteAlbums.value[index])
-            //viewModelAllAlbums.favouritesCheck.value[index] = checkBoolSwitch
-        }
+        apiServiceGet.getAlbums()
+            
+            .subscribe(
+                onNext: { (albums : [Album] ) in
+                    self.albums.value = albums
+                }
+            ).addDisposableTo(bag)
         
-        if checkBoolSwitch {
         
-            ReactiveDataFavouriteAlbums.addFavouriteAlbum(albums.value[index])
+        apiServiceGet.recieveFavouriteAlbums(self.albums.value, index: index,
+            
+                checkBoolSwitch: ReactiveDataFavouriteAlbums.favouritesCheck[index]!.value)
+            .subscribe(
+                onNext: { (albums : [Album] ) in
+                
+                self.favouriteAlbums.value = albums
+                ReactiveDataFavouriteAlbums.favouriteAlbums.value = self.favouriteAlbums.value
+                
+            }
+            ).addDisposableTo(bag)
+        
+        
+        for i  in 0..<self.favouriteAlbums.value.count {
+            
+            self.viewModelCellsArray.value.append(ViewModFavouriteAlbumCell(album: self.favouriteAlbums.value[i]))
+            //ReactiveDataFavouriteAlbums.favouritesCheck.updateValue(Variable(false), forKey: i)
             
         }
-      
-    }
+        
+        
+        /*
+         apiServiceGet.recieveFavouriteAlbums(self.albums.value, index: index, checkBoolSwitch: ).subscribe(
+         onNext: { (albums : [Album] ) in
+         
+         self.favouriteAlbums.value = albums
+         
+         }
+         ).addDisposableTo(bag)
+         
+         */
 
-    func getViewModelFavouriteAlbumsData (index : Int, checkBoolSwitch : Bool) {
         
-        
+        /*
         apiServiceGet.getAlbums().subscribe(
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums
@@ -56,7 +82,7 @@ struct ViewModelFavouriteAlbums {
         
         apiServiceGet.recieveFavouriteAlbums(albums.value, index: index, checkBoolSwitch: checkBoolSwitch).subscribe(
             onNext: { (albums : [Album] ) in
-                print("recieveFavouriteAlbum")
+                
                  self.favouriteAlbums.value = albums
             
             }
@@ -74,17 +100,18 @@ struct ViewModelFavouriteAlbums {
         apiServiceGet.recieveAlbumOwners(self.favouriteAlbums.value).subscribe(
             onNext: { (users : [User]) in
                 self.albumOwners.value = users
-                //print(users)
+              
             }
             ).addDisposableTo(bag)
-        
-        
-        print("recieveAlbumOwners in ViewModelFavouriteAlbums")
-        print(self.albumOwners.value.count)
+        */
+     
     }
     
     
-    init () {}
+    init() { print ("init ViewModelFavouriteAlbums")}
+ 
+    
+
     
     func cellIndexChanged (index : Int) {
         

@@ -26,7 +26,7 @@ class AlbumsLikedController : UITableViewController {
         
         setUpViewModel()
         
-        //favouriteAlbuumsTabBtn.badgeValue = ReactiveDataFavouriteAlbums.viewModel.value?.favouriteAlbums.value.count
+       
     }
     
         
@@ -45,24 +45,18 @@ class AlbumsLikedController : UITableViewController {
         let cellId = "albumListLikedCell"
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumLikedCell
-        
-        cell.numberLabel.text = String(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].id!)
-        cell.titleLabel.text = ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row].title!
+        cell.changeCellData(ReactiveDataFavouriteAlbums.viewModel.value!.viewModelCellsArray.value[indexPath.row])
         
         
-        print("count of users:")
-        print(ReactiveDataFavouriteAlbums.viewModel.value?.albumOwners.value.count)
         
         
-        cell.userNameLabel.text = ReactiveDataFavouriteAlbums.viewModel.value?.albumOwners.value[indexPath.row].name
+      //  cell.changeSwitchState(ReactiveDataFavouriteAlbums.favouritesCheck[ReactiveDataFavouriteAlbums.viewModel.value!.albums.value.indexOf(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row])!]!.value)
         
-        cell.changeSwitchState(ReactiveDataFavouriteAlbums.favouritesCheck.value[ReactiveDataFavouriteAlbums.viewModel.value!.albums.value.indexOf(ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.value[indexPath.row])!])
-        
-        cell.switchLike.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
+       // cell.switchLike.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
             
-            ReactiveDataFavouriteAlbums.viewModel.value!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
+           // ReactiveDataFavouriteAlbums.viewModel.value!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
             
-            }.addDisposableTo(cell.disposeBag)
+           // }.addDisposableTo(cell.disposeBag)
 
         return cell
     }
@@ -89,10 +83,11 @@ class AlbumsLikedController : UITableViewController {
         
     }
     
-    private func setUpViewModel() {
+    private func setUpViewModel() {        
         
         
-        ReactiveDataFavouriteAlbums.viewModel.value!.favouriteAlbums.asObservable()
+        
+        ReactiveDataFavouriteAlbums.favouriteAlbums.asObservable()
             
             .subscribeNext { (albums : [Album]) in
              
@@ -104,9 +99,6 @@ class AlbumsLikedController : UITableViewController {
         ReactiveDataFavouriteAlbums.viewModel.value!.albumOwners.asObservable()
             
             .subscribeNext { (users : [User]) in
-                print("albumOwners in AlbumsLikedController")
-                print(users.count)
-                print("-----------------------------------")
                 self.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)

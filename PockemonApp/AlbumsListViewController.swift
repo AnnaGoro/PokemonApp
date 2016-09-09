@@ -27,10 +27,9 @@ class AlbumsListViewController: UITableViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        print("viewDidLoad")
+       
         viewModelAlbumsList = ViewModelAlbumsList()
-        
-       // ReactiveDataFavouriteAlbums.viewModelAlbums.value = self.viewModelAlbumsList
+ 
         
         self.title = "PhotoAlbums"
         
@@ -38,15 +37,12 @@ class AlbumsListViewController: UITableViewController  {
             
         setUpViewModel()
         
-               allAlbumsTabBtn.badgeValue = String(viewModelAlbumsList?.albums.value.count)
-       // self.dataSource.reloadData()
+        
     }
     
     
     override func viewWillAppear(animated: Bool) {
-        print()
-        print("viewWillAppear")
-        print()
+      
         self.dataSource.reloadData()
     }
     
@@ -73,33 +69,19 @@ class AlbumsListViewController: UITableViewController  {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
         
-        cell.number.text = String(viewModelAlbumsList!.albums.value[indexPath.row].id!)
-        cell.title.text = viewModelAlbumsList!.albums.value[indexPath.row].title!
-        cell.userName.text = viewModelAlbumsList!.users.value[indexPath.row].name!
+       
         
+        cell.changeCellData((viewModelAlbumsList!.viewModelCellsArray.value[indexPath.row]))
         
-        cell.changeSwitchState((ReactiveDataFavouriteAlbums.favouritesCheck.value[indexPath.row]))
-
-        
-        cell.switchCheck.rx_value.asObservable().subscribeNext{ [weak self](boolState : Bool) in
-            
-           // print("switchCheck switchStateChanged cellForRowAtIndexPath in AlbumListViewController")
-
-           self!.viewModelAlbumsList!.switchStateChanged(indexPath.row, checkBoolSwitch : boolState)
-           
-           
-            }.addDisposableTo(cell.disposeBag)
-        
-         
-        
-      
+        viewModelAlbumsList?.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(indexPath.row)
+             
         return cell
     }
     
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("didSelectRowAtIndexPath")
+      
         viewModelAlbumsList!.cellIndexChanged(indexPath.row)
 
     }
@@ -108,16 +90,14 @@ class AlbumsListViewController: UITableViewController  {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
     
-        print("prepareForSegue")
-        //if segue.identifier == "showPhotosIFromAlbum" {
         if viewModelAlbumsList!.viewModelPhotosCollection.value != nil {
-        //if !(self.viewModelAlbumsList.viewModelPhotosCollection.value?.photos.value.isEmpty) {
+       
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
-            print("destinationController")
+           
              destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
         }
-       // }
+       
         
         
     }
@@ -125,25 +105,33 @@ class AlbumsListViewController: UITableViewController  {
     
     private func setUpViewModel() {
         
+        viewModelAlbumsList?.viewModelCellsArray.asObservable()
+            .subscribeNext { (viewModelCells : [ViewModelCell]) in
+                self.dataSource.reloadData()
+            }.addDisposableTo(disposeBag)
+        
         viewModelAlbumsList?.albums.asObservable()
             .subscribeNext { [weak self]( albums : [Album]) in
                 self!.dataSource.reloadData()
                 
             }.addDisposableTo(disposeBag)
         
-        ReactiveDataFavouriteAlbums.favouritesCheck.asObservable()
-            .subscribeNext { [weak self]( switchBoolStates : [Bool]) in
-               // self!.dataSource.reloadData()
+        ReactiveDataFavouriteAlbums.favouritesCheck.values.toObservable()
+            .subscribeNext { [weak self] (switchBoolStates : (Variable <Bool> )) in
+              
                 
             }.addDisposableTo(disposeBag)
         
         viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
             .filter { $0 != nil }
-            //.map { $0 }
+            .map { $0 }
             
             .subscribeNext { [weak self](viewModelPhotosCollection) in
-                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
+                
+            return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
+                
             }.addDisposableTo(disposeBag)
+        
         
 
         

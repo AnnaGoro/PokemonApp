@@ -17,6 +17,8 @@
 		C52D36B91D76FB5C009C4FE5 /* ViewModelLikedAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52D36B81D76FB5C009C4FE5 /* ViewModelLikedAlbums.swift */; };
 		C52D36BB1D76FB80009C4FE5 /* ViewModelPhotosCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52D36BA1D76FB80009C4FE5 /* ViewModelPhotosCollection.swift */; };
 		C52D36BD1D76FC25009C4FE5 /* AlbumLikedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52D36BC1D76FC25009C4FE5 /* AlbumLikedCell.swift */; };
+		C534E2C71D829C5700E00162 /* ViewModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534E2C61D829C5700E00162 /* ViewModelCell.swift */; };
+		C534E2C91D82C6F700E00162 /* ViewModFavouriteAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534E2C81D82C6F700E00162 /* ViewModFavouriteAlbumCell.swift */; };
 		C53BA2D61D8001C500410287 /* ReactiveDataFavouriteAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BA2D51D8001C500410287 /* ReactiveDataFavouriteAlbums.swift */; };
 		C5579F3D1D7419BC00DBFA7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5579F3C1D7419BC00DBFA7C /* AppDelegate.swift */; };
 		C5579F3F1D7419BC00DBFA7C /* AlbumsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5579F3E1D7419BC00DBFA7C /* AlbumsListViewController.swift */; };
@@ -48,6 +50,8 @@
 		C52D36B81D76FB5C009C4FE5 /* ViewModelLikedAlbums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelLikedAlbums.swift; sourceTree = "<group>"; };
 		C52D36BA1D76FB80009C4FE5 /* ViewModelPhotosCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelPhotosCollection.swift; sourceTree = "<group>"; };
 		C52D36BC1D76FC25009C4FE5 /* AlbumLikedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumLikedCell.swift; sourceTree = "<group>"; };
+		C534E2C61D829C5700E00162 /* ViewModelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelCell.swift; sourceTree = "<group>"; };
+		C534E2C81D82C6F700E00162 /* ViewModFavouriteAlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModFavouriteAlbumCell.swift; sourceTree = "<group>"; };
 		C53BA2D51D8001C500410287 /* ReactiveDataFavouriteAlbums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveDataFavouriteAlbums.swift; sourceTree = "<group>"; };
 		C5579F391D7419BC00DBFA7C /* PockemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PockemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5579F3C1D7419BC00DBFA7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				C52D36B51D76FB3C009C4FE5 /* ViewModelAlbumsList.swift */,
 				C52D36B81D76FB5C009C4FE5 /* ViewModelLikedAlbums.swift */,
 				C52D36BA1D76FB80009C4FE5 /* ViewModelPhotosCollection.swift */,
+				C534E2C61D829C5700E00162 /* ViewModelCell.swift */,
+				C534E2C81D82C6F700E00162 /* ViewModFavouriteAlbumCell.swift */,
 			);
 			name = viewModels;
 			path = data;
@@ -327,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5579F3F1D7419BC00DBFA7C /* AlbumsListViewController.swift in Sources */,
+				C534E2C91D82C6F700E00162 /* ViewModFavouriteAlbumCell.swift in Sources */,
 				C52D36B01D76E03E009C4FE5 /* AlbumsLikedController.swift in Sources */,
 				C52D36B61D76FB3C009C4FE5 /* ViewModelAlbumsList.swift in Sources */,
 				C5579F3D1D7419BC00DBFA7C /* AppDelegate.swift in Sources */,
@@ -340,6 +347,7 @@
 				C52D36B91D76FB5C009C4FE5 /* ViewModelLikedAlbums.swift in Sources */,
 				C5FDB53F1D75E588006D6727 /* Photo.swift in Sources */,
 				C5579F601D744B6D00DBFA7C /* ApiServiceGet.swift in Sources */,
+				C534E2C71D829C5700E00162 /* ViewModelCell.swift in Sources */,
 				C5579F581D7425CE00DBFA7C /* AlbumCell.swift in Sources */,
 				C5FDB5471D75E69D006D6727 /* TypeName.swift in Sources */,
 				C52D36BD1D76FC25009C4FE5 /* AlbumLikedCell.swift in Sources */,

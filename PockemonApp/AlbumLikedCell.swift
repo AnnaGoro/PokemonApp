@@ -15,6 +15,7 @@ import RxSwift
 
 class AlbumLikedCell : UITableViewCell {
    
+    private var viewModFavouriteAlbumCell : ViewModFavouriteAlbumCell?
     
     @IBOutlet weak var switchLike: UISwitch!
     
@@ -24,7 +25,7 @@ class AlbumLikedCell : UITableViewCell {
     
     @IBOutlet weak var numberLabel: UILabel!
 
-    private var checkBoolValue = false
+   // private var checkBoolValue = false
     
     private(set) var disposeBag = DisposeBag()
     
@@ -33,14 +34,68 @@ class AlbumLikedCell : UITableViewCell {
         self.disposeBag = DisposeBag()
     }
     
-    func changeSwitchState(checkBoolValue : Bool) {
+    
+    func changeCellData (viewModel : ViewModFavouriteAlbumCell) {
         
-        self.checkBoolValue = checkBoolValue
-        self.switchLike.setOn(checkBoolValue, animated: false)
+        self.viewModFavouriteAlbumCell = viewModel
+        
+        self.viewModFavouriteAlbumCell!.album.asObservable()
+            
+            .subscribeNext{[weak self] (album : Album) in
+                //print(album)
+                self!.numberLabel.text = String(album.id)
+                self!.titleLabel.text = album.title
+            }.addDisposableTo(disposeBag)
+        
+        
+        self.viewModFavouriteAlbumCell!.user.asObservable()
+            .subscribeNext{[weak self] (user : User) in
+                // print(user)
+                self!.userNameLabel.text = user.name
+            }.addDisposableTo(disposeBag)
+        
+        
+        
+        self.viewModFavouriteAlbumCell!.likeStatusObservable
+            .asObservable()
+            .subscribeNext{[weak self] (likeStatus : Bool) in
+                print()
+                print(likeStatus)
+                print()
+                self!.switchLike.setOn(likeStatus, animated: false)
+            }.addDisposableTo(disposeBag)
+        
+        self.switchLike.rx_value.asObservable()
+            
+            .subscribeNext{[weak self] (likeStatus : Bool) in
+                print()
+                print(likeStatus)
+                print()
+                
+                ReactiveDataFavouriteAlbums.addOrDeleteFavouriteAlbum(self!.viewModFavouriteAlbumCell!.album.value.id!-1, checkBoolSwitch : likeStatus)
+                
+                ReactiveDataFavouriteAlbums.favouritesCheck[(self?.viewModFavouriteAlbumCell?.album.value.id)!-1]!.value = likeStatus
+                
+                
+                print("changeCellData  viewModFavouriteAlbumCell favouritesCheck :")
+                print((self?.viewModFavouriteAlbumCell?.album.value.id!)!-1)
+                print(ReactiveDataFavouriteAlbums.favouritesCheck[(self?.viewModFavouriteAlbumCell?.album.value.id)!-1]!.value)
+                
+            }.addDisposableTo(disposeBag)
+        
         
         
     }
     
+    
+    
+    
+    deinit{
+    
+    print("deinit AlbumLikedCell")
+    
+    
+    }
 
 
 }

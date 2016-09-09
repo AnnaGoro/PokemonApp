@@ -13,11 +13,12 @@ import RxSwift
 class ViewModelAlbumsList {
     
     var albums : Variable<[Album]> = Variable([])
-    var users : Variable <[User]> = Variable([])
-   
-  //  var viewModelAlbumsList : Variable<ViewModelAlbumsList> = Variable(ViewModelAlbumsList())
+
+    var viewModelCellsArray : Variable<[ViewModelCell]> = Variable([ViewModelCell]())
+    
  
     private let apiServiceGet = ApiServiceGet()
+    
     var bag = DisposeBag()
     
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
@@ -25,21 +26,8 @@ class ViewModelAlbumsList {
     var viewModelFavouriteAlbumsCollection : Variable<ViewModelFavouriteAlbums?> = Variable(ViewModelFavouriteAlbums())
     
     
-    
-    func switchStateChanged(index : Int, checkBoolSwitch : Bool){
-  
-        ReactiveDataFavouriteAlbums.switchChangedStateObservable(index, boolState: checkBoolSwitch)
-        
-        if checkBoolSwitch {
-            
-            self.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(index, checkBoolSwitch: ReactiveDataFavouriteAlbums.favouritesCheck.value[index])
-        }
-        
-    }
-    
-    
     func cellIndexChanged (index : Int) {
-        print("cellIndexChanged")
+      
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
        
     }
@@ -51,47 +39,43 @@ class ViewModelAlbumsList {
     
     }
     
-     init() {
-        print("init ViewModelAlbumsList")
-       
-        //   self.viewModelFavouriteAlbumsCollection.value = ViewModelFavouriteAlbums()
+    init() {
+  
+
                
-        apiServiceGet.getAlbums().subscribe(
+        apiServiceGet.getAlbums()
+            
+         .subscribe(        
             onNext: { (albums : [Album] ) in
                 self.albums.value = albums
+                ReactiveDataFavouriteAlbums.albums.value = self.albums.value
             }
             ).addDisposableTo(bag)
         
-        apiServiceGet.recieveAlbumOwners(self.albums.value).subscribe(
-            onNext: { (users : [User]) in
-                
-                self.users.value = users
-            }
-            ).addDisposableTo(bag)
-       
-        print("-------- self.users.value.count --------")
-        print(self.users.value.count)
-        print()
-        
-        
-        if (ReactiveDataFavouriteAlbums.favouritesCheck.value.count < users.value.count-2) {
-            print("******************")
-            print(ReactiveDataFavouriteAlbums.favouritesCheck.value.count)
-
-            for _  in 0...self.users.value.count {
+        for i  in 0..<self.albums.value.count {
             
-                let a = false
-                ReactiveDataFavouriteAlbums.favouritesCheck.value.append(a)
-
+            self.viewModelCellsArray.value.append(ViewModelCell(album: self.albums.value[i]))
+            
+            ReactiveDataFavouriteAlbums.favouritesCheck.updateValue(Variable(false), forKey: i)
+        
         }
+        
+        apiServiceGet.recieveAlbumOwners( self.albums.value)
+         .subscribe(
+            onNext: { (users : [User] ) in
+            
+            ReactiveDataFavouriteAlbums.albumOwners.value = users
+            
+                
         }
-        print("********   checks after   **********")
-        print(ReactiveDataFavouriteAlbums.favouritesCheck.value.count)
-       }
+        ).addDisposableTo(bag)
+      
+     
+    }
 
     deinit{
     
-    print("deinit ViewModelAlbumsList")
+        print("deinit ViewModelAlbumsList")
     
     }
 
