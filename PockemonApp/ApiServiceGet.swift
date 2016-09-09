@@ -26,8 +26,7 @@ class ApiServiceGet {
         
         if checkBoolSwitch  {
             
-            self.favouriteAlbums.value.append(albums[index])            
-            
+            self.favouriteAlbums.value.append(albums[index])
         }
         
         return Observable.just(self.favouriteAlbums.value)
@@ -70,8 +69,6 @@ class ApiServiceGet {
         }
         
     }
-    
-    
     
     
 }

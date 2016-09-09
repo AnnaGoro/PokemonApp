@@ -13,10 +13,10 @@ import RxSwift
 class ViewModelAlbumsList {
     
     var albums : Variable<[Album]> = Variable([])
-
+    
     var viewModelCellsArray : Variable<[ViewModelCell]> = Variable([ViewModelCell]())
     
- 
+    
     private let apiServiceGet = ApiServiceGet()
     
     var bag = DisposeBag()
@@ -27,29 +27,29 @@ class ViewModelAlbumsList {
     
     
     func cellIndexChanged (index : Int) {
-      
+        
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
-       
+        
     }
     
     
     func setViewModelToStatic () {
-     
+        
         ReactiveDataFavouriteAlbums.viewModel.value = self.viewModelFavouriteAlbumsCollection.value
-    
+        
     }
     
     init() {
-  
-
-               
+        
+        
+        
         apiServiceGet.getAlbums()
             
-         .subscribe(        
-            onNext: { (albums : [Album] ) in
-                self.albums.value = albums
-                ReactiveDataFavouriteAlbums.albums.value = self.albums.value
-            }
+            .subscribe(
+                onNext: { (albums : [Album] ) in
+                    self.albums.value = albums
+                    ReactiveDataFavouriteAlbums.albums.value = self.albums.value
+                }
             ).addDisposableTo(bag)
         
         for i  in 0..<self.albums.value.count {
@@ -57,27 +57,27 @@ class ViewModelAlbumsList {
             self.viewModelCellsArray.value.append(ViewModelCell(album: self.albums.value[i]))
             
             ReactiveDataFavouriteAlbums.favouritesCheck.updateValue(Variable(false), forKey: i)
-        
+            
         }
         
         apiServiceGet.recieveAlbumOwners( self.albums.value)
-         .subscribe(
-            onNext: { (users : [User] ) in
-            
-            ReactiveDataFavouriteAlbums.albumOwners.value = users
-            
-                
-        }
-        ).addDisposableTo(bag)
-      
-     
+            .subscribe(
+                onNext: { (users : [User] ) in
+                    
+                    ReactiveDataFavouriteAlbums.albumOwners.value = users
+                    
+                    
+                }
+            ).addDisposableTo(bag)
+        
+        
     }
-
+    
     deinit{
-    
+        
         print("deinit ViewModelAlbumsList")
-    
+        
     }
-
+    
 }
 

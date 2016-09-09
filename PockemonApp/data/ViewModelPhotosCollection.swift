@@ -28,13 +28,13 @@ class ViewModelPhotosCollection {
         self.albumGlobal.asObservable()
             
             .flatMap { (albumGlobal : Album) -> Observable<[Photo]> in
-        
+                
                 return ApiServiceGet().recieveAlbumPhotos(albumGlobal)}
             
             .subscribe(
                 onNext: { (photos : [Photo] ) in
-                self.photos.value = photos
-            }
+                    self.photos.value = photos
+                }
             ).addDisposableTo(bag)
     }
     
@@ -44,9 +44,9 @@ class ViewModelPhotosCollection {
     
     
     
-   deinit {
+    deinit {
         
-    print("deinit ViewModelPhotosCollection")
+        print("deinit ViewModelPhotosCollection")
         
         
     }

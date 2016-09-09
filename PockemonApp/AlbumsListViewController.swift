@@ -14,7 +14,7 @@ import RxCocoa
 class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList : ViewModelAlbumsList?
-
+    
     
     @IBOutlet weak var allAlbumsTabBtn: UITabBarItem!
     
@@ -27,14 +27,14 @@ class AlbumsListViewController: UITableViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-       
+        
         viewModelAlbumsList = ViewModelAlbumsList()
- 
+        
         
         self.title = "PhotoAlbums"
         
         
-            
+        
         setUpViewModel()
         
         
@@ -42,22 +42,22 @@ class AlbumsListViewController: UITableViewController  {
     
     
     override func viewWillAppear(animated: Bool) {
-      
+        
         self.dataSource.reloadData()
     }
     
     
-       override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     
     override func viewWillDisappear(animated: Bool) {
-     
+        
         viewModelAlbumsList!.setViewModelToStatic ()
     }
     
-   
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return   (viewModelAlbumsList?.albums.value.count)!
@@ -69,35 +69,35 @@ class AlbumsListViewController: UITableViewController  {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
         
-       
+        
         
         cell.changeCellData((viewModelAlbumsList!.viewModelCellsArray.value[indexPath.row]))
         
         viewModelAlbumsList?.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(indexPath.row)
-             
+        
         return cell
     }
     
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      
+        
         viewModelAlbumsList!.cellIndexChanged(indexPath.row)
-
+        
     }
     
-
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-    
+        
         if viewModelAlbumsList!.viewModelPhotosCollection.value != nil {
-       
+            
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
-           
-             destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
+            
+            destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
         }
-       
+        
         
         
     }
@@ -118,7 +118,7 @@ class AlbumsListViewController: UITableViewController  {
         
         ReactiveDataFavouriteAlbums.favouritesCheck.values.toObservable()
             .subscribeNext { [weak self] (switchBoolStates : (Variable <Bool> )) in
-              
+                
                 
             }.addDisposableTo(disposeBag)
         
@@ -128,12 +128,12 @@ class AlbumsListViewController: UITableViewController  {
             
             .subscribeNext { [weak self](viewModelPhotosCollection) in
                 
-            return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
+                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
                 
             }.addDisposableTo(disposeBag)
         
         
-
+        
         
     }
 }

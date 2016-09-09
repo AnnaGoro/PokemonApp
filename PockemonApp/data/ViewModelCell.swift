@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 struct ViewModelCell {
-
+    
     var album : Variable<Album> = Variable(Album())
     var user : Variable<User> = Variable(User())
     
@@ -22,19 +22,11 @@ struct ViewModelCell {
     
     
     var likeStatusObservable : Variable<Bool>  {
-        print("likeStatusObservable")
-        print(ReactiveDataFavouriteAlbums.favouritesCheck[album.value.id!-1]?.value)
         return (ReactiveDataFavouriteAlbums.favouritesCheck[album.value.id!-1])!
         
-    
-    
     }
     
-    
-    
     init (album : Album) {
-        
-        print ("init ViewModelCell")
         
         self.album.value = album
         
@@ -45,7 +37,7 @@ struct ViewModelCell {
             }
             ).addDisposableTo(bag)
         
-       
+        
     }
-
+    
 }

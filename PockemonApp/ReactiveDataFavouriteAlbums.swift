@@ -11,10 +11,10 @@ import RxSwift
 import RxCocoa
 
 class ReactiveDataFavouriteAlbums {
-
-
+    
+    
     static var viewModel : Variable<ViewModelFavouriteAlbums?> = Variable(nil)
-
+    
     
     static var favouritesCheck : [Int : Variable<Bool>] = [Int : Variable<Bool>]()
     
@@ -25,32 +25,32 @@ class ReactiveDataFavouriteAlbums {
     static var albumOwners : Variable<[User]> = Variable([User]())
     
     static var apiService = ApiServiceGet()
-  
+    
     
     static func getFavouriteAlbums (albums : [Album], index : Int, checkboolSwitch : Bool) {
-    
-       apiService.recieveFavouriteAlbums(albums, index: index, checkBoolSwitch: checkboolSwitch)
         
-       apiService.favouriteAlbums.asObservable().subscribeNext { (albums : [Album]) in
+        apiService.recieveFavouriteAlbums(albums, index: index, checkBoolSwitch: checkboolSwitch)
         
+        apiService.favouriteAlbums.asObservable().subscribeNext { (albums : [Album]) in
+            
             self.favouriteAlbums.value = albums
             
-        }.addDisposableTo(DisposeBag())
-    
+            }.addDisposableTo(DisposeBag())
+        
     }
     
-
+    
     static func addFavouriteAlbum (album : Album) {
         
         if  !(self.favouriteAlbums.value.contains(album)){
-        
-             self.favouriteAlbums.value.append(album)
-        
+            
+            self.favouriteAlbums.value.append(album)
+            
         }
         
         
     }
-        
+    
     static func addOrDeleteFavouriteAlbum(index : Int, checkBoolSwitch : Bool){
         
         
@@ -58,18 +58,18 @@ class ReactiveDataFavouriteAlbums {
             
             
             guard favouriteAlbums.value.count > index else { return }
-
+            
             deleteUnFavouriteAlbum(favouriteAlbums.value[index])
-                
+            
         }else {
             
-           addFavouriteAlbum(albums.value[index])
+            addFavouriteAlbum(albums.value[index])
             
         }
         
     }
     
-
+    
     
     static func deleteUnFavouriteAlbum (album : Album) {
         
@@ -80,15 +80,15 @@ class ReactiveDataFavouriteAlbums {
             if !favouriteAlbums.value.isEmpty {
                 
                 self.albumOwners.value.removeAtIndex((self.favouriteAlbums.value.indexOf(album))!)
-            
+                
                 self.favouriteAlbums.value.removeAtIndex((self.favouriteAlbums.value.indexOf(album))!)
-            
+                
             }
             
         }
-
-    
-    
+        
+        
+        
     }
-   
+    
 }
