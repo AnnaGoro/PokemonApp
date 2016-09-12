@@ -34,9 +34,7 @@ class AlbumsListViewController: UITableViewController  {
         self.title = "PhotoAlbums"
         
         
-        
         setUpViewModel()
-        
         
     }
     
@@ -46,9 +44,7 @@ class AlbumsListViewController: UITableViewController  {
         self.dataSource.reloadData()
     }
     
-    
-  
-    
+       
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return   (viewModelAlbumsList?.viewModelCellsArray.value.count)!
@@ -84,8 +80,6 @@ class AlbumsListViewController: UITableViewController  {
             destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
         }
         
-        
-        
     }
     
     
@@ -95,8 +89,7 @@ class AlbumsListViewController: UITableViewController  {
             .subscribeNext { (viewModelCells : [ViewModelCell]) in
                 self.dataSource.reloadData()
             }.addDisposableTo(disposeBag)
-       
-      
+        
         
         viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
             .filter { $0 != nil }
@@ -107,9 +100,6 @@ class AlbumsListViewController: UITableViewController  {
                 return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
                 
             }.addDisposableTo(disposeBag)
-        
-        
-        
         
     }
 }

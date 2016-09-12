@@ -17,37 +17,7 @@ import ObjectMapper
 class ApiServiceGet {
     
     private let bag = DisposeBag()
-    
-    var favouriteAlbums : Variable<[Album]> = Variable([Album]())
-    
-    
-    
-    
-    func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
-        
-        
-        if checkBoolSwitch  {
-            
-            self.favouriteAlbums.value.append(albums[index])
-        }
-        
-        return Observable.just(self.favouriteAlbums.value)
-        
-        
-    }
-    
-    
-    func recieveAlbumOwners(albums : [Album]) -> Observable <[User]> {
-        
-        return albums.map{ (album : Album) -> Observable <User> in
-            return recieveAlbumOwner(album)
-            }.combineLatest({ (users : [User]) -> [User] in
-                return users
-            })
-        
-        
-    }
-    
+ 
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
@@ -96,10 +66,7 @@ extension ApiServiceGet {
         }
         
     }
-    
-    
-    
-    
+        
     func getPhotos () -> Observable<[Photo]> {
         
         let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")

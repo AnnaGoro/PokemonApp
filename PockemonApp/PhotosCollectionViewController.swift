@@ -25,8 +25,7 @@ class PhotosCollectionViewController : UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpViewModel()
-        
+        setUpViewModel()        
         
     }
     

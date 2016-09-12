@@ -37,13 +37,8 @@ class AlbumCell : UITableViewCell {
         
           viewModelCell?.likeStatusChanged(switchCheck.on)
         
-        
     }
     
-    
-    
-        
-   
     
     func changeCellData (viewModel : ViewModelCell) {
         
@@ -54,6 +49,7 @@ class AlbumCell : UITableViewCell {
         self.userName.text = viewModelCell?.user!.name
         
         self.viewModelCell?.likeStatusObservable.subscribeNext { [weak self] (likeStatus: Bool) in
+            
             self?.switchCheck.setOn(likeStatus, animated: false)
             }
             .addDisposableTo(disposeBag)
