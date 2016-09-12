@@ -86,8 +86,8 @@ class AlbumsListViewController: UITableViewController  {
     private func setUpViewModel() {
         
         viewModelAlbumsList?.viewModelCellsArray.asObservable()
-            .subscribeNext { (viewModelCells : [ViewModelCell]) in
-                self.dataSource.reloadData()
+            .subscribeNext {[weak self] (viewModelCells : [ViewModelCell]) in
+                self!.dataSource.reloadData()
             }.addDisposableTo(disposeBag)
         
         

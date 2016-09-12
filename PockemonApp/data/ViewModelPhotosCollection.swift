@@ -11,10 +11,10 @@ import RxSwift
 import RxCocoa
 
 
-class ViewModelPhotosCollection {
+struct ViewModelPhotosCollection {
     
     
-    var photos : Variable <[Photo]> = Variable([])
+    var photos : [Photo] = []
     
     var albumGlobal : Variable <Album> = Variable(Album())
     
@@ -33,20 +33,14 @@ class ViewModelPhotosCollection {
             
             .subscribe(
                 onNext: { (photos : [Photo] ) in
-                    self.photos.value = photos
+                    self.photos = photos
                 }
             ).addDisposableTo(bag)
     }
     
     
     
-    deinit {
-        
-        print("deinit ViewModelPhotosCollection")
-        
-        
     }
-}
 
 
 

@@ -109,7 +109,6 @@
                                     <outlet property="switchCheck" destination="lT1-E3-8pM" id="Y5G-Nu-kBK"/>
                                     <outlet property="title" destination="viZ-7q-bzC" id="afi-aD-CAk"/>
                                     <outlet property="userName" destination="d0y-9f-C6f" id="cw2-yU-BKL"/>
-                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="SaV-0L-uzJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -126,6 +125,7 @@
                     <connections>
                         <outlet property="allAlbumsTabBtn" destination="2Ta-CD-ePN" id="qmN-v3-dSW"/>
                         <outlet property="dataSource" destination="VCs-PU-bOE" id="VPl-Du-muE"/>
+                        <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="ggK-hQ-Vko"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UvH-u5-uSk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -277,7 +277,6 @@
                                     <outlet property="switchCheck" destination="LNZ-nd-ys5" id="4tF-MX-Pg6"/>
                                     <outlet property="title" destination="f3h-aX-Exh" id="BuX-DW-Mkn"/>
                                     <outlet property="userName" destination="Vfu-HM-EeG" id="dTI-P5-Crj"/>
-                                    <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosFromFavouriteAlbum" id="FgU-ef-WcF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -293,6 +292,7 @@
                     <connections>
                         <outlet property="dataSource" destination="Ih7-gv-ZR0" id="LT1-UU-dxc"/>
                         <outlet property="favouriteAlbuumsTabBtn" destination="DyU-JT-2Sn" id="d0o-ac-xDw"/>
+                        <segue destination="M3w-1a-qA3" kind="show" identifier="showPhotosIFromAlbum" id="23j-mJ-Biz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kvy-Ie-tsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -305,6 +305,6 @@
         <image name="photos" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SaV-0L-uzJ"/>
+        <segue reference="23j-mJ-Biz"/>
     </inferredMetricsTieBreakers>
 </document>

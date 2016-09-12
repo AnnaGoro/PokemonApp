@@ -59,10 +59,10 @@ class AlbumsLikedController : UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         
-        if segue.identifier == "showPhotosFromFavouriteAlbum" {
+        if segue.identifier == "showPhotosIFromAlbum" {
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
-            
+            destinationController.viewModelPhotosCollection = favouriteAlbumsViewModel?.viewModelPhotosCollection.value
            
         }
         
@@ -71,15 +71,15 @@ class AlbumsLikedController : UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        favouriteAlbumsViewModel?.cellIndexChanged(indexPath.row)
         
     }
     
     private func setUpViewModel() {
         
         favouriteAlbumsViewModel?.viewModelCellsArray.asObservable()
-            .subscribeNext { (viewModelCells : [ViewModelCell]) in
-                self.dataSource.reloadData()
+            .subscribeNext { [weak self] (viewModelCells : [ViewModelCell]) in
+                self!.dataSource.reloadData()
             }.addDisposableTo(disposeBag)
     
         favouriteAlbumsViewModel?.viewModelPhotosCollection.asObservable()

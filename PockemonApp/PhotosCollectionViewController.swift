@@ -31,7 +31,7 @@ class PhotosCollectionViewController : UICollectionViewController {
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let a = viewModelPhotosCollection?.photos.value.count {
+        if let a = viewModelPhotosCollection?.photos.count {
             print(a)
             return a
             
@@ -48,8 +48,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
         
-        if let url = viewModelPhotosCollection?.photos.value[indexPath.item].url {
-            
+        if let url = viewModelPhotosCollection?.photos[indexPath.item].url {            
             cell.photoImageView.load(url)
         } else {
             
@@ -63,14 +62,17 @@ class PhotosCollectionViewController : UICollectionViewController {
     
     private func setUpViewModel() {
         
-        viewModelPhotosCollection?.photos.asObservable()
-            
-            .subscribeNext {[weak self] (photos : [Photo]) in
-                
-                self?.title = self?.viewModelPhotosCollection!.albumGlobal.value.title
-                
-                
-            }.addDisposableTo(disposeBag)
+         self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
+        //self.dataSource.reloadData()
+        
+//        viewModelPhotosCollection?.albumGlobal.asObservable()
+//            
+//            .subscribeNext {[weak self] (album : Album) in
+//                
+//                self!.title = self!.viewModelPhotosCollection!.albumGlobal.value.title
+//                self!.dataSource.reloadData()
+//                
+//            }.addDisposableTo(disposeBag)
         
     }
     
