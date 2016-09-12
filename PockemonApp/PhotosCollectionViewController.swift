@@ -17,29 +17,21 @@ class PhotosCollectionViewController : UICollectionViewController {
     var viewModelPhotosCollection : ViewModelPhotosCollection?
     
     @IBOutlet var dataSource: UICollectionView!
-    
-    private let disposeBag = DisposeBag()
-    
+        
     private let reuseIdentifier = "photoCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpViewModel()        
+        self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
+        
         
     }
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let a = viewModelPhotosCollection?.photos.count {
-            print(a)
-            return a
-            
-        } else {
-            print("viewModelPhotosCollection?.photos.value.count = nil")
-            
-            return 0
-        }
+    
+            return (viewModelPhotosCollection?.photos.count)!
         
     }
     
@@ -50,31 +42,10 @@ class PhotosCollectionViewController : UICollectionViewController {
         
         if let url = viewModelPhotosCollection?.photos[indexPath.item].url {            
             cell.photoImageView.load(url)
-        } else {
-            
-            print("viewModelPhotosCollection?.photos.value[indexPath.item].url  = nil")
             
         }
         
         return cell
     }
-    
-    
-    private func setUpViewModel() {
-        
-         self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
-        //self.dataSource.reloadData()
-        
-//        viewModelPhotosCollection?.albumGlobal.asObservable()
-//            
-//            .subscribeNext {[weak self] (album : Album) in
-//                
-//                self!.title = self!.viewModelPhotosCollection!.albumGlobal.value.title
-//                self!.dataSource.reloadData()
-//                
-//            }.addDisposableTo(disposeBag)
-        
-    }
-    
     
 }
