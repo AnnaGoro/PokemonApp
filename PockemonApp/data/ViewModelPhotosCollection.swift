@@ -40,10 +40,6 @@ class ViewModelPhotosCollection {
     
     
     
-    
-    
-    
-    
     deinit {
         
         print("deinit ViewModelPhotosCollection")

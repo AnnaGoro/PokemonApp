@@ -47,20 +47,11 @@ class AlbumsListViewController: UITableViewController  {
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    
-    override func viewWillDisappear(animated: Bool) {
-        
-        viewModelAlbumsList!.setViewModelToStatic ()
-    }
-    
+  
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return   (viewModelAlbumsList?.albums.value.count)!
+        return   (viewModelAlbumsList?.viewModelCellsArray.value.count)!
     }
     
     
@@ -69,11 +60,8 @@ class AlbumsListViewController: UITableViewController  {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
         
-        
-        
         cell.changeCellData((viewModelAlbumsList!.viewModelCellsArray.value[indexPath.row]))
         
-        viewModelAlbumsList?.viewModelFavouriteAlbumsCollection.value?.getViewModelFavouriteAlbumsData(indexPath.row)
         
         return cell
     }
@@ -92,9 +80,7 @@ class AlbumsListViewController: UITableViewController  {
         
         if viewModelAlbumsList!.viewModelPhotosCollection.value != nil {
             
-            
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
-            
             destinationController.viewModelPhotosCollection = viewModelAlbumsList!.viewModelPhotosCollection.value
         }
         
@@ -109,18 +95,8 @@ class AlbumsListViewController: UITableViewController  {
             .subscribeNext { (viewModelCells : [ViewModelCell]) in
                 self.dataSource.reloadData()
             }.addDisposableTo(disposeBag)
-        
-        viewModelAlbumsList?.albums.asObservable()
-            .subscribeNext { [weak self]( albums : [Album]) in
-                self!.dataSource.reloadData()
-                
-            }.addDisposableTo(disposeBag)
-        
-        ReactiveDataFavouriteAlbums.favouritesCheck.values.toObservable()
-            .subscribeNext { [weak self] (switchBoolStates : (Variable <Bool> )) in
-                
-                
-            }.addDisposableTo(disposeBag)
+       
+      
         
         viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
             .filter { $0 != nil }

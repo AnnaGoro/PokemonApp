@@ -14,12 +14,14 @@ import RxCocoa
 import RxSwift
 import ObjectMapper
 
-
 class ApiServiceGet {
     
     private let bag = DisposeBag()
     
     var favouriteAlbums : Variable<[Album]> = Variable([Album]())
+    
+    
+    
     
     func recieveFavouriteAlbums(albums : [Album], index : Int, checkBoolSwitch : Bool) -> Observable <[Album]> {
         
@@ -84,6 +86,9 @@ extension ApiServiceGet {
         let arrayAlbums : [Album] = Mapper <Album>().mapArray(json)!
         
         return Observable.create { observer in
+            
+            ReactiveDataFavouriteAlbums.populateAlbums(arrayAlbums)
+            
             observer.onNext(arrayAlbums)
             observer.onCompleted()
             

@@ -12,60 +12,63 @@ import RxSwift
 
 struct ViewModelFavouriteAlbums {
     
-    var albums : Variable<[Album]> = Variable([])
-    var favouriteAlbums : Variable<[Album]> = Variable([])
-    var albumOwners : Variable <[User]> = Variable([])
     
-    var viewModelCellsArray : Variable<[ViewModFavouriteAlbumCell]> = Variable([ViewModFavouriteAlbumCell]())
+    var viewModelCellsArray : Variable<[ViewModelCell]> = Variable([])
     
     private let apiServiceGet = ApiServiceGet()
-    
     private let bag = DisposeBag()
     
-    var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
-    
-    
-    func getViewModelFavouriteAlbumsData (index : Int) {
-        
-        apiServiceGet.getAlbums()
-            
-            .subscribe(
-                onNext: { (albums : [Album] ) in
-                    self.albums.value = albums
-                }
-            ).addDisposableTo(bag)
-        
-        
-        apiServiceGet.recieveFavouriteAlbums(self.albums.value, index: index,
-            
-            checkBoolSwitch: ReactiveDataFavouriteAlbums.favouritesCheck[index]!.value)
-            .subscribe(
-                onNext: { (albums : [Album] ) in
-                    
-                    self.favouriteAlbums.value = albums
-                    ReactiveDataFavouriteAlbums.favouriteAlbums.value = self.favouriteAlbums.value
-                    
-                }
-            ).addDisposableTo(bag)
-        
-        
-        for i  in 0..<self.favouriteAlbums.value.count {
-            
-            self.viewModelCellsArray.value.append(ViewModFavouriteAlbumCell(album: self.favouriteAlbums.value[i]))
-            
-        }
-        
-    }
-    
-    
-    init() { print ("init ViewModelFavouriteAlbums")}
+    var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)    
     
     
     func cellIndexChanged (index : Int) {
         
-        self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: albums.value[index])
+        self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: viewModelCellsArray.value[index].album)
         
     }
+    
+    
+    init() {
+        
+        ReactiveDataFavouriteAlbums.favouritesCheck
+            .map { (tuple : (Int, Variable<Bool>)) -> Observable<Bool>  in
+                return tuple.1.asObservable()
+            }
+            .combineLatest { $0 }
+            .flatMap { _ in
+            
+                return ApiServiceGet().getAlbums()
+            
+            }
+            .map { (albums : [Album]) -> [ViewModelCell] in
+                
+                let a : [Album] = albums.filter{ (album : Album) -> Bool in
+                    
+                    return (ReactiveDataFavouriteAlbums.favouritesCheck[album.id!]!.value)
+                    
+                }
+                
+                let b : [ViewModelCell] = a.map { (album : Album) -> ViewModelCell in
+                    
+                    return ViewModelCell(album: album)
+                    
+                }
+                
+                return b
+                
+            }
+            .subscribeNext { (cells: [ViewModelCell]) in
+                
+                self.viewModelCellsArray.value = cells
+            }
+            .addDisposableTo(bag)
+        
+        
+        
+    }
+    
+
+    
     
     
     

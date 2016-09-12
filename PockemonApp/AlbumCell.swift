@@ -21,7 +21,8 @@ class AlbumCell : UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-    private(set) var disposeBag = DisposeBag()
+       private(set) var disposeBag = DisposeBag()
+    
     
     override func prepareForReuse() {
         
@@ -32,48 +33,31 @@ class AlbumCell : UITableViewCell {
     }
     
     
+    @IBAction func changeLike(sender: UISwitch) {
+        
+          viewModelCell?.likeStatusChanged(switchCheck.on)
+        
+        
+    }
+    
+    
+    
+        
+   
+    
     func changeCellData (viewModel : ViewModelCell) {
         
         self.viewModelCell = viewModel
         
-        self.viewModelCell!.album.asObservable()
-            
-            .subscribeNext{[weak self] (album : Album) in
-                
-                self!.number.text = String(album.id!)
-                self!.title.text = album.title!
-            }.addDisposableTo(disposeBag)
+        self.number.text = String(viewModelCell!.album.id!)
+        self.title.text = viewModelCell!.album.title!
+        self.userName.text = viewModelCell?.user!.name
         
-        
-        self.viewModelCell!.user.asObservable()
-            .subscribeNext{[weak self] (user : User) in
-                
-                self!.userName.text = user.name
-            }.addDisposableTo(disposeBag)
-        
-        
-        
-        self.viewModelCell!.likeStatusObservable
-            .asObservable()
-            .subscribeNext{[weak self] (likeStatus : Bool) in
-                
-                self!.switchCheck.setOn(likeStatus, animated: false)
-            }.addDisposableTo(disposeBag)
-        
-        self.switchCheck.rx_value.asObservable()
-            
-            .subscribeNext{[weak self] (likeStatus : Bool) in
-                
-                ReactiveDataFavouriteAlbums.addOrDeleteFavouriteAlbum(self!.viewModelCell!.album.value.id!-1,
-                    checkBoolSwitch : likeStatus)
-                ReactiveDataFavouriteAlbums.favouritesCheck[(self?.viewModelCell?.album.value.id)!-1]!.value = likeStatus
-                
-                ReactiveDataFavouriteAlbums.getFavouriteAlbums (ReactiveDataFavouriteAlbums.albums.value, index : ((self?.viewModelCell?.album.value.id)!-1), checkboolSwitch : ReactiveDataFavouriteAlbums.favouritesCheck[(self?.viewModelCell?.album.value.id)!-1]!.value)
-                
-                
-            }.addDisposableTo(disposeBag)
-        
-        
+        self.viewModelCell?.likeStatusObservable.subscribeNext { [weak self] (likeStatus: Bool) in
+            self?.switchCheck.setOn(likeStatus, animated: false)
+            }
+            .addDisposableTo(disposeBag)
+
         
     }
     

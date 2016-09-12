@@ -12,28 +12,31 @@ import RxSwift
 
 struct ViewModelCell {
     
-    var album : Variable<Album> = Variable(Album())
-    var user : Variable<User> = Variable(User())
+    private(set) var album : Album
+    private(set) var user : User? = nil
     
     private let apiServiceGet = ApiServiceGet()
     
     var bag = DisposeBag()
     
-    
-    
-    var likeStatusObservable : Variable<Bool>  {
-        return (ReactiveDataFavouriteAlbums.favouritesCheck[album.value.id!-1])!
-        
+    var likeStatusObservable: Observable<Bool> {
+        return ReactiveDataFavouriteAlbums.favouritesCheck[album.id!]!.asObservable()
     }
+  
+    func likeStatusChanged (likeStatus : Bool) {    
+    
+        ReactiveDataFavouriteAlbums.setLikeStatus(album, status: likeStatus)
+    }
+    
     
     init (album : Album) {
         
-        self.album.value = album
+        self.album = album
         
-        apiServiceGet.recieveAlbumOwner(self.album.value).subscribe(
+        apiServiceGet.recieveAlbumOwner(self.album).subscribe(
             onNext: { (user : User) in
                 
-                self.user.value = user
+                self.user = user
             }
             ).addDisposableTo(bag)
         

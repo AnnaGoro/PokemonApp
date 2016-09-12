@@ -15,5 +15,7 @@ pod 'RxCocoa'
 pod 'RxAlamofire'
 pod 'RxDataSources', '0.8.1'
 pod 'ImageLoader'
+pod 'Bond'
 
 end
+
