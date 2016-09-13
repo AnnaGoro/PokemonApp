@@ -16,8 +16,7 @@ class PhotoCell : UICollectionViewCell{
     
     @IBOutlet weak var photoImageView: UIImageView!
     
-    var disposeBag: DisposeBag?
-    
+    var disposeBag: DisposeBag?    
     
     @IBOutlet weak var albumTitle: UILabel!
     

@@ -20,8 +20,6 @@ class ViewModelAlbumsList {
     var bag = DisposeBag()
     var viewModelPhotosCollection : Variable<ViewModelPhotosCollection?> = Variable(nil)
     
-    
-    
     func cellIndexChanged (index : Int) {
         
         self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: (sections.value.first?.items[index].album)!)

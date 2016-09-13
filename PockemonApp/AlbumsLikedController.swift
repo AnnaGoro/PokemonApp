@@ -25,6 +25,7 @@ class AlbumsLikedController : UITableViewController {
     
     @IBOutlet weak var dataSource: UITableView!
     var dataSourceTable: RxTableViewSectionedAnimatedDataSource<SectionOfData>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,14 +57,8 @@ class AlbumsLikedController : UITableViewController {
             
         }
         
-        
     }
     
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        favouriteAlbumsViewModel?.cellIndexChanged(indexPath.row)
-        
-    }
     
     private func setUpViewModel() {
         
@@ -103,11 +98,6 @@ class AlbumsLikedController : UITableViewController {
             }.addDisposableTo(disposeBag)
         
         self.dataSourceTable = dataSourceTable
-        
-        
-        
-        
-        
         
     }
     
