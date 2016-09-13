@@ -41,10 +41,14 @@ class ViewModelAlbumsList {
                 }
                 
             }
-            .subscribeNext { (cells: [ViewModelCell]) in
+            .map{ (cells : [ViewModelCell]) -> [SectionOfData] in
                 
-                self.sections.value.append(SectionOfData(header: "AllAlbums", items: cells))
+                return [SectionOfData (header : "Favourite Albums", items : cells)]
                 
+            }
+            .subscribeNext { (sections: [SectionOfData]) in
+                
+                self.sections.value = sections
             }
             .addDisposableTo(bag)
         

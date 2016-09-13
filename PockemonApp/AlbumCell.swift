@@ -27,8 +27,7 @@ class AlbumCell : UITableViewCell {
     
     override func prepareForReuse() {
         
-        self.disposeBag = DisposeBag()
-        
+        self.disposeBag = DisposeBag()        
         super.prepareForReuse()
         
     }
@@ -46,9 +45,9 @@ class AlbumCell : UITableViewCell {
         self.viewModelCell = viewModel
         
         
-        self.number.text = String(viewModelCell!.album.id!) ?? "smth wrong number"
-        self.title.text = viewModelCell!.album.title!  ?? "smth wrong title"
-        self.userName.text = viewModelCell?.user!.name  ?? "smth wrong userName"
+        self.number.text = String(viewModelCell!.album.id!)
+        self.title.text = viewModelCell!.album.title!
+        self.userName.text = viewModelCell?.user!.name
         
         self.viewModelCell?.likeStatusObservable.subscribeNext { [weak self] (likeStatus: Bool) in
             
