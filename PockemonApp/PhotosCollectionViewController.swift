@@ -11,40 +11,62 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ImageLoader
+import RxDataSources
 
 class PhotosCollectionViewController : UICollectionViewController {
     
     var viewModelPhotosCollection : ViewModelPhotosCollection?
     
+    var dataSourceCollection: RxCollectionViewSectionedAnimatedDataSource<SectionOfPhotos>?
+    
     @IBOutlet var dataSource: UICollectionView!
     
-    private let reuseIdentifier = "photoCell"
     
+    private(set) var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
         
-    }
-    
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return (viewModelPhotosCollection?.photos.count)!
+        setUpViewModel()
         
     }
     
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+   
+    private func setUpViewModel() {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
+        self.dataSource.delegate = nil
+        self.dataSource.dataSource = nil
         
-        if let url = viewModelPhotosCollection?.photos[indexPath.item].url {
-            cell.photoImageView.load(url)
+        dataSource
+            .rx_setDelegate(self)
+            .addDisposableTo(disposeBag)
+        
+        
+        let dataSourceCollection = RxCollectionViewSectionedAnimatedDataSource<SectionOfPhotos>()
+        
+        viewModelPhotosCollection?.sections.asObservable()
             
+            .bindTo(dataSource.rx_itemsWithDataSource(dataSourceCollection))
+            
+            .addDisposableTo(disposeBag)
+        
+        
+        self.dataSourceCollection = dataSourceCollection
+        
+        dataSourceCollection.cellFactory = { [weak self] (dataSource, collectionView, indexPath, photo) in
+            
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photoCell", forIndexPath: indexPath) as! PhotoCell
+            
+            cell.loadPhoto(photo)
+            
+            return cell
         }
         
-        return cell
+      
+        
     }
-    
+
 }
+    
+

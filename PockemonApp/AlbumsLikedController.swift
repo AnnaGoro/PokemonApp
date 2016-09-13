@@ -16,7 +16,6 @@ import RxDataSources
 
 class AlbumsLikedController : UITableViewController {
     
-    
     private var favouriteAlbumsViewModel : ViewModelFavouriteAlbums?
     
     private(set) var disposeBag = DisposeBag()
@@ -79,7 +78,7 @@ class AlbumsLikedController : UITableViewController {
             .addDisposableTo(disposeBag)
         
         
-        dataSourceTable.configureCell = { dataSource, tableView, indexPath, cellViewModel in
+        dataSourceTable.configureCell = { [weak self] (dataSource, tableView, indexPath, cellViewModel) in
             
             let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
             

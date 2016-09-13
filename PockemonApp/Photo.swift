@@ -8,14 +8,16 @@
 
 import Foundation
 import ObjectMapper
+import RxDataSources
+
 
 struct Photo : Mappable {
     
-    var id : Int?
-    var url : String?
-    var thumbnailUrl : String?
-    var albumId : Int?
-    var title : String?
+   private(set) var id : Int?
+   private(set) var url : String?
+   private(set) var thumbnailUrl : String?
+   private(set) var albumId : Int?
+   private(set) var title : String?
     
     init? (_ map : Map) {
         
@@ -30,4 +32,33 @@ struct Photo : Mappable {
         title <- map["title"]
     }
 }
+
+
+extension Photo : Hashable, IdentifiableType, Equatable  {
+    
+    
+    var identity: Photo {
+        
+        return self
+        
+    }
+
+    
+    var hashValue : Int {
+        get {
+            return self.id!.hashValue + self.url!.hashValue
+        }
+    }
+    
+    
+}
+
+func ==(lhs: Photo, rhs: Photo) -> Bool {
+    return lhs.id == rhs.id &&
+        lhs.url == rhs.url
+}
+
+
+
+
 

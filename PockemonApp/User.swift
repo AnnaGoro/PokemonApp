@@ -11,13 +11,6 @@ import ObjectMapper
 
 
 
-func ==(lhs: User, rhs: User) -> Bool {
-    
-    return lhs.userId == rhs.userId &&
-        lhs.name == rhs.name
-}
-
-
 struct User : Mappable, Equatable {
     
     
@@ -46,4 +39,8 @@ struct User : Mappable, Equatable {
     
 }
 
-
+func ==(lhs: User, rhs: User) -> Bool {
+    
+    return lhs.userId == rhs.userId &&
+        lhs.name == rhs.name
+}

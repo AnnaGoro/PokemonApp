@@ -60,7 +60,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0y-9f-C6f">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0y-9f-C6f">
                                             <rect key="frame" x="76" y="50" width="440" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,7 +79,7 @@
                                                 <action selector="changeLike:" destination="0Jm-2G-dCR" eventType="valueChanged" id="LMb-Xm-hVF"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viZ-7q-bzC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viZ-7q-bzC">
                                             <rect key="frame" x="76" y="8" width="440" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,6 +90,7 @@
                                         <constraint firstItem="viZ-7q-bzC" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="68" id="6cb-oI-POh"/>
                                         <constraint firstItem="viZ-7q-bzC" firstAttribute="leading" secondItem="d0y-9f-C6f" secondAttribute="leading" id="6e9-ON-4BY"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" id="78M-rr-Swh"/>
+                                        <constraint firstItem="lT1-E3-8pM" firstAttribute="leading" secondItem="viZ-7q-bzC" secondAttribute="trailing" constant="27" id="7Ut-3T-IhB"/>
                                         <constraint firstItem="d0y-9f-C6f" firstAttribute="top" secondItem="viZ-7q-bzC" secondAttribute="bottom" constant="18" id="IUG-be-b6V"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="leading" secondItem="YmT-fk-e57" secondAttribute="leadingMargin" constant="17" id="Ivv-3i-VVp"/>
                                         <constraint firstItem="W4E-mt-ELd" firstAttribute="centerY" secondItem="YmT-fk-e57" secondAttribute="centerY" id="Jnq-vE-zgn"/>
@@ -228,7 +229,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfu-HM-EeG">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfu-HM-EeG">
                                             <rect key="frame" x="76" y="50" width="440" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -247,7 +248,7 @@
                                                 <action selector="changeLike:" destination="ccT-V7-58U" eventType="valueChanged" id="YF7-TP-P0k"/>
                                             </connections>
                                         </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3h-aX-Exh">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3h-aX-Exh">
                                             <rect key="frame" x="76" y="8" width="440" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -255,6 +256,7 @@
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="LNZ-nd-ys5" firstAttribute="leading" secondItem="f3h-aX-Exh" secondAttribute="trailing" constant="27" id="1CI-3F-SKZ"/>
                                         <constraint firstItem="uN5-uN-i8T" firstAttribute="leading" secondItem="BqB-EH-dTD" secondAttribute="leadingMargin" constant="17" id="6KL-wB-R9x"/>
                                         <constraint firstItem="LNZ-nd-ys5" firstAttribute="leading" secondItem="Vfu-HM-EeG" secondAttribute="trailing" constant="27" id="Dnd-9g-usE"/>
                                         <constraint firstItem="LNZ-nd-ys5" firstAttribute="centerY" secondItem="BqB-EH-dTD" secondAttribute="centerY" id="Dze-uO-4b3"/>
@@ -305,6 +307,6 @@
         <image name="photos" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="23j-mJ-Biz"/>
+        <segue reference="ggK-hQ-Vko"/>
     </inferredMetricsTieBreakers>
 </document>

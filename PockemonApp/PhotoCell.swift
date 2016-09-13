@@ -27,6 +27,20 @@ class PhotoCell : UICollectionViewCell{
         super.prepareForReuse()
     }
     
+    
+    func loadPhoto (photo : Photo) {
+    
+        guard let url = photo.url else {
+            print("smth wrong with loadPhoto")
+            return
+        }
+        
+        self.photoImageView.load(url)
+    
+    
+    }
+    
+    
     deinit {
         
     }

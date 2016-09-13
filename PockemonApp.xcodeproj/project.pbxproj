@@ -19,6 +19,7 @@
 		C534E2C71D829C5700E00162 /* ViewModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534E2C61D829C5700E00162 /* ViewModelCell.swift */; };
 		C53BA2D61D8001C500410287 /* ReactiveDataFavouriteAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53BA2D51D8001C500410287 /* ReactiveDataFavouriteAlbums.swift */; };
 		C54881A01D87ECFB007BEA7C /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = C548819F1D87ECFB007BEA7C /* Sections.swift */; };
+		C54881A21D8826B8007BEA7C /* SectionsPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54881A11D8826B8007BEA7C /* SectionsPhoto.swift */; };
 		C5579F3D1D7419BC00DBFA7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5579F3C1D7419BC00DBFA7C /* AppDelegate.swift */; };
 		C5579F3F1D7419BC00DBFA7C /* AlbumsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5579F3E1D7419BC00DBFA7C /* AlbumsListViewController.swift */; };
 		C5579F421D7419BC00DBFA7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5579F401D7419BC00DBFA7C /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		C534E2C61D829C5700E00162 /* ViewModelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelCell.swift; sourceTree = "<group>"; };
 		C53BA2D51D8001C500410287 /* ReactiveDataFavouriteAlbums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveDataFavouriteAlbums.swift; sourceTree = "<group>"; };
 		C548819F1D87ECFB007BEA7C /* Sections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		C54881A11D8826B8007BEA7C /* SectionsPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsPhoto.swift; sourceTree = "<group>"; };
 		C5579F391D7419BC00DBFA7C /* PockemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PockemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5579F3C1D7419BC00DBFA7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5579F3E1D7419BC00DBFA7C /* AlbumsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				C5579F5B1D743E5400DBFA7C /* User.swift */,
 				C5FDB53E1D75E588006D6727 /* Photo.swift */,
 				C548819F1D87ECFB007BEA7C /* Sections.swift */,
+				C54881A11D8826B8007BEA7C /* SectionsPhoto.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				C5579F5A1D74308B00DBFA7C /* PhotosCollectionViewController.swift in Sources */,
 				C54881A01D87ECFB007BEA7C /* Sections.swift in Sources */,
 				C52D36B21D76E181009C4FE5 /* PhotoCell.swift in Sources */,
+				C54881A21D8826B8007BEA7C /* SectionsPhoto.swift in Sources */,
 				C5FDB5491D75E717006D6727 /* ImageUrl.swift in Sources */,
 				C5FDB5451D75E637006D6727 /* Album.swift in Sources */,
 				C5579F5E1D74473700DBFA7C /* PokemonUrlsNames.swift in Sources */,

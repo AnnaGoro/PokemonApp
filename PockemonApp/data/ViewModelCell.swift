@@ -38,8 +38,7 @@ struct ViewModelCell {
                 
                 self.user = user
             }
-            ).addDisposableTo(bag)
-        
+            ).addDisposableTo(bag)        
     }
     
 }

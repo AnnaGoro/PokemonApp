@@ -9,12 +9,12 @@
 import Foundation
 import RxSwift
 import RxCocoa
-
+import RxDataSources
 
 struct ViewModelPhotosCollection {
     
+    var sections : Variable<[SectionOfPhotos]> = Variable([])
     
-    var photos : [Photo] = []
     
     var albumGlobal : Variable <Album> = Variable(Album())
     
@@ -31,11 +31,16 @@ struct ViewModelPhotosCollection {
                 
                 return ApiServiceGet().recieveAlbumPhotos(albumGlobal)}
             
-            .subscribe(
-                onNext: { (photos : [Photo] ) in
-                    self.photos = photos
-                }
-            ).addDisposableTo(bag)
+            .map{ (photos : [Photo]) -> [SectionOfPhotos] in
+                
+                return [SectionOfPhotos (header : "Photos", items : photos)]
+                
+            }
+            .subscribeNext { (sections: [SectionOfPhotos]) in
+                
+                self.sections.value = sections
+            }
+            .addDisposableTo(bag)
     }
     
     

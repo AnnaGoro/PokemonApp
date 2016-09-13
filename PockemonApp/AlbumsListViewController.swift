@@ -73,7 +73,7 @@ class AlbumsListViewController: UITableViewController  {
             .addDisposableTo(disposeBag)
         
         
-        dataSourceTable.configureCell = { dataSource, tableView, indexPath, cellViewModel in
+        dataSourceTable.configureCell = { [weak self] (dataSource, tableView, indexPath, cellViewModel) in
             
             let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
             
