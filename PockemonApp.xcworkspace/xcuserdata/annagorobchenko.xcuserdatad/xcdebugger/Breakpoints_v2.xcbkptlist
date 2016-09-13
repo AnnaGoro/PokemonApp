@@ -495,7 +495,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/PhotosCollectionViewController.swift"
@@ -511,7 +511,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PockemonApp/PhotosCollectionViewController.swift"
@@ -524,7 +524,7 @@
             landmarkType = "5">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "PockemonApp.PhotosCollectionViewController.(setUpViewModel in _F2C7CB31D5F42F5392EA65B412282E08) () -&gt; ()"
@@ -539,7 +539,7 @@
                   offsetFromSymbolStart = "1778">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "PockemonApp.PhotosCollectionViewController.((setUpViewModel in _F2C7CB31D5F42F5392EA65B412282E08) () -&gt; ()).(closure #1)"

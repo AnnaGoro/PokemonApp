@@ -30,10 +30,7 @@ class PhotoCell : UICollectionViewCell{
     
     func loadPhoto (photo : Photo) {
     
-        guard let url = photo.url else {
-            print("smth wrong with loadPhoto")
-            return
-        }
+        guard let url = photo.url else {return}
         
         self.photoImageView.load(url)
     
