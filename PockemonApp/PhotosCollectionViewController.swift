@@ -17,20 +17,20 @@ class PhotosCollectionViewController : UICollectionViewController {
     var viewModelPhotosCollection : ViewModelPhotosCollection?
     
     @IBOutlet var dataSource: UICollectionView!
-        
+    
     private let reuseIdentifier = "photoCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = self.viewModelPhotosCollection?.albumGlobal.value.title        
+        self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
         
     }
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-            return (viewModelPhotosCollection?.photos.count)!
+        
+        return (viewModelPhotosCollection?.photos.count)!
         
     }
     
@@ -39,7 +39,7 @@ class PhotosCollectionViewController : UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
         
-        if let url = viewModelPhotosCollection?.photos[indexPath.item].url {            
+        if let url = viewModelPhotosCollection?.photos[indexPath.item].url {
             cell.photoImageView.load(url)
             
         }

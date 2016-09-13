@@ -62,7 +62,7 @@ class AlbumsListViewController: UITableViewController  {
         dataSource
             .rx_setDelegate(self)
             .addDisposableTo(disposeBag)
-
+        
         
         let dataSourceTable = RxTableViewSectionedAnimatedDataSource<SectionOfData>()
         
@@ -89,9 +89,10 @@ class AlbumsListViewController: UITableViewController  {
             
             self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: indexPath)
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
             }.addDisposableTo(disposeBag)
         
-         self.dataSourceTable = dataSourceTable
+        self.dataSourceTable = dataSourceTable
         
     }
 }

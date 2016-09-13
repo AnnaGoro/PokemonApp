@@ -10,14 +10,14 @@ import Foundation
 import ObjectMapper
 
 struct Photo : Mappable {
-        
-     var id : Int?
-     var url : String?
-     var thumbnailUrl : String?
-     var albumId : Int?
-     var title : String?
     
-        init? (_ map : Map) {
+    var id : Int?
+    var url : String?
+    var thumbnailUrl : String?
+    var albumId : Int?
+    var title : String?
+    
+    init? (_ map : Map) {
         
     }
     

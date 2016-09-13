@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class ReactiveDataFavouriteAlbums {
-       
+    
     static var favouritesCheck : [Int : Variable<Bool>] = [:]
     
     static func populateAlbums(albums: [Album]) {
@@ -28,7 +28,7 @@ class ReactiveDataFavouriteAlbums {
     static func setLikeStatus(album: Album, status: Bool) {
         favouritesCheck[album.id!]?.value = status
     }
-        
-        
-}
     
+    
+}
+

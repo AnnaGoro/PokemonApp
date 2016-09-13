@@ -14,27 +14,27 @@ import ObjectMapper
 func ==(lhs: User, rhs: User) -> Bool {
     
     return lhs.userId == rhs.userId &&
-           lhs.name == rhs.name
+        lhs.name == rhs.name
 }
 
 
 struct User : Mappable, Equatable {
-
-
+    
+    
     private(set) var userId : Int?
     private(set) var name : String?
     
     
     init? (_ map : Map) {
-    
-    
+        
+        
     }
     
     
     init () {
-    
-    
-    
+        
+        
+        
     }
     
     mutating func mapping (map : Map) {
@@ -43,7 +43,7 @@ struct User : Mappable, Equatable {
         name <- map["name"]
         
     }
-
+    
 }
 
 

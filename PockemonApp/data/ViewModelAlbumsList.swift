@@ -28,7 +28,7 @@ class ViewModelAlbumsList {
         
     }
     
-       
+    
     init() {
         
         apiServiceGet.getAlbums()
@@ -43,11 +43,10 @@ class ViewModelAlbumsList {
             }
             .subscribeNext { (cells: [ViewModelCell]) in
                 
-                self.sections.value.append(SectionOfData(header: "", items: cells))
+                self.sections.value.append(SectionOfData(header: "AllAlbums", items: cells))
                 
             }
             .addDisposableTo(bag)
-        
         
     }
     

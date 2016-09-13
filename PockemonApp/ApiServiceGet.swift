@@ -17,7 +17,7 @@ import ObjectMapper
 class ApiServiceGet {
     
     private let bag = DisposeBag()
- 
+    
     func recieveAlbumOwner(album : Album) -> Observable<User> {
         
         return getUsers().map { (users : [User]) -> User in
@@ -66,7 +66,7 @@ extension ApiServiceGet {
         }
         
     }
-        
+    
     func getPhotos () -> Observable<[Photo]> {
         
         let path = NSBundle.mainBundle().pathForResource("photos", ofType: "json")

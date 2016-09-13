@@ -22,9 +22,9 @@ struct ViewModelCell {
     var likeStatusObservable: Observable<Bool> {
         return ReactiveDataFavouriteAlbums.favouritesCheck[album.id!]!.asObservable()
     }
-  
-    func likeStatusChanged (likeStatus : Bool) {    
     
+    func likeStatusChanged (likeStatus : Bool) {
+        
         ReactiveDataFavouriteAlbums.setLikeStatus(album, status: likeStatus)
     }
     
@@ -65,7 +65,7 @@ extension ViewModelCell : Hashable, IdentifiableType, Equatable  {
 func ==(lhs: ViewModelCell, rhs: ViewModelCell) -> Bool {
     
     return lhs.album == rhs.album &&
-        lhs.user == rhs.user    
+        lhs.user == rhs.user
 }
 
 

@@ -14,7 +14,7 @@ struct SectionOfData {
     var header: String
     var items: [Item]
     
-
+    
 }
 
 extension SectionOfData : AnimatableSectionModelType {

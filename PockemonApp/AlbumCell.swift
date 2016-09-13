@@ -22,7 +22,7 @@ class AlbumCell : UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var number: UILabel!
     
-       private(set) var disposeBag = DisposeBag()
+    private(set) var disposeBag = DisposeBag()
     
     
     override func prepareForReuse() {
@@ -36,7 +36,7 @@ class AlbumCell : UITableViewCell {
     
     @IBAction func changeLike(sender: UISwitch) {
         
-          viewModelCell?.likeStatusChanged(switchCheck.on)
+        viewModelCell?.likeStatusChanged(switchCheck.on)
         
     }
     
@@ -55,7 +55,7 @@ class AlbumCell : UITableViewCell {
             self?.switchCheck.setOn(likeStatus, animated: false)
             }
             .addDisposableTo(disposeBag)
-
+        
         
     }
     

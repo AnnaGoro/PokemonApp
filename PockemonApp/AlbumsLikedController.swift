@@ -24,7 +24,7 @@ class AlbumsLikedController : UITableViewController {
     @IBOutlet weak var favouriteAlbuumsTabBtn: UITabBarItem!
     
     @IBOutlet weak var dataSource: UITableView!
-    
+    var dataSourceTable: RxTableViewSectionedAnimatedDataSource<SectionOfData>?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,22 +40,10 @@ class AlbumsLikedController : UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-      return (favouriteAlbumsViewModel?.viewModelCellsArray.value.count)!
+        return (favouriteAlbumsViewModel?.sections.value.first!.items.count)!
         
     }
     
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cellId = "albumListCell"
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! AlbumCell
-      
-        cell.changeCellData((favouriteAlbumsViewModel!.viewModelCellsArray.value[indexPath.row]))
-        
-        return cell
-    }
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -65,7 +53,7 @@ class AlbumsLikedController : UITableViewController {
             
             let destinationController = segue.destinationViewController as! PhotosCollectionViewController
             destinationController.viewModelPhotosCollection = favouriteAlbumsViewModel?.viewModelPhotosCollection.value
-           
+            
         }
         
         
@@ -79,24 +67,46 @@ class AlbumsLikedController : UITableViewController {
     
     private func setUpViewModel() {
         
-        favouriteAlbumsViewModel?.viewModelCellsArray.asObservable()
-            .subscribeNext { [weak self] (viewModelCells : [ViewModelCell]) in
-                self!.dataSource.reloadData()
-            }.addDisposableTo(disposeBag)
-    
-        favouriteAlbumsViewModel?.viewModelPhotosCollection.asObservable()
-            .filter { $0 != nil }
-            .map { $0 }
+        self.dataSource.delegate = nil
+        self.dataSource.dataSource = nil
+        
+        dataSource
+            .rx_setDelegate(self)
+            .addDisposableTo(disposeBag)
+        
+        
+        let dataSourceTable = RxTableViewSectionedAnimatedDataSource<SectionOfData>()
+        
+        favouriteAlbumsViewModel?.sections.asObservable()
             
-            .subscribeNext { [weak self](viewModelPhotosCollection) in
-                
-                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
-                
+            .bindTo(dataSource.rx_itemsWithDataSource(dataSourceTable))
+            
+            .addDisposableTo(disposeBag)
+        
+        
+        dataSourceTable.configureCell = { dataSource, tableView, indexPath, cellViewModel in
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
+            
+            cell.changeCellData(cellViewModel)
+            
+            return cell
+        }
+        
+        
+        dataSource.rx_itemSelected.subscribeNext { (indexPath) in
+            
+            self.favouriteAlbumsViewModel!.cellIndexChanged(indexPath.row)
+            
+            self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: indexPath)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }.addDisposableTo(disposeBag)
         
+        self.dataSourceTable = dataSourceTable
         
-
-       
+        
+        
+        
         
         
     }
