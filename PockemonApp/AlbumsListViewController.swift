@@ -15,6 +15,7 @@ class AlbumsListViewController: UITableViewController  {
     
     var viewModelAlbumsList : ViewModelAlbumsList?
     
+    var dataSourceTable: RxTableViewSectionedAnimatedDataSource<SectionOfData>?
     
     @IBOutlet weak var allAlbumsTabBtn: UITabBarItem!
     
@@ -22,7 +23,6 @@ class AlbumsListViewController: UITableViewController  {
     
     @IBOutlet var dataSource: UITableView!
     
-    let reuseIdentifier = "albumListCell"
     
     override func viewDidLoad() {
         
@@ -30,46 +30,17 @@ class AlbumsListViewController: UITableViewController  {
         
         viewModelAlbumsList = ViewModelAlbumsList()
         
-        
         self.title = "PhotoAlbums"
-        
         
         setUpViewModel()
         
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        
-        self.dataSource.reloadData()
-    }
-    
-       
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return   (viewModelAlbumsList?.viewModelCellsArray.value.count)!
+        return   (viewModelAlbumsList?.sections.value.first?.items.count)!
     }
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
-        
-        cell.changeCellData((viewModelAlbumsList!.viewModelCellsArray.value[indexPath.row]))
-        
-        
-        return cell
-    }
-    
-    
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        viewModelAlbumsList!.cellIndexChanged(indexPath.row)
-        
-    }
-    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -85,21 +56,42 @@ class AlbumsListViewController: UITableViewController  {
     
     private func setUpViewModel() {
         
-        viewModelAlbumsList?.viewModelCellsArray.asObservable()
-            .subscribeNext {[weak self] (viewModelCells : [ViewModelCell]) in
-                self!.dataSource.reloadData()
-            }.addDisposableTo(disposeBag)
+        self.dataSource.delegate = nil
+        self.dataSource.dataSource = nil
         
+        dataSource
+            .rx_setDelegate(self)
+            .addDisposableTo(disposeBag)
+
         
-        viewModelAlbumsList?.viewModelPhotosCollection.asObservable()
-            .filter { $0 != nil }
-            .map { $0 }
+        let dataSourceTable = RxTableViewSectionedAnimatedDataSource<SectionOfData>()
+        
+        viewModelAlbumsList?.sections.asObservable()
             
-            .subscribeNext { [weak self](viewModelPhotosCollection) in
-                
-                return (self?.performSegueWithIdentifier("showPhotosIFromAlbum", sender: nil))!
-                
+            .bindTo(dataSource.rx_itemsWithDataSource(dataSourceTable))
+            
+            .addDisposableTo(disposeBag)
+        
+        
+        dataSourceTable.configureCell = { dataSource, tableView, indexPath, cellViewModel in
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("albumListCell", forIndexPath: indexPath) as! AlbumCell
+            
+            cell.changeCellData(cellViewModel)
+            
+            return cell
+        }
+        
+        
+        dataSource.rx_itemSelected.subscribeNext { (indexPath) in
+            
+            self.viewModelAlbumsList!.cellIndexChanged(indexPath.row)
+            
+            self.performSegueWithIdentifier("showPhotosIFromAlbum", sender: indexPath)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }.addDisposableTo(disposeBag)
+        
+         self.dataSourceTable = dataSourceTable
         
     }
 }

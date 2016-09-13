@@ -23,8 +23,7 @@ class PhotosCollectionViewController : UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = self.viewModelPhotosCollection?.albumGlobal.value.title
-        
+        self.title = self.viewModelPhotosCollection?.albumGlobal.value.title        
         
     }
     

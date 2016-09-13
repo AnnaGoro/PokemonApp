@@ -9,12 +9,12 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import RxDataSources
+
 
 class ViewModelAlbumsList {
     
-  
-    var viewModelCellsArray : Variable<[ViewModelCell]> = Variable([])
-    
+    var sections : Variable<[SectionOfData]> = Variable([])
     private let apiServiceGet = ApiServiceGet()
     
     var bag = DisposeBag()
@@ -24,7 +24,7 @@ class ViewModelAlbumsList {
     
     func cellIndexChanged (index : Int) {
         
-        self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: viewModelCellsArray.value[index].album)
+        self.viewModelPhotosCollection.value = ViewModelPhotosCollection(albumGlobal: (sections.value.first?.items[index].album)!)
         
     }
     
@@ -42,7 +42,9 @@ class ViewModelAlbumsList {
                 
             }
             .subscribeNext { (cells: [ViewModelCell]) in
-                self.viewModelCellsArray.value = cells
+                
+                self.sections.value.append(SectionOfData(header: "", items: cells))
+                
             }
             .addDisposableTo(bag)
         

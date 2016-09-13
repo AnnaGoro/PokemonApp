@@ -9,10 +9,19 @@
 import Foundation
 import ObjectMapper
 
-struct User : Mappable {
 
-    //private(set)
-    var userId : Int?
+
+func ==(lhs: User, rhs: User) -> Bool {
+    
+    return lhs.userId == rhs.userId &&
+           lhs.name == rhs.name
+}
+
+
+struct User : Mappable, Equatable {
+
+
+    private(set) var userId : Int?
     private(set) var name : String?
     
     

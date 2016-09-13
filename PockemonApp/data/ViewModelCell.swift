@@ -9,6 +9,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import RxDataSources
 
 struct ViewModelCell {
     
@@ -16,7 +17,6 @@ struct ViewModelCell {
     private(set) var user : User? = nil
     
     private let apiServiceGet = ApiServiceGet()
-    
     var bag = DisposeBag()
     
     var likeStatusObservable: Observable<Bool> {
@@ -40,7 +40,34 @@ struct ViewModelCell {
             }
             ).addDisposableTo(bag)
         
+    }
+    
+}
+
+
+extension ViewModelCell : Hashable, IdentifiableType, Equatable  {
+    
+    
+    var hashValue : Int {
+        get {
+            return self.album.id!.hashValue + (user?.userId?.hashValue)!
+        }
+    }
+    
+    var identity: String {
+        
+        return album.title!
         
     }
     
 }
+
+func ==(lhs: ViewModelCell, rhs: ViewModelCell) -> Bool {
+    
+    return lhs.album == rhs.album &&
+        lhs.user == rhs.user    
+}
+
+
+
+
